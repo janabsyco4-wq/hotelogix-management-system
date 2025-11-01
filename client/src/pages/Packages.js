@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import axios from '../api/axios';
 import './Packages.css';
 
 const Packages = () => {
