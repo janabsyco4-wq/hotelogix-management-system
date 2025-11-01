@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoney Creek Hotels - Minimalist Theme</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">Stoney Creek</span>
+            </div>
+            
+            <nav class="nav">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#rooms" class="nav-link">Rooms</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <button class="book-btn">Reserve</button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Simplicity<br>Perfected</h1>
+            <p class="hero-subtitle">Where modern minimalism meets timeless comfort</p>
+            <div class="hero-action">
+                <button class="cta-btn">Explore Rooms</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop" alt="Minimalist Hotel Room">
+        </div>
+    </section>
+
+    <!-- Booking -->
+    <section class="booking">
+        <div class="container">
+            <div class="booking-form">
+                <div class="form-group">
+                    <label>Check-in</label>
+                    <input type="date" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Check-out</label>
+                    <input type="date" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Guests</label>
+                    <select class="form-input">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4+</option>
+                    </select>
+                </div>
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Essential Amenities</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>WiFi</h3>
+                    <p>High-speed internet throughout</p>
+                </div>
+                <div class="feature">
+                    <h3>Fitness</h3>
+                    <p>24/7 modern gym facilities</p>
+                </div>
+                <div class="feature">
+                    <h3>Dining</h3>
+                    <p>Curated culinary experiences</p>
+                </div>
+                <div class="feature">
+                    <h3>Service</h3>
+                    <p>Attentive personal assistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms -->
+    <section class="rooms">
+        <div class="container">
+            <h2 class="section-title">Rooms</h2>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=400&fit=crop" alt="Standard Room">
+                    </div>
+                    <div class="room-info">
+                        <h3>Standard</h3>
+                        <p>Clean lines, essential comfort</p>
+                        <span class="price">$199</span>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop" alt="Suite">
+                    </div>
+                    <div class="room-info">
+                        <h3>Suite</h3>
+                        <p>Spacious elegance, refined details</p>
+                        <span class="price">$399</span>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop" alt="Penthouse">
+                    </div>
+                    <div class="room-info">
+                        <h3>Penthouse</h3>
+                        <p>Ultimate space, panoramic views</p>
+                        <span class="price">$799</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Section -->
+    <section class="ai-section">
+        <div class="container">
+            <div class="ai-content">
+                <h2>Intelligent Recommendations</h2>
+                <p>Our AI understands your preferences to suggest the perfect room for your stay.</p>
+                <div class="ai-demo">
+                    <div class="demo-item">
+                        <span class="match-score">94%</span>
+                        <span class="match-text">Perfect Match</span>
+                    </div>
+                    <div class="demo-item">
+                        <span class="match-score">87%</span>
+                        <span class="match-text">Great Fit</span>
+                    </div>
+                </div>
+                <button class="cta-btn">Get Recommendations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">Stoney Creek</span>
+                    <p>Minimalist luxury in Kansas City</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Rooms</a>
+                    <a href="#">Dining</a>
+                    <a href="#">Services</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Stoney Creek Hotels</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoney Creek Hotels - Modern Theme</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <div class="icon-shape"></div>
+                </div>
+                <span class="brand-text">Stoney Creek</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#home" class="nav-item active">Home</a>
+                <a href="#rooms" class="nav-item">Rooms</a>
+                <a href="#amenities" class="nav-item">Amenities</a>
+                <a href="#location" class="nav-item">Location</a>
+                <a href="#contact" class="nav-item">Contact</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn-ghost">Sign In</button>
+                <button class="btn-primary">Book Now</button>
+            </div>
+            
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-gradient"></div>
+            <div class="hero-pattern"></div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Premium Experience
+                </div>
+                <h1 class="hero-title">
+                    Modern Comfort
+                    <span class="title-highlight">Redefined</span>
+                </h1>
+                <p class="hero-description">
+                    Experience the perfect blend of contemporary design and exceptional hospitality 
+                    in the heart of Kansas City & Independence.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">4.9</span>
+                        <span class="stat-label">Guest Rating</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Luxury Rooms</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Concierge</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn-primary-large">
+                        Explore Rooms
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn-outline-large">
+                        <i class="fas fa-play"></i>
+                        Virtual Tour
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="visual-card main-card">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop" alt="Luxury Suite">
+                    <div class="card-overlay">
+                        <div class="card-badge">Presidential Suite</div>
+                        <div class="card-price">$899/night</div>
+                    </div>
+                </div>
+                <div class="visual-card floating-card">
+                    <div class="card-content">
+                        <div class="ai-indicator">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Recommendation</span>
+                        </div>
+                        <h4>Perfect Match Found</h4>
+                        <div class="match-score">
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 94%"></div>
+                            </div>
+                            <span>94% Match</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Booking -->
+    <section class="quick-booking">
+        <div class="container">
+            <div class="booking-card">
+                <div class="booking-header">
+                    <h3>Find Your Perfect Stay</h3>
+                    <div class="ai-badge">
+                        <i class="fas fa-sparkles"></i>
+                        AI Powered
+                    </div>
+                </div>
+                
+                <div class="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Check-in</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date" class="form-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Check-out</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Guests</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-users"></i>
+                                <select class="form-input">
+                                    <option>1 Guest</option>
+                                    <option>2 Guests</option>
+                                    <option>3 Guests</option>
+                                    <option>4+ Guests</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Travel Type</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-suitcase"></i>
+                                <select class="form-input">
+                                    <option>Business</option>
+                                    <option>Leisure</option>
+                                    <option>Family</option>
+                                    <option>Romantic</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                        Search Rooms
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-grid">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Why Choose Us</div>
+                <h2 class="section-title">Modern Amenities</h2>
+                <p class="section-subtitle">Everything you need for a perfect stay</p>
+            </div>
+            
+            <div class="features-container">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h4>High-Speed WiFi</h4>
+                    <p>Complimentary fiber-optic internet throughout the property</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h4>Fitness Center</h4>
+                    <p>State-of-the-art equipment available 24/7</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <h4>Rooftop Pool</h4>
+                    <p>Infinity pool with panoramic city views</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h4>Valet Parking</h4>
+                    <p>Complimentary valet service for all guests</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h4>Fine Dining</h4>
+                    <p>Award-winning restaurant and room service</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h4>Concierge</h4>
+                    <p>Personal assistance for all your needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Room Showcase -->
+    <section class="room-showcase">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Accommodations</div>
+                <h2 class="section-title">Signature Rooms</h2>
+                <p class="section-subtitle">Thoughtfully designed spaces for every traveler</p>
+            </div>
+            
+            <div class="rooms-grid">
+                <div class="room-card featured">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500&h=350&fit=crop" alt="Presidential Suite">
+                        <div class="room-badge">Most Popular</div>
+                        <div class="room-overlay">
+                            <button class="view-btn">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <div class="room-header">
+                            <h3>Presidential Suite</h3>
+                            <div class="room-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <p class="room-description">Luxurious suite with panoramic city views and premium amenities</p>
+                        <div class="room-features">
+                            <span><i class="fas fa-bed"></i> King Bed</span>
+                            <span><i class="fas fa-bath"></i> Marble Bath</span>
+                            <span><i class="fas fa-expand"></i> 80 sqm</span>
+                        </div>
+                        <div class="room-footer">
+                            <div class="room-price">
+                                <span class="price">$899</span>
+                                <span class="period">/night</span>
+                            </div>
+                            <button class="btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=500&h=350&fit=crop" alt="Executive Suite">
+                        <div class="room-overlay">
+                            <button class="view-btn">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <div class="room-header">
+                            <h3>Executive Suite</h3>
+                            <div class="room-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <p class="room-description">Perfect for business travelers with dedicated workspace</p>
+                        <div class="room-features">
+                            <span><i class="fas fa-bed"></i> Queen Bed</span>
+                            <span><i class="fas fa-laptop"></i> Work Desk</span>
+                            <span><i class="fas fa-expand"></i> 55 sqm</span>
+                        </div>
+                        <div class="room-footer">
+                            <div class="room-price">
+                                <span class="price">$549</span>
+                                <span class="period">/night</span>
+                            </div>
+                            <button class="btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=350&fit=crop" alt="Deluxe Room">
+                        <div class="room-overlay">
+                            <button class="view-btn">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <div class="room-header">
+                            <h3>Deluxe Room</h3>
+                            <div class="room-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <p class="room-description">Comfortable and stylish room with modern amenities</p>
+                        <div class="room-features">
+                            <span><i class="fas fa-bed"></i> Double Bed</span>
+                            <span><i class="fas fa-tv"></i> Smart TV</span>
+                            <span><i class="fas fa-expand"></i> 35 sqm</span>
+                        </div>
+                        <div class="room-footer">
+                            <div class="room-price">
+                                <span class="price">$299</span>
+                                <span class="period">/night</span>
+                            </div>
+                            <button class="btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Recommendations -->
+    <section class="ai-section">
+        <div class="container">
+            <div class="ai-content">
+                <div class="ai-text">
+                    <div class="ai-badge-large">
+                        <i class="fas fa-robot"></i>
+                        <span>AI-Powered Recommendations</span>
+                    </div>
+                    <h2>Personalized Just for You</h2>
+                    <p>Our advanced AI analyzes your preferences, travel history, and current trends to suggest the perfect room that matches your unique needs and style.</p>
+                    
+                    <div class="ai-features">
+                        <div class="ai-feature">
+                            <i class="fas fa-brain"></i>
+                            <div>
+                                <h4>Smart Matching</h4>
+                                <p>Intelligent algorithms find your ideal room</p>
+                            </div>
+                        </div>
+                        <div class="ai-feature">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Predictive Pricing</h4>
+                                <p>Get the best rates based on demand patterns</p>
+                            </div>
+                        </div>
+                        <div class="ai-feature">
+                            <i class="fas fa-user-check"></i>
+                            <div>
+                                <h4>Personal Preferences</h4>
+                                <p>Learns from your choices to improve suggestions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary-large">
+                        Get My Recommendations
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="ai-visual">
+                    <div class="recommendation-demo">
+                        <div class="demo-header">
+                            <div class="demo-avatar"></div>
+                            <div class="demo-info">
+                                <h4>John's Recommendations</h4>
+                                <p>Business Traveler • 2 nights</p>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-recommendations">
+                            <div class="demo-room">
+                                <div class="demo-image"></div>
+                                <div class="demo-details">
+                                    <h5>Executive Suite</h5>
+                                    <div class="demo-match">
+                                        <div class="match-bar">
+                                            <div class="match-fill" style="width: 94%"></div>
+                                        </div>
+                                        <span>94% Match</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="demo-room">
+                                <div class="demo-image"></div>
+                                <div class="demo-details">
+                                    <h5>Business Room</h5>
+                                    <div class="demo-match">
+                                        <div class="match-bar">
+                                            <div class="match-fill" style="width: 87%"></div>
+                                        </div>
+                                        <span>87% Match</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-brand">
+                        <div class="brand-icon">
+                            <div class="icon-shape"></div>
+                        </div>
+                        <span class="brand-text">Stoney Creek</span>
+                    </div>
+                    <p>Modern comfort redefined in the heart of Kansas City & Independence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Hotel</h4>
+                        <a href="#">Rooms & Suites</a>
+                        <a href="#">Amenities</a>
+                        <a href="#">Dining</a>
+                        <a href="#">Events</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Services</h4>
+                        <a href="#">Concierge</a>
+                        <a href="#">Room Service</a>
+                        <a href="#">Valet Parking</a>
+                        <a href="#">Business Center</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="#">Contact Us</a>
+                        <a href="#">FAQ</a>
+                        <a href="#">Policies</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Stoney Creek Hotels. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+.packages-page {
+  min-height: calc(100vh - 80px);
+  background-color: var(--bg-primary);
+}
+
+.packages-hero {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+  color: white;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+}
+
+.packages-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(52, 211, 153, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.3) 0%, transparent 50%);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.packages-hero .container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.packages-hero h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.packages-hero p {
+  font-size: 20px;
+  opacity: 0.95;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.packages-content {
+  padding: 60px 0;
+}
+
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 30px;
+}
+
+.package-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px var(--shadow);
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px var(--shadow-hover);
+  border-color: #10b981;
+}
+
+.package-image {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+.package-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.package-card:hover .package-image img {
+  transform: scale(1.1);
+}
+
+.duration-badge {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.package-info {
+  padding: 25px;
+}
+
+.package-info h3 {
+  font-size: 26px;
+  color: var(--text-heading);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.package-info .description {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.includes-section {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.05));
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.includes-section h4 {
+  font-size: 16px;
+  color: var(--text-heading);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.includes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.includes-list li {
+  color: var(--text-secondary);
+  font-size: 14px;
+  padding: 6px 0;
+  font-weight: 500;
+}
+
+.includes-list li::before {
+  content: '✓ ';
+  color: #10b981;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.more-items {
+  color: #10b981 !important;
+  font-weight: 700 !important;
+  font-style: italic;
+}
+
+.package-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: var(--bg-primary);
+  border-radius: 10px;
+}
+
+.package-meta .location {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.package-meta .price {
+  font-size: 28px;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.package-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 2px solid var(--border-color);
+}
+
+.package-actions .btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.package-actions .btn-full {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .packages-hero {
+    padding: 50px 0;
+  }
+
+  .packages-hero h1 {
+    font-size: 32px;
+  }
+
+  .packages-hero p {
+    font-size: 16px;
+  }
+
+  .packages-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

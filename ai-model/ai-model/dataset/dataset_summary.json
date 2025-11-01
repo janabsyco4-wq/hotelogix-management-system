@@ -1,0 +1,40 @@
+{
+  "totalSamples": 50000,
+  "userProfiles": {
+    "business_traveler": 7054,
+    "group_friends": 7147,
+    "budget_conscious": 7160,
+    "luxury_seeker": 7155,
+    "couple_romantic": 7208,
+    "family_vacation": 7134,
+    "solo_traveler": 7142
+  },
+  "roomTypes": {
+    "Business Room": 7102,
+    "Junior Suite": 7090,
+    "Executive Suite": 7189,
+    "Family Suite": 7162,
+    "Standard Room": 7084,
+    "Presidential Suite": 7293,
+    "Deluxe Room": 7080
+  },
+  "averageRating": "2.65",
+  "bookingRate": "41.61%",
+  "averageViewTime": "179.2 seconds",
+  "seasonalDistribution": {
+    "spring": 12647,
+    "winter": 12217,
+    "fall": 12639,
+    "summer": 12497
+  },
+  "groupSizeDistribution": {
+    "1": 6290,
+    "2": 6218,
+    "3": 6054,
+    "4": 6313,
+    "5": 6415,
+    "6": 6174,
+    "7": 6184,
+    "8": 6352
+  }
+}

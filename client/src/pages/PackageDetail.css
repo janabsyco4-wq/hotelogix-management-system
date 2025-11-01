@@ -1,0 +1,175 @@
+.package-detail-page {
+  min-height: calc(100vh - 80px);
+  background-color: var(--bg-primary);
+}
+
+.package-hero {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+}
+
+.package-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.duration-badge-large {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.package-meta .price {
+  font-size: 32px;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.includes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.include-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  background: var(--bg-primary);
+  border-radius: 10px;
+  border-left: 4px solid #10b981;
+}
+
+.check-icon {
+  color: #10b981;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.include-text {
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.gallery-image {
+  border-radius: 12px;
+  overflow: hidden;
+  height: 200px;
+}
+
+.gallery-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-image:hover img {
+  transform: scale(1.1);
+}
+
+.package-price {
+  text-align: center;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.price-label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.price-amount {
+  display: block;
+  font-size: 42px;
+  color: #10b981;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.price-note {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.booking-summary {
+  background: var(--bg-primary);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.summary-row.total {
+  border-top: 2px solid var(--border-color);
+  margin-top: 10px;
+  padding-top: 15px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .image-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .price-amount {
+    font-size: 32px;
+  }
+}

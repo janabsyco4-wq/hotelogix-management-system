@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  phone     String?
+  role      String   @default("user") // "user" or "admin"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bookings  Booking[]
+  diningReservations DiningReservation[]
+  dealRedemptions DealRedemption[]
+  packageBookings PackageBooking[]
+}
+
+model Room {
+  id          Int      @id @default(autoincrement())
+  roomNumber  String
+  type        String
+  title       String
+  description String
+  location    String   // Room location (e.g., "Kansas City, MO")
+  capacity    Int
+  pricePerNight Float
+  images      String   // JSON array of image URLs
+  amenities   String   // JSON array of amenities
+  size        String   // Room size (e.g., "25 sqm")
+  bedType     String   // e.g., "King Bed", "Twin Beds"
+  isAvailable Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    Booking[]
+}
+
+model Booking {
+  id          Int      @id @default(autoincrement())
+  userId          Int
+  roomId          Int
+  checkIn         DateTime
+  checkOut        DateTime
+  totalPrice      Float
+  status          String   @default("pending")
+  paymentIntentId String?  // Stripe payment intent ID
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  room            Room     @relation(fields: [roomId], references: [id])
+}
+
+model Attraction {
+  id          Int      @id @default(autoincrement())
+  title       String
+  subtitle    String
+  description String
+  image       String
+  location    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Restaurant {
+  id          Int      @id @default(autoincrement())
+  name        String
+  cuisine     String   // e.g., "Italian", "American", "Asian"
+  description String
+  location    String   // "Kansas City, MO" or "Independence, MO"
+  images      String   // JSON array of image URLs
+  priceRange  String   // "$", "$$", "$$$", "$$$$"
+  rating      Float    @default(4.5)
+  openingHours String  // JSON object with hours
+  menu        String   // JSON array of menu items
+  amenities   String   // JSON array (e.g., ["WiFi", "Outdoor Seating"])
+  featured    Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  reservations DiningReservation[]
+}
+
+model DiningReservation {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  restaurantId    Int
+  date            DateTime
+  time            String   // e.g., "19:00"
+  guests          Int
+  specialRequests String?
+  status          String   @default("pending") // "pending", "confirmed", "cancelled"
+  paymentIntentId String?  // Stripe payment intent ID
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  restaurant      Restaurant @relation(fields: [restaurantId], references: [id])
+}
+
+model Deal {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  type        String   // "room", "dining", "spa", "package", "activity"
+  discount    Int      // Percentage discount
+  originalPrice Float
+  dealPrice   Float
+  images      String   // JSON array of image URLs
+  terms       String   // Terms and conditions
+  validFrom   DateTime
+  validUntil  DateTime
+  location    String   // "Kansas City, MO", "Independence, MO", or "Both"
+  featured    Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  maxRedemptions Int?  // Optional limit
+  currentRedemptions Int @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  redemptions DealRedemption[]
+}
+
+model DealRedemption {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  dealId          Int
+  redemptionCode  String   @unique
+  status          String   @default("active") // "active", "used", "expired"
+  redeemedAt      DateTime?
+  paymentIntentId String?  // Stripe payment intent ID
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  deal            Deal     @relation(fields: [dealId], references: [id])
+}
+
+model Package {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  includes    String   // JSON array of what's included
+  images      String   // JSON array of image URLs
+  price       Float
+  duration    String   // e.g., "2 nights", "Weekend"
+  location    String
+  featured    Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    PackageBooking[]
+}
+
+model PackageBooking {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  packageId       Int
+  startDate       DateTime
+  guests          Int
+  totalPrice      Float
+  status          String   @default("pending")
+  paymentIntentId String?  // Stripe payment intent ID
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  package         Package  @relation(fields: [packageId], references: [id])
+}

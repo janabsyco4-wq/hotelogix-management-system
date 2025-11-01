@@ -1,0 +1,36 @@
+{
+  "encoders": {
+    "userProfile": {
+      "business_traveler": 0,
+      "group_friends": 1,
+      "budget_conscious": 2,
+      "luxury_seeker": 3,
+      "couple_romantic": 4,
+      "family_vacation": 5,
+      "solo_traveler": 6
+    },
+    "roomType": {
+      "Business Room": 0,
+      "Junior Suite": 1,
+      "Executive Suite": 2,
+      "Family Suite": 3,
+      "Standard Room": 4,
+      "Presidential Suite": 5,
+      "Deluxe Room": 6
+    },
+    "season": {
+      "spring": 0,
+      "winter": 1,
+      "fall": 2,
+      "summer": 3
+    },
+    "dayType": {
+      "weekend": 0,
+      "weekday": 1
+    }
+  },
+  "version": "1.0.0",
+  "createdAt": "2025-11-01T11:19:00.255Z",
+  "description": "Room recommendation model for Hotelogix (Lightweight ML)",
+  "algorithm": "Multivariate Linear Regression"
+}
