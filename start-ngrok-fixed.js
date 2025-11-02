@@ -10,7 +10,13 @@ async function startTunnel() {
         listener = await ngrok.forward({
             addr: 5000,
             authtoken: '34tY80VDLr1vFKO0GBoXKaTfTMe_4R888vLczaDELkRUu5Qiz',
-            authtoken_from_env: false
+            authtoken_from_env: false,
+            response_headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization, ngrok-skip-browser-warning',
+                'Access-Control-Allow-Credentials': 'true'
+            }
         });
 
         const url = listener.url();
