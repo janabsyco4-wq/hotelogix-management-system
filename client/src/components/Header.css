@@ -29,7 +29,7 @@
   flex-shrink: 0;
   min-width: 200px;
   margin-right: 20px;
-  z-index: 100000;
+  z-index: 1001;
   position: relative;
 }
 
@@ -156,8 +156,9 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(2px);
-  z-index: 99998;
+  z-index: 998;
   animation: backdropFadeIn 0.3s ease;
+  pointer-events: auto;
 }
 
 @keyframes backdropFadeIn {
@@ -202,7 +203,7 @@
   min-width: 320px;
   max-width: 400px;
   padding: 12px;
-  z-index: 99999;
+  z-index: 999;
   animation: dropdownFadeIn 0.3s ease;
   pointer-events: auto;
 }
@@ -306,7 +307,7 @@
   justify-content: flex-end;
   white-space: nowrap;
   margin-left: 20px;
-  z-index: 100000;
+  z-index: 1001;
   position: relative;
 }
 
@@ -315,6 +316,13 @@
   align-items: center;
   gap: 10px;
   white-space: nowrap;
+  position: relative;
+  z-index: 1002;
+}
+
+.user-menu .btn {
+  position: relative;
+  z-index: 1002;
 }
 
 .user-name {
@@ -340,7 +348,7 @@
   justify-content: center;
   transition: all 0.3s ease;
   position: relative;
-  z-index: 100001;
+  z-index: 1002;
 }
 
 .theme-toggle:hover {
@@ -351,6 +359,13 @@
 .auth-buttons {
   display: flex;
   gap: 10px;
+  position: relative;
+  z-index: 1002;
+}
+
+.auth-buttons .btn {
+  position: relative;
+  z-index: 1002;
 }
 
 /* Responsive design */
