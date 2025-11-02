@@ -1,6 +1,7 @@
 .admin-dashboard {
   min-height: calc(100vh - 80px);
   background-color: var(--bg-primary);
+  padding-top: 80px; /* Offset for fixed header */
 }
 
 /* Header */
@@ -9,17 +10,197 @@
   color: white;
   padding: 40px 0;
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated wave background */
+.admin-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(96, 165, 250, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(147, 197, 253, 0.2) 0%, transparent 50%);
+  animation: pulse 8s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Geometric pattern overlay */
+.admin-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(30deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+    linear-gradient(60deg, rgba(255, 255, 255, 0.03) 25%, transparent 25.5%, transparent 75%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.admin-header .container {
+  position: relative;
+  z-index: 1;
 }
 
 .admin-header h1 {
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 8px;
+  color: #ffffff;
+  animation: floatHeroText 3s ease-in-out infinite;
 }
 
 .admin-header p {
   font-size: 16px;
   opacity: 0.9;
+  color: #ffffff;
+  animation: floatHeroText 3s ease-in-out infinite 0.5s;
+}
+
+@keyframes floatHeroText {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Floating decorative elements */
+.hero-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.float-element {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.float-1 {
+  width: 180px;
+  height: 180px;
+  top: -50px;
+  left: 10%;
+  animation: float 15s ease-in-out infinite;
+}
+
+.float-2 {
+  width: 120px;
+  height: 120px;
+  top: 50%;
+  right: 15%;
+  animation: float 12s ease-in-out infinite 2s;
+}
+
+.float-3 {
+  width: 150px;
+  height: 150px;
+  bottom: -30px;
+  left: 60%;
+  animation: float 18s ease-in-out infinite 4s;
+}
+
+.float-4 {
+  width: 90px;
+  height: 90px;
+  top: 20%;
+  right: 5%;
+  animation: float 10s ease-in-out infinite 1s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg);
+  }
+}
+
+/* Floating text */
+.floating-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floating-text span {
+  position: absolute;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.float-text-1 {
+  top: 15%;
+  left: 5%;
+  animation: floatText 20s ease-in-out infinite;
+}
+
+.float-text-2 {
+  top: 60%;
+  right: 10%;
+  animation: floatText 18s ease-in-out infinite 3s;
+}
+
+.float-text-3 {
+  bottom: 20%;
+  left: 15%;
+  animation: floatText 22s ease-in-out infinite 5s;
+}
+
+.float-text-4 {
+  top: 40%;
+  right: 25%;
+  animation: floatText 16s ease-in-out infinite 2s;
+}
+
+@keyframes floatText {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.4;
+  }
 }
 
 /* Navigation */

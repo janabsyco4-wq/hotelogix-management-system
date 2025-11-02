@@ -251,7 +251,7 @@ const MyBookings = () => {
                                                     <button onClick={() => navigate(`/rooms/${booking.room.id}`)} className="btn btn-secondary">
                                                         View Room
                                                     </button>
-                                                    {booking.status === 'confirmed' && (
+                                                    {booking.status === 'confirmed' && new Date() <= new Date(booking.checkOut) && (
                                                         <button onClick={() => cancelRoomBooking(booking.id)} className="btn btn-danger">
                                                             Cancel
                                                         </button>

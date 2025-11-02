@@ -7,6 +7,7 @@
   background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
   color: white;
   padding: 60px 0;
+  padding-top: 140px; /* 60px + 80px for header */
   position: relative;
   overflow: hidden;
 }

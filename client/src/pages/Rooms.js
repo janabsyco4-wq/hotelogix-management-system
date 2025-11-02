@@ -7,35 +7,85 @@ const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterOpen, setFilterOpen] = useState(false);
+  const [sortBy, setSortBy] = useState('featured');
   const [filters, setFilters] = useState({
     featured: false,
     available: true,
     type: '',
     minPrice: '',
-    maxPrice: ''
+    maxPrice: '',
+    capacity: '',
+    amenities: []
   });
 
   useEffect(() => {
     fetchRooms();
-  }, [filters]);
+  }, []);
+
+  const [allRooms, setAllRooms] = useState([]);
 
   const fetchRooms = async () => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
-
-      if (filters.featured) params.append('featured', 'true');
-      if (filters.available) params.append('available', 'true');
-      if (filters.type) params.append('type', filters.type);
-      if (filters.minPrice) params.append('minPrice', filters.minPrice);
-      if (filters.maxPrice) params.append('maxPrice', filters.maxPrice);
-
-      const response = await axios.get(`/api/rooms?${params.toString()}`);
-      setRooms(response.data);
+      const response = await axios.get('/api/rooms');
+      setAllRooms(response.data);
+      applyFiltersAndSort(response.data);
     } catch (error) {
       console.error('Error fetching rooms:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const applyFiltersAndSort = (roomsList = allRooms) => {
+    let filteredRooms = [...roomsList];
+
+    // Apply filters
+    if (filters.featured) {
+      filteredRooms = filteredRooms.filter(room => room.featured);
+    }
+    if (filters.available) {
+      filteredRooms = filteredRooms.filter(room => room.isAvailable);
+    }
+    if (filters.type) {
+      filteredRooms = filteredRooms.filter(room => room.type === filters.type);
+    }
+    if (filters.minPrice) {
+      filteredRooms = filteredRooms.filter(room => room.pricePerNight >= parseFloat(filters.minPrice));
+    }
+    if (filters.maxPrice) {
+      filteredRooms = filteredRooms.filter(room => room.pricePerNight <= parseFloat(filters.maxPrice));
+    }
+    if (filters.capacity) {
+      filteredRooms = filteredRooms.filter(room => room.capacity >= parseInt(filters.capacity));
+    }
+    if (filters.amenities.length > 0) {
+      filteredRooms = filteredRooms.filter(room => {
+        const roomAmenities = typeof room.amenities === 'string' ? JSON.parse(room.amenities) : room.amenities;
+        return filters.amenities.every(amenity => roomAmenities.includes(amenity));
+      });
+    }
+
+    // Apply sorting
+    filteredRooms = sortRooms(filteredRooms, sortBy);
+
+    setRooms(filteredRooms);
+  };
+
+  const sortRooms = (roomsList, criteria) => {
+    const sorted = [...roomsList];
+    switch (criteria) {
+      case 'price-low':
+        return sorted.sort((a, b) => a.pricePerNight - b.pricePerNight);
+      case 'price-high':
+        return sorted.sort((a, b) => b.pricePerNight - a.pricePerNight);
+      case 'rating':
+        return sorted.sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0));
+      case 'capacity':
+        return sorted.sort((a, b) => b.capacity - a.capacity);
+      case 'featured':
+      default:
+        return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
   };
 
@@ -52,9 +102,23 @@ const Rooms = () => {
       available: true,
       type: '',
       minPrice: '',
-      maxPrice: ''
+      maxPrice: '',
+      capacity: '',
+      amenities: []
     });
+    setSortBy('featured');
   };
+
+  const toggleAmenity = (amenity) => {
+    setFilters(prev => ({
+      ...prev,
+      amenities: prev.amenities.includes(amenity)
+        ? prev.amenities.filter(a => a !== amenity)
+        : [...prev.amenities, amenity]
+    }));
+  };
+
+  const availableAmenities = ['WiFi', 'Pool', 'Gym', 'Parking', 'Room Service', 'Air Conditioning', 'Mini Bar', 'Balcony'];
 
   const roomTypes = [...new Set(rooms.map(room => room.type))];
 
@@ -151,6 +215,42 @@ const Rooms = () => {
                   </div>
                 </div>
 
+                <div className="filter-section">
+                  <h4>Guest Capacity</h4>
+                  <select
+                    value={filters.capacity}
+                    onChange={(e) => handleFilterChange('capacity', e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="">Any Capacity</option>
+                    <option value="1">1+ Guests</option>
+                    <option value="2">2+ Guests</option>
+                    <option value="3">3+ Guests</option>
+                    <option value="4">4+ Guests</option>
+                    <option value="5">5+ Guests</option>
+                    <option value="6">6+ Guests</option>
+                  </select>
+                </div>
+
+                <div className="filter-section">
+                  <h4>Amenities</h4>
+                  <div className="amenities-checkboxes">
+                    {availableAmenities.map(amenity => (
+                      <label key={amenity} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={filters.amenities.includes(amenity)}
+                          onChange={() => toggleAmenity(amenity)}
+                        />
+                        <span>{amenity}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <button onClick={() => applyFiltersAndSort()} className="btn btn-primary" style={{ width: '100%', marginBottom: '0.5rem' }}>
+                  🔍 Search
+                </button>
                 <button onClick={clearFilters} className="clear-filters-btn">
                   🔄 Clear All Filters
                 </button>
@@ -162,7 +262,23 @@ const Rooms = () => {
               <div className="results-header">
                 <div className="results-info">
                   <h3>{rooms.length} Room{rooms.length !== 1 ? 's' : ''} Found</h3>
-                  <p>Showing the best available rooms</p>
+                  <div className="sort-controls">
+                    <label>Sort by:</label>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => {
+                        setSortBy(e.target.value);
+                        setTimeout(() => applyFiltersAndSort(), 100);
+                      }}
+                      className="sort-select"
+                    >
+                      <option value="featured">Featured</option>
+                      <option value="price-low">Price: Low to High</option>
+                      <option value="price-high">Price: High to Low</option>
+                      <option value="rating">Rating: High to Low</option>
+                      <option value="capacity">Capacity: High to Low</option>
+                    </select>
+                  </div>
                 </div>
                 <button onClick={() => setFilterOpen(!filterOpen)} className="mobile-filter-btn">
                   🔍 Filters
@@ -205,6 +321,21 @@ const Rooms = () => {
                           <h3 className="card-title">{room.title}</h3>
                           <span className="room-type">{room.type}</span>
                         </div>
+                        
+                        {room.reviewCount > 0 && (
+                          <div className="room-rating">
+                            <span className="rating-stars">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <span key={star} className={`star ${star <= Math.round(room.averageRating) ? 'filled' : ''}`}>
+                                  ★
+                                </span>
+                              ))}
+                            </span>
+                            <span className="rating-text">
+                              {room.averageRating.toFixed(1)} ({room.reviewCount} reviews)
+                            </span>
+                          </div>
+                        )}
 
                         <div className="room-details">
                           <div className="detail-item">

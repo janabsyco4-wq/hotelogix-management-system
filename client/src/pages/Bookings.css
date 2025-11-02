@@ -1,5 +1,6 @@
 .bookings-page {
   min-height: calc(100vh - 80px);
+  padding-top: 80px; /* Offset for fixed header */
 }
 
 .bookings-hero {
@@ -54,6 +55,35 @@
   50% {
     opacity: 0.8;
     transform: scale(1.05);
+  }
+}
+
+.bookings-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.bookings-hero h1 {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  animation: floatHeroText 3s ease-in-out infinite;
+}
+
+.bookings-hero p,
+.bookings-hero .hero-subtitle {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  animation: floatHeroText 3s ease-in-out infinite 0.5s;
+}
+
+@keyframes floatHeroText {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
 
@@ -112,6 +142,62 @@
 @keyframes float3 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   50% { transform: translate(40px, -40px) rotate(-180deg); }
+}
+
+/* Floating text */
+.floating-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floating-text span {
+  position: absolute;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.float-text-1 {
+  top: 15%;
+  left: 5%;
+  animation: floatText 20s ease-in-out infinite;
+}
+
+.float-text-2 {
+  top: 60%;
+  right: 10%;
+  animation: floatText 18s ease-in-out infinite 3s;
+}
+
+.float-text-3 {
+  bottom: 20%;
+  left: 15%;
+  animation: floatText 22s ease-in-out infinite 5s;
+}
+
+.float-text-4 {
+  top: 40%;
+  right: 25%;
+  animation: floatText 16s ease-in-out infinite 2s;
+}
+
+@keyframes floatText {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.4;
+  }
 }
 
 .hero-content {

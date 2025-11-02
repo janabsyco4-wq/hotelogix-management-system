@@ -7,6 +7,7 @@
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
   color: white;
   padding: 40px 0;
+  padding-top: 120px; /* 40px + 80px for header */
   box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
 }
 

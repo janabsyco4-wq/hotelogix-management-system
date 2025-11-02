@@ -58,6 +58,7 @@ app.use('/api/restaurants', require('./routes/restaurants'));
 app.use('/api/deals', require('./routes/deals'));
 app.use('/api/packages', require('./routes/packages'));
 app.use('/api/payment', require('./routes/payment'));
+app.use('/api/reviews', require('./routes/reviews'));
 
 // Root endpoint
 app.get('/', (req, res) => {

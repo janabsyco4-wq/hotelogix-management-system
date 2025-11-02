@@ -2,6 +2,7 @@
 node_modules/
 client/node_modules/
 server/node_modules/
+ai-model/node_modules/
 
 # Environment variables
 .env
@@ -36,6 +37,7 @@ desktop.ini
 *.swp
 *.swo
 *~
+.kiro/
 
 # Testing
 coverage/
@@ -50,3 +52,93 @@ prisma/dev.db-journal
 .cache/
 .temp/
 tmp/
+
+# Test and utility scripts (not needed in production)
+test-*.js
+check-*.js
+debug-*.js
+diagnose-*.js
+show-*.js
+verify-*.js
+demo_*.js
+setup-*.js
+*-test.js
+complete-*.js
+add-*.js
+remove-*.js
+make-*.js
+reset-*.js
+seed-*.js
+update-*.js
+
+# Batch files (Windows specific utilities)
+*.bat
+
+# Documentation files (keep only essential ones)
+*_FIX*.md
+*_FIXED*.md
+*_UPDATE*.md
+*_COMPLETE*.md
+*_READY*.md
+*_SUMMARY*.md
+*_REPORT*.md
+*_STATUS*.md
+*_GUIDE*.md
+*_CHECKLIST*.md
+*_INSTRUCTIONS*.md
+*_VERIFICATION*.md
+*_RESULTS*.md
+*_TESTING*.md
+TROUBLESHOOTING*.md
+VERCEL_*.md
+NGROK_*.md
+RAILWAY_*.md
+SENDGRID_*.md
+CHECK_*.md
+TEST_*.md
+ADMIN_*.md
+PAYMENT_*.md
+REFUND_*.md
+EMAIL_*.md
+BOOKING*.md
+ROOM*.md
+REVIEW*.md
+HEADER*.md
+SCROLL*.md
+SINGLE*.md
+BUTTON*.md
+REVENUE*.md
+LINK_*.md
+FLOW_*.md
+FRONTEND_*.md
+BACKEND_*.md
+API_*.md
+HOTELS_*.md
+MYBOOKINGS_*.md
+FIXES_*.md
+FEATURES_*.md
+COMPLETE_*.md
+FINAL_*.md
+SYSTEM_*.md
+MODULE_*.md
+NEW_*.md
+SIMPLE_*.md
+QUICK_*.md
+ALL_*.md
+AI_*.md
+BOOK_*.md
+REFRESH_*.md
+PROJECT_*.md
+IMPLEMENTATION_*.md
+
+# Installers
+*.msi
+*.exe
+*.dmg
+
+# AI Model generated files
+ai-model/models/*.json
+ai-model/ai-model/
+
+# Themes (if not used)
+themes/

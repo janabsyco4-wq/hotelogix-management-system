@@ -53,6 +53,7 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
+  scroll-padding-top: 80px; /* Offset for fixed header */
 }
 
 .container {

@@ -1,6 +1,7 @@
 .ai-analytics {
   min-height: calc(100vh - 80px);
   background: var(--bg-primary);
+  padding-top: 80px; /* Offset for fixed header */
 }
 
 .analytics-header {
@@ -53,6 +54,17 @@
     opacity: 0.8;
     transform: scale(1.05);
   }
+}
+
+.analytics-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.analytics-header h1,
+.analytics-header p {
+  position: relative;
+  z-index: 2;
 }
 
 /* Floating decorative elements */
@@ -127,6 +139,61 @@
   66% { transform: translate(35px, -35px) rotate(-240deg); }
 }
 
+/* Floating text */
+.floating-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floating-text span {
+  position: absolute;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.float-text-1 {
+  top: 15%;
+  left: 5%;
+  animation: floatText 20s ease-in-out infinite;
+}
+
+.float-text-2 {
+  top: 60%;
+  right: 10%;
+  animation: floatText 18s ease-in-out infinite 3s;
+}
+
+.float-text-3 {
+  bottom: 20%;
+  left: 15%;
+  animation: floatText 22s ease-in-out infinite 5s;
+}
+
+.float-text-4 {
+  top: 40%;
+  right: 25%;
+  animation: floatText 16s ease-in-out infinite 2s;
+}
+
+@keyframes floatText {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.25;
+  }
+}
+
 .header-content {
   position: relative;
   z-index: 2;
@@ -140,6 +207,7 @@
   font-size: 36px;
   margin: 0 0 10px 0;
   font-weight: 700;
+  color: #ffffff;
   animation: fadeInUp 0.8s ease-out;
 }
 
@@ -147,6 +215,7 @@
   font-size: 16px;
   opacity: 0.95;
   margin: 0;
+  color: #ffffff;
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 

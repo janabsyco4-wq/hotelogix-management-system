@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import './Header.css';
@@ -8,8 +8,17 @@ const Header = () => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
   const [showBookDropdown, setShowBookDropdown] = useState(false);
   const dropdownRef = useRef(null);
+
+  // Helper function to check if link is active
+  const isActive = (path) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
 
   const handleLogout = () => {
     logout();
@@ -80,7 +89,7 @@ const Header = () => {
         
         <nav className="nav">
           <ul className="nav-list">
-            <li><Link to="/" className="nav-link">HOME</Link></li>
+            <li><Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>HOME</Link></li>
             
             {/* Book Now Dropdown */}
             <li 
@@ -148,14 +157,14 @@ const Header = () => {
               )}
             </li>
             
-            <li><Link to="/smart-finder" className="nav-link">🤖 AI FINDER</Link></li>
+            <li><Link to="/smart-finder" className={`nav-link ${isActive('/smart-finder') ? 'active' : ''}`}>🤖 AI FINDER</Link></li>
             {user && (
               <>
-                <li><Link to="/my-bookings" className="nav-link">MY BOOKINGS</Link></li>
+                <li><Link to="/my-bookings" className={`nav-link ${isActive('/my-bookings') ? 'active' : ''}`}>MY BOOKINGS</Link></li>
                 {user.email.includes('admin') && (
                   <>
-                    <li><Link to="/admin" className="nav-link">ADMIN</Link></li>
-                    <li><Link to="/ai-analytics" className="nav-link">🤖 AI ANALYTICS</Link></li>
+                    <li><Link to="/admin" className={`nav-link ${isActive('/admin') ? 'active' : ''}`}>ADMIN</Link></li>
+                    <li><Link to="/ai-analytics" className={`nav-link ${isActive('/ai-analytics') ? 'active' : ''}`}>🤖 AI ANALYTICS</Link></li>
                   </>
                 )}
               </>

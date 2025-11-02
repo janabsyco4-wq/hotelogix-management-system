@@ -201,6 +201,12 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       {/* Header */}
       <div className="admin-header">
+        <div className="hero-decoration">
+          <div className="float-element float-1"></div>
+          <div className="float-element float-2"></div>
+          <div className="float-element float-3"></div>
+          <div className="float-element float-4"></div>
+        </div>
         <div className="container">
           <h1>🛠️ Admin Dashboard</h1>
           <p>Manage your hotel system</p>

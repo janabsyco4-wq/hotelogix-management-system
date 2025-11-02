@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import axios from '../api/axios';
 import './RoomView.css';
 
@@ -9,7 +8,6 @@ const RoomView = () => {
   const navigate = useNavigate();
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     fetchRoom();
@@ -21,136 +19,200 @@ const RoomView = () => {
       setRoom(response.data);
     } catch (error) {
       console.error('Error fetching room:', error);
-      toast.error('Room not found');
     } finally {
       setLoading(false);
     }
-  };
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % room.images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + room.images.length) % room.images.length);
   };
 
   const handleBookNow = () => {
     navigate(`/book/${id}`);
   };
 
+  const handleBackToRooms = () => {
+    navigate('/rooms');
+  };
+
   if (loading) {
     return (
-      <div className="room-view-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-        </div>
+      <div className="room-view">
+        <div className="loading">Loading...</div>
       </div>
     );
   }
 
   if (!room) {
     return (
-      <div className="room-view-page">
-        <div className="container">
-          <h2>Room not found</h2>
-        </div>
+      <div className="room-view">
+        <div className="error">Room not found</div>
       </div>
     );
   }
 
   return (
-    <div className="room-view-page">
-      <div className="room-hero">
-        <div className="image-gallery">
-          <button className="gallery-btn gallery-btn-prev" onClick={prevImage}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          
-          <img 
-            src={room.images[currentImageIndex] || 'https://via.placeholder.com/800x500'} 
-            alt={room.title} 
-            className="hero-image" 
-          />
-          
-          <button className="gallery-btn gallery-btn-next" onClick={nextImage}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          
-          <div className="image-counter">
-            {currentImageIndex + 1} / {room.images.length}
-          </div>
-        </div>
+    <div className="room-view">
+      <div className="room-header">
+        <img src={room.images[0]} alt={room.title} className="room-main-image" />
       </div>
 
-      <div className="room-content">
-        <div className="container">
-          <div className="room-info">
-            <div className="room-header">
-              <h1 className="room-title">{room.title}</h1>
-              <span className="room-type-badge">{room.type}</span>
+      <div className="room-body">
+        {/* Left Section */}
+        <div className="room-left">
+          <h1 className="room-title">{room.title}</h1>
+          <p className="room-location">📍 {room.location}</p>
+          <p className="room-type">{room.type}</p>
+
+          {/* Room Details */}
+          <div className="room-details">
+            <div className="detail">
+              <span>👥 Capacity</span> {room.capacity} guests
             </div>
-            
-            <div className="room-location">
-              <span className="location-icon">📍</span>
-              <span>{room.location}</span>
+            <div className="detail">
+              <span>📐 Size</span> {room.size}
             </div>
-            
-            <div className="room-quick-info">
-              <div className="quick-info-item">
-                <span className="info-icon">👥</span>
-                <span>Up to {room.capacity} guests</span>
-              </div>
-              <div className="quick-info-item">
-                <span className="info-icon">📐</span>
-                <span>{room.size}</span>
-              </div>
-              <div className="quick-info-item">
-                <span className="info-icon">🛏️</span>
-                <span>{room.bedType}</span>
-              </div>
-              <div className="quick-info-item">
-                <span className="info-icon">💰</span>
-                <span>${room.pricePerNight}/night</span>
-              </div>
+            <div className="detail">
+              <span>🛏️ Bed</span> {room.bedType}
             </div>
-            
-            <div className="room-description">
-              <h2>About This Room</h2>
-              <p>{room.description}</p>
+            <div className="detail">
+              <span>💰 Price</span> ${room.pricePerNight}/night
             </div>
-            
-            <div className="amenities-section">
-              <h2>Amenities</h2>
-              <div className="amenities-grid">
-                {room.amenities.map((amenity, index) => (
-                  <div key={index} className="amenity-item">
-                    <span className="amenity-check">✓</span>
-                    <span>{amenity}</span>
-                  </div>
-                ))}
+          </div>
+
+          {/* Description */}
+          <div className="room-section">
+            <h2>Description</h2>
+            <p>{room.description}</p>
+          </div>
+
+          {/* Amenities */}
+          <div className="room-section">
+            <h2>Amenities</h2>
+            <ul className="amenities-list">
+              {room.amenities.map((amenity, index) => (
+                <li key={index}>✓ {amenity}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Buttons */}
+          <div className="action-buttons">
+            <button onClick={handleBackToRooms} className="btn btn-secondary">
+              Back to Rooms
+            </button>
+            {room.isAvailable ? (
+              <button onClick={handleBookNow} className="btn btn-primary">
+                Book Now
+              </button>
+            ) : (
+              <button className="btn btn-disabled" disabled>
+                Not Available
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="reviews-section">
+          <h2>Guest Reviews</h2>
+          
+          <div className="rating-info">
+            <span className="rating-score">4.7</span>
+            <span className="rating-stars">
+              <span className="star filled">★</span>
+              <span className="star filled">★</span>
+              <span className="star filled">★</span>
+              <span className="star filled">★</span>
+              <span className="star half">★</span>
+            </span>
+            <span className="review-count">(18 reviews)</span>
+          </div>
+
+          <div className="reviews-list">
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Ahmed Khan</strong>
+                <span className="review-date">1 week ago</span>
               </div>
+              <div className="review-stars">
+                ★★★★★
+              </div>
+              <p>Excellent room with great amenities. The staff was very helpful and the location is perfect! Would definitely stay here again.</p>
             </div>
 
-            <div className="action-buttons">
-              <button onClick={() => navigate('/rooms')} className="btn btn-secondary">
-                Back to Rooms
-              </button>
-              {room.isAvailable ? (
-                <button onClick={handleBookNow} className="btn btn-primary">
-                  Book Now
-                </button>
-              ) : (
-                <button className="btn btn-disabled" disabled>
-                  Not Available
-                </button>
-              )}
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Fatima Ali</strong>
+                <span className="review-date">2 weeks ago</span>
+              </div>
+              <div className="review-stars">
+                ★★★★★
+              </div>
+              <p>Beautiful room and very clean. Highly recommend for families! The kids loved the spacious layout.</p>
+            </div>
+
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Hassan Raza</strong>
+                <span className="review-date">3 weeks ago</span>
+              </div>
+              <div className="review-stars">
+                ★★★★☆
+              </div>
+              <p>Great value for money. Room was comfortable and spacious. Only minor issue was the WiFi speed.</p>
+            </div>
+
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Ayesha Malik</strong>
+                <span className="review-date">1 month ago</span>
+              </div>
+              <div className="review-stars">
+                ★★★★★
+              </div>
+              <p>Loved the stay! Everything was perfect from check-in to check-out. The bed was incredibly comfortable.</p>
+            </div>
+
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Usman Tariq</strong>
+                <span className="review-date">1 month ago</span>
+              </div>
+              <div className="review-stars">
+                ★★★★★
+              </div>
+              <p>Outstanding service and beautiful room. The view was amazing and breakfast was delicious!</p>
+            </div>
+
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Zainab Ahmed</strong>
+                <span className="review-date">2 months ago</span>
+              </div>
+              <div className="review-stars">
+                ★★★★☆
+              </div>
+              <p>Very nice room with modern amenities. Good location near attractions. Would recommend!</p>
+            </div>
+
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Ali Haider</strong>
+                <span className="review-date">2 months ago</span>
+              </div>
+              <div className="review-stars">
+                ★★★★★
+              </div>
+              <p>Perfect for business travelers. Clean, quiet, and professional. The workspace was excellent.</p>
+            </div>
+
+            <div className="review-card">
+              <div className="review-header">
+                <strong>Sana Iqbal</strong>
+                <span className="review-date">3 months ago</span>
+              </div>
+              <div className="review-stars">
+                ★★★★☆
+              </div>
+              <p>Comfortable stay with friendly staff. Room was clean and well-maintained. Good experience overall.</p>
             </div>
           </div>
         </div>

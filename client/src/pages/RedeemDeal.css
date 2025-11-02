@@ -8,6 +8,7 @@
   background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
   color: white;
   padding: 60px 0;
+  padding-top: 140px; /* 60px + 80px for header */
   position: relative;
   overflow: hidden;
 }
@@ -15,6 +16,7 @@
 .success-hero {
   background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
   padding: 80px 0;
+  padding-top: 160px; /* 80px + 80px for header */
 }
 
 .success-icon {

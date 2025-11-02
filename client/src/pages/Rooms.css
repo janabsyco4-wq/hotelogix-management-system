@@ -1,11 +1,13 @@
 .rooms-page {
   min-height: calc(100vh - 80px);
+  padding-top: 80px; /* Offset for fixed header */
 }
 
 .rooms-hero {
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
   color: white;
   padding: 80px 0;
+  padding-top: 160px; /* 80px + 80px for header */
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -612,4 +614,71 @@
   .amenities-tags {
     flex-direction: column;
   }
+}
+
+/* Room Rating */
+.room-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 0.1rem;
+}
+
+.rating-stars .star {
+  font-size: 1rem;
+  color: #ddd;
+}
+
+.rating-stars .star.filled {
+  color: #ffc107;
+}
+
+.rating-text {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Amenities Checkboxes */
+.amenities-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.amenities-checkboxes .checkbox-label {
+  font-size: 0.9rem;
+}
+
+/* Sort Controls */
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.sort-controls label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.sort-select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: white;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: #8B4513;
 }
