@@ -1,36 +1,34 @@
 {
-  "encoders": {
-    "userProfile": {
-      "business_traveler": 0,
-      "group_friends": 1,
-      "budget_conscious": 2,
-      "luxury_seeker": 3,
-      "couple_romantic": 4,
-      "family_vacation": 5,
-      "solo_traveler": 6
-    },
-    "roomType": {
-      "Business Room": 0,
-      "Junior Suite": 1,
-      "Executive Suite": 2,
-      "Family Suite": 3,
-      "Standard Room": 4,
-      "Presidential Suite": 5,
-      "Deluxe Room": 6
-    },
-    "season": {
-      "spring": 0,
-      "winter": 1,
-      "fall": 2,
-      "summer": 3
-    },
-    "dayType": {
-      "weekend": 0,
-      "weekday": 1
-    }
-  },
-  "version": "1.0.0",
-  "createdAt": "2025-11-01T11:19:00.255Z",
-  "description": "Room recommendation model for Hotelogix (Lightweight ML)",
-  "algorithm": "Multivariate Linear Regression"
+  "training_date": "2025-11-03T03:41:40.803885",
+  "n_samples": 100000,
+  "feature_names": [
+    "user_type_encoded",
+    "room_type_encoded",
+    "season_encoded",
+    "day_type_encoded",
+    "booking_advance",
+    "stay_duration",
+    "group_size",
+    "view_time",
+    "previous_bookings",
+    "budget_range",
+    "booking_urgency",
+    "value_perception",
+    "group_budget",
+    "loyalty_score",
+    "advance_duration_ratio",
+    "booking_advance_sq",
+    "stay_duration_sq",
+    "view_time_log",
+    "budget_log"
+  ],
+  "metrics": {
+    "compatibility_accuracy": 0.79005,
+    "booking_r2": 0.5970980151720384,
+    "booking_rmse": 0.11083444156989883,
+    "rating_r2": 0.37220740864294766,
+    "rating_rmse": 0.2805495370411027,
+    "price_r2": 0.8385479803996828,
+    "price_rmse": 0.044853567206927104
+  }
 }

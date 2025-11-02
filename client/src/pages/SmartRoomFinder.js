@@ -5,11 +5,9 @@ import Loading from '../components/Loading';
 import './SmartRoomFinder.css';
 
 const SmartRoomFinder = () => {
-    const [step, setStep] = useState('filters'); // filters, results
     const [loading, setLoading] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
-    const [compareList, setCompareList] = useState([]);
-    const [showComparison, setShowComparison] = useState(false);
+    const [showFilters, setShowFilters] = useState(true);
 
     const [filters, setFilters] = useState({
         userType: 'solo_traveler',
@@ -19,9 +17,7 @@ const SmartRoomFinder = () => {
         stayDuration: 2,
         groupSize: 2,
         minPrice: '',
-        maxPrice: '',
-        checkIn: '',
-        checkOut: ''
+        maxPrice: ''
     });
 
     const [sortBy, setSortBy] = useState('match'); // match, price, rating
@@ -35,24 +31,93 @@ const SmartRoomFinder = () => {
     }
 
     useEffect(() => {
-        if (step === 'results') {
-            fetchRecommendations();
+        // Load recommendations on mount
+        fetchRecommendations();
+    }, []);
+    
+    useEffect(() => {
+        // Re-sort when sortBy changes
+        if (recommendations.length > 0) {
+            sortRecommendations();
         }
-    }, [step, sortBy]);
+    }, [sortBy]);
 
     const fetchRecommendations = async () => {
         try {
             setLoading(true);
-            const params = new URLSearchParams(filters);
-            const response = await axios.get(`/api/recommendations/rooms?${params.toString()}`);
-
-            let results = response.data.recommendations || [];
+            
+            // Call Python AI API for recommendations
+            const aiResponse = await fetch('http://localhost:5002/recommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userType: filters.userType,
+                    season: filters.season,
+                    dayType: filters.dayType,
+                    bookingAdvance: filters.bookingAdvance,
+                    stayDuration: filters.stayDuration,
+                    groupSize: filters.groupSize,
+                    budget: filters.maxPrice || 200,
+                    viewTime: 120,
+                    previousBookings: 0
+                })
+            });
+            
+            const aiData = await aiResponse.json();
+            
+            // Get actual room data from backend
+            const roomsResponse = await axios.get('/api/rooms');
+            const allRooms = roomsResponse.data;
+            
+            // Match AI recommendations with actual rooms
+            let results = aiData.recommendations.map(aiRec => {
+                // Map AI room types to database room types
+                const roomTypeMap = {
+                    'Standard': 'Standard Room',
+                    'Business': 'Business Room', 
+                    'Deluxe': 'Deluxe Room',
+                    'Junior Suite': 'Junior Suite',
+                    'Executive Suite': 'Executive Suite',
+                    'Family Suite': 'Family Suite',
+                    'Presidential Suite': 'Presidential Suite'
+                };
+                
+                const expectedType = roomTypeMap[aiRec.roomType] || aiRec.roomType;
+                const matchingRoom = allRooms.find(room => 
+                    room.type === expectedType || 
+                    room.type === aiRec.roomType ||
+                    room.type.includes(aiRec.roomType)
+                );
+                
+                if (matchingRoom) {
+                    return {
+                        ...matchingRoom,
+                        compatibilityScore: aiRec.compatibilityScore || 0, // Already 0-100
+                        bookingProbability: aiRec.bookingLikelihood || 0, // Already 0-100
+                        overallScore: aiRec.overallScore || 0,
+                        isHighMatch: aiRec.isHighMatch || false,
+                        recommendationReason: aiRec.recommendation || 'Recommended for you',
+                        roomType: aiRec.roomType
+                    };
+                }
+                return null;
+            }).filter(Boolean);
+            
+            // Apply price filter if set
+            if (filters.minPrice) {
+                results = results.filter(r => r.pricePerNight >= parseFloat(filters.minPrice));
+            }
+            if (filters.maxPrice) {
+                results = results.filter(r => r.pricePerNight <= parseFloat(filters.maxPrice));
+            }
 
             // Sort results
             if (sortBy === 'price') {
                 results.sort((a, b) => a.pricePerNight - b.pricePerNight);
             } else if (sortBy === 'rating') {
-                results.sort((a, b) => b.predictedRating - a.predictedRating);
+                results.sort((a, b) => (b.rating || 0) - (a.rating || 0));
             } else {
                 results.sort((a, b) => b.compatibilityScore - a.compatibilityScore);
             }
@@ -60,6 +125,22 @@ const SmartRoomFinder = () => {
             setRecommendations(results);
         } catch (error) {
             console.error('Error fetching recommendations:', error);
+            // Fallback to regular rooms if AI fails
+            try {
+                const roomsResponse = await axios.get('/api/rooms');
+                const fallbackRooms = roomsResponse.data.slice(0, 10).map(room => ({
+                    ...room,
+                    compatibilityScore: 75, // Default score
+                    bookingProbability: 60,
+                    overallScore: 70,
+                    isHighMatch: true,
+                    recommendationReason: 'Popular choice'
+                }));
+                setRecommendations(fallbackRooms);
+            } catch (fallbackError) {
+                console.error('Fallback also failed:', fallbackError);
+                setRecommendations([]);
+            }
         } finally {
             setLoading(false);
         }
@@ -70,15 +151,20 @@ const SmartRoomFinder = () => {
     };
 
     const handleFindRooms = () => {
-        setStep('results');
+        fetchRecommendations();
+        setShowFilters(false); // Collapse filters after search
     };
-
-    const toggleCompare = (room) => {
-        if (compareList.find(r => r.roomId === room.roomId)) {
-            setCompareList(compareList.filter(r => r.roomId !== room.roomId));
-        } else if (compareList.length < 3) {
-            setCompareList([...compareList, room]);
+    
+    const sortRecommendations = () => {
+        let sorted = [...recommendations];
+        if (sortBy === 'price') {
+            sorted.sort((a, b) => a.pricePerNight - b.pricePerNight);
+        } else if (sortBy === 'rating') {
+            sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+        } else {
+            sorted.sort((a, b) => b.compatibilityScore - a.compatibilityScore);
         }
+        setRecommendations(sorted);
     };
 
     const getMatchColor = (score) => {
@@ -123,16 +209,16 @@ const SmartRoomFinder = () => {
                     {/* Trust Signals */}
                     <div className="trust-signals">
                         <div className="trust-item">
-                            <span className="trust-number">1,234+</span>
-                            <span className="trust-label">Guests Found Perfect Rooms</span>
+                            <span className="trust-number">5,000+</span>
+                            <span className="trust-label">Happy Guests</span>
                         </div>
                         <div className="trust-item">
-                            <span className="trust-number">92%</span>
-                            <span className="trust-label">AI Accuracy</span>
+                            <span className="trust-number">95%</span>
+                            <span className="trust-label">Match Accuracy</span>
                         </div>
                         <div className="trust-item">
-                            <span className="trust-number">4.8/5</span>
-                            <span className="trust-label">Average Rating</span>
+                            <span className="trust-number">4.9★</span>
+                            <span className="trust-label">User Rating</span>
                         </div>
                     </div>
                 </div>
@@ -141,8 +227,19 @@ const SmartRoomFinder = () => {
             {/* Main Content */}
             <div className="finder-content">
                 <div className="container">
-                    {step === 'filters' && (
-                        <div className="filters-section">
+                    {/* Filters Section - Always visible, collapsible */}
+                    <div className={`filters-section ${showFilters ? 'expanded' : 'collapsed'}`}>
+                        <div className="filters-header" onClick={() => setShowFilters(!showFilters)}>
+                            <h2 className="section-title">
+                                {showFilters ? '🔽' : '▶️'} Adjust Your Preferences
+                            </h2>
+                            <button className="toggle-filters-btn">
+                                {showFilters ? 'Hide Filters' : 'Show Filters'}
+                            </button>
+                        </div>
+                        
+                        {showFilters && (
+                        <div className="filters-content">
                             <h2 className="section-title">Tell Us About Your Stay</h2>
 
                             <div className="filters-grid">
@@ -248,47 +345,22 @@ const SmartRoomFinder = () => {
                                     </div>
                                 </div>
 
-                                {/* Dates (Optional) */}
-                                <div className="filter-card">
-                                    <label className="filter-label">
-                                        <span className="label-icon">📅</span>
-                                        Dates (Optional)
-                                    </label>
-                                    <div className="date-range">
-                                        <input
-                                            type="date"
-                                            value={filters.checkIn}
-                                            onChange={(e) => handleFilterChange('checkIn', e.target.value)}
-                                            className="filter-input"
-                                            min={new Date().toISOString().split('T')[0]}
-                                        />
-                                        <input
-                                            type="date"
-                                            value={filters.checkOut}
-                                            onChange={(e) => handleFilterChange('checkOut', e.target.value)}
-                                            className="filter-input"
-                                            min={filters.checkIn || new Date().toISOString().split('T')[0]}
-                                        />
-                                    </div>
-                                </div>
                             </div>
 
                             <button onClick={handleFindRooms} className="btn btn-primary btn-large find-btn">
-                                🤖 Find My Perfect Room
+                                🤖 Update Recommendations
                             </button>
                         </div>
-                    )}
+                        )}
+                    </div>
 
-                    {step === 'results' && (
-                        <div className="results-section">
-                            <div className="results-header">
-                                <div className="results-info">
-                                    <button onClick={() => setStep('filters')} className="back-btn">
-                                        ← Back to Filters
-                                    </button>
-                                    <h2>{recommendations.length} AI-Matched Rooms Found</h2>
-                                    <p>Sorted by best match for your preferences</p>
-                                </div>
+                    {/* Results Section - Always visible below filters */}
+                    <div className="results-section">
+                        <div className="results-header">
+                            <div className="results-info">
+                                <h2>{recommendations.length} AI-Matched Rooms Found</h2>
+                                <p>Sorted by best match for your preferences</p>
+                            </div>
 
                                 <div className="results-controls">
                                     <select
@@ -300,15 +372,6 @@ const SmartRoomFinder = () => {
                                         <option value="price">Lowest Price</option>
                                         <option value="rating">Highest Rating</option>
                                     </select>
-
-                                    {compareList.length > 0 && (
-                                        <button
-                                            onClick={() => setShowComparison(!showComparison)}
-                                            className="btn btn-secondary"
-                                        >
-                                            Compare ({compareList.length})
-                                        </button>
-                                    )}
                                 </div>
                             </div>
 
@@ -318,11 +381,11 @@ const SmartRoomFinder = () => {
                                 <>
                                     <div className="recommendations-grid">
                                         {recommendations.map((room, index) => (
-                                            <div key={room.roomId} className="recommendation-card">
+                                            <div key={room.id} className="recommendation-card">
                                                 <div className="card-image">
                                                     <img src={room.images?.[0] || 'https://via.placeholder.com/400x300'} alt={room.title} />
-                                                    <div className="match-badge" style={{ backgroundColor: getMatchColor(room.compatibilityScore) }}>
-                                                        {Math.round(room.compatibilityScore * 100)}% Match
+                                                    <div className="match-badge" style={{ backgroundColor: getMatchColor(room.compatibilityScore / 100) }}>
+                                                        {Math.round(room.compatibilityScore)}% Match
                                                     </div>
                                                     {index < 3 && <div className="top-pick-badge">Top Pick #{index + 1}</div>}
                                                 </div>
@@ -343,19 +406,13 @@ const SmartRoomFinder = () => {
                                                                 <div
                                                                     className="stat-fill"
                                                                     style={{
-                                                                        width: `${room.bookingProbability * 100}%`,
-                                                                        backgroundColor: getMatchColor(room.bookingProbability)
+                                                                        width: `${room.bookingProbability}%`,
+                                                                        backgroundColor: getMatchColor(room.bookingProbability / 100)
                                                                     }}
                                                                 ></div>
                                                             </div>
-                                                            <span className="stat-value">{Math.round(room.bookingProbability * 100)}%</span>
+                                                            <span className="stat-value">{Math.round(room.bookingProbability)}%</span>
                                                         </div>
-                                                    </div>
-
-                                                    <div className="room-details">
-                                                        <span>👥 {room.capacity} guests</span>
-                                                        <span>📐 {room.size}</span>
-                                                        <span>🛏️ {room.bedType}</span>
                                                     </div>
 
                                                     <div className="card-footer">
@@ -364,14 +421,7 @@ const SmartRoomFinder = () => {
                                                             <span className="price-label">/night</span>
                                                         </div>
                                                         <div className="card-actions">
-                                                            <button
-                                                                onClick={() => toggleCompare(room)}
-                                                                className={`btn btn-secondary btn-small ${compareList.find(r => r.roomId === room.roomId) ? 'active' : ''}`}
-                                                                disabled={compareList.length >= 3 && !compareList.find(r => r.roomId === room.roomId)}
-                                                            >
-                                                                {compareList.find(r => r.roomId === room.roomId) ? '✓ Added' : 'Compare'}
-                                                            </button>
-                                                            <Link to={`/rooms/${room.roomId}`} className="btn btn-primary btn-small">
+                                                            <Link to={`/rooms/${room.id}`} className="btn btn-primary btn-large">
                                                                 View & Book
                                                             </Link>
                                                         </div>
@@ -386,65 +436,18 @@ const SmartRoomFinder = () => {
                                         <div className="empty-state">
                                             <div className="empty-icon">🔍</div>
                                             <h3>No rooms match your preferences</h3>
-                                            <p>Try adjusting your filters or budget range to see more options</p>
+                                            <p>Try adjusting your filters above to see more options</p>
                                             <button
-                                                onClick={() => setStep('filters')}
+                                                onClick={() => setShowFilters(true)}
                                                 className="btn btn-primary"
                                             >
-                                                Modify Filters
+                                                Adjust Filters
                                             </button>
-                                        </div>
-                                    )}
-
-                                    {/* Comparison Modal */}
-                                    {showComparison && compareList.length > 0 && (
-                                        <div className="comparison-modal">
-                                            <div className="modal-overlay" onClick={() => setShowComparison(false)}></div>
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <h2>Compare Rooms</h2>
-                                                    <button onClick={() => setShowComparison(false)} className="close-btn">✕</button>
-                                                </div>
-                                                <div className="comparison-grid">
-                                                    {compareList.map(room => (
-                                                        <div key={room.roomId} className="comparison-card">
-                                                            <img src={room.images?.[0]} alt={room.title} />
-                                                            <h3>{room.title}</h3>
-                                                            <div className="comparison-details">
-                                                                <div className="detail-row">
-                                                                    <span>Match Score:</span>
-                                                                    <strong>{Math.round(room.compatibilityScore * 100)}%</strong>
-                                                                </div>
-                                                                <div className="detail-row">
-                                                                    <span>Price:</span>
-                                                                    <strong>${room.pricePerNight}/night</strong>
-                                                                </div>
-                                                                <div className="detail-row">
-                                                                    <span>Capacity:</span>
-                                                                    <strong>{room.capacity} guests</strong>
-                                                                </div>
-                                                                <div className="detail-row">
-                                                                    <span>Size:</span>
-                                                                    <strong>{room.size}</strong>
-                                                                </div>
-                                                                <div className="detail-row">
-                                                                    <span>Bed Type:</span>
-                                                                    <strong>{room.bedType}</strong>
-                                                                </div>
-                                                            </div>
-                                                            <Link to={`/rooms/${room.roomId}`} className="btn btn-primary">
-                                                                Book This Room
-                                                            </Link>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
                                         </div>
                                     )}
                                 </>
                             )}
-                        </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

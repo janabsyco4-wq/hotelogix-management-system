@@ -297,10 +297,12 @@
   border-radius: 16px;
   box-shadow: 0 4px 20px var(--shadow);
   border: 2px solid var(--border-color);
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
   gap: 20px;
   transition: all 0.3s ease;
+  min-height: 120px;
 }
 
 .stat-card:hover {
@@ -310,21 +312,23 @@
 }
 
 .stat-icon {
-  font-size: 48px;
-  width: 80px;
-  height: 80px;
+  display: none;
+}
+
+.stat-info {
+  flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
-  border-radius: 16px;
 }
 
 .stat-info h3 {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--primary-color);
   margin: 0 0 5px 0;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .stat-info p {
