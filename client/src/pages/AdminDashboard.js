@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('payments');
-  
+
   // Data states
   const [stats, setStats] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     console.log('AdminDashboard mounted, user:', user);
-    
+
     if (!user) {
       navigate('/login');
       return;
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
   const fetchAllData = async () => {
     try {
       setLoading(true);
-      
+
       // Add auth token to requests
       const config = {
         headers: {
@@ -55,32 +55,32 @@ const AdminDashboard = () => {
 
       // Helper function to add delay between requests (ngrok free tier workaround)
       const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-      
+
       // Fetch data sequentially with delays to avoid ngrok rate limits
       const roomsRes = await axios.get('/api/rooms', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const restaurantsRes = await axios.get('/api/restaurants', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const dealsRes = await axios.get('/api/deals', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const packagesRes = await axios.get('/api/packages', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const bookingsRes = await axios.get('/api/admin/bookings', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const usersRes = await axios.get('/api/admin/users', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const reservationsRes = await axios.get('/api/admin/reservations', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const redemptionsRes = await axios.get('/api/admin/redemptions', config).catch(() => ({ data: [] }));
       await delay(300);
-      
+
       const packageBookingsRes = await axios.get('/api/admin/package-bookings', config).catch(() => ({ data: [] }));
 
       console.log('=== ADMIN DASHBOARD DATA ===');
@@ -549,7 +549,7 @@ const AdminDashboard = () => {
           {activeTab === 'bookings' && (
             <div className="tab-content">
               <h2>All Bookings & Reservations (Total: {bookings.length + reservations.length + redemptions.length + packageBookings.length})</h2>
-              
+
               {/* Room Bookings */}
               <div className="booking-section">
                 <h3>🛏️ Room Bookings ({bookings.length})</h3>
@@ -586,8 +586,8 @@ const AdminDashboard = () => {
                           <td>
                             <button className="btn-icon" title="View">👁️</button>
                             {booking.paymentIntentId && booking.status === 'confirmed' && (
-                              <button 
-                                className="btn-icon" 
+                              <button
+                                className="btn-icon"
                                 title="Refund"
                                 onClick={() => {
                                   setActiveTab('payments');
@@ -641,8 +641,8 @@ const AdminDashboard = () => {
                           <td>
                             <button className="btn-icon" title="View">👁️</button>
                             {reservation.paymentIntentId && reservation.status === 'confirmed' && (
-                              <button 
-                                className="btn-icon" 
+                              <button
+                                className="btn-icon"
                                 title="Refund"
                                 onClick={() => {
                                   setActiveTab('payments');
@@ -694,8 +694,8 @@ const AdminDashboard = () => {
                           <td>
                             <button className="btn-icon" title="View">👁️</button>
                             {redemption.paymentIntentId && redemption.status === 'active' && (
-                              <button 
-                                className="btn-icon" 
+                              <button
+                                className="btn-icon"
                                 title="Refund"
                                 onClick={() => {
                                   setActiveTab('payments');
@@ -749,8 +749,8 @@ const AdminDashboard = () => {
                           <td>
                             <button className="btn-icon" title="View">👁️</button>
                             {pkgBooking.paymentIntentId && pkgBooking.status === 'confirmed' && (
-                              <button 
-                                className="btn-icon" 
+                              <button
+                                className="btn-icon"
                                 title="Refund"
                                 onClick={() => {
                                   setActiveTab('payments');
@@ -820,7 +820,7 @@ const AdminDashboard = () => {
           {activeTab === 'payments' && (
             <div className="tab-content">
               <h2>💳 Payment Analytics & Revenue</h2>
-              
+
               {/* Revenue Overview */}
               <div className="payment-overview">
                 <div className="stats-grid">
@@ -907,11 +907,11 @@ const AdminDashboard = () => {
                         const isDining = item.restaurantId !== undefined;
                         const isDeal = item.dealId !== undefined;
                         const isPackage = item.packageId !== undefined;
-                        
+
                         let type = '📋';
                         let description = 'Booking';
                         let amount = item.totalPrice || 0;
-                        
+
                         if (isRoom) {
                           type = '🛏️';
                           description = `Room: ${item.room?.title || 'N/A'}`;
@@ -927,7 +927,7 @@ const AdminDashboard = () => {
                           type = '📦';
                           description = `Package: ${item.package?.name || 'N/A'}`;
                         }
-                        
+
                         return (
                           <tr key={`payment-${idx}`}>
                             <td>{type}</td>
@@ -937,26 +937,25 @@ const AdminDashboard = () => {
                             <td className="amount">${amount.toFixed(2)}</td>
                             <td className="payment-id">{item.paymentIntentId?.substring(0, 20)}...</td>
                             <td>
-                              <span className={`badge ${
-                                item.status === 'confirmed' ? 'success' : 
-                                item.status === 'refunded' ? 'danger' : 
-                                item.status === 'cancelled' ? 'danger' :
-                                item.status === 'expired' ? 'danger' :
-                                item.status === 'pending' ? 'warning' : 'success'
-                              }`}>
+                              <span className={`badge ${item.status === 'confirmed' ? 'success' :
+                                item.status === 'refunded' ? 'danger' :
+                                  item.status === 'cancelled' ? 'danger' :
+                                    item.status === 'expired' ? 'danger' :
+                                      item.status === 'pending' ? 'warning' : 'success'
+                                }`}>
                                 {item.status === 'refunded' ? 'Refunded' :
-                                 item.status === 'cancelled' ? 'Cancelled' :
-                                 item.status === 'expired' ? 'Expired' :
-                                 item.status === 'confirmed' ? 'Confirmed' :
-                                 item.status === 'active' ? 'Active' :
-                                 item.status || 'Paid'}
+                                  item.status === 'cancelled' ? 'Cancelled' :
+                                    item.status === 'expired' ? 'Expired' :
+                                      item.status === 'confirmed' ? 'Confirmed' :
+                                        item.status === 'active' ? 'Active' :
+                                          item.status || 'Paid'}
                               </span>
                             </td>
                             <td>{formatDate(item.createdAt)}</td>
                             <td>
                               <button className="btn-icon" title="View Details">👁️</button>
-                              <button 
-                                className="btn-icon" 
+                              <button
+                                className="btn-icon"
                                 title="Refund"
                                 onClick={() => handleRefundClick({ ...item, amount })}
                               >
@@ -977,8 +976,8 @@ const AdminDashboard = () => {
                 <div className="breakdown-grid">
                   <div className="breakdown-item">
                     <div className="breakdown-bar">
-                      <div 
-                        className="bar-fill room" 
+                      <div
+                        className="bar-fill room"
                         style={{ width: `${(paymentStats.roomRevenue / paymentStats.totalRevenue * 100) || 0}%` }}
                       ></div>
                     </div>
@@ -992,8 +991,8 @@ const AdminDashboard = () => {
                   </div>
                   <div className="breakdown-item">
                     <div className="breakdown-bar">
-                      <div 
-                        className="bar-fill package" 
+                      <div
+                        className="bar-fill package"
                         style={{ width: `${(paymentStats.packageRevenue / paymentStats.totalRevenue * 100) || 0}%` }}
                       ></div>
                     </div>
@@ -1007,8 +1006,8 @@ const AdminDashboard = () => {
                   </div>
                   <div className="breakdown-item">
                     <div className="breakdown-bar">
-                      <div 
-                        className="bar-fill dining" 
+                      <div
+                        className="bar-fill dining"
                         style={{ width: `${(paymentStats.diningDeposits / paymentStats.totalRevenue * 100) || 0}%` }}
                       ></div>
                     </div>
@@ -1022,8 +1021,8 @@ const AdminDashboard = () => {
                   </div>
                   <div className="breakdown-item">
                     <div className="breakdown-bar">
-                      <div 
-                        className="bar-fill deal" 
+                      <div
+                        className="bar-fill deal"
                         style={{ width: `${(paymentStats.dealRevenue / paymentStats.totalRevenue * 100) || 0}%` }}
                       ></div>
                     </div>

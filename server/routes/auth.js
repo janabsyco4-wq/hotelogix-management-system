@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
+const { sendWelcomeEmail } = require('../services/emailService');
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -48,6 +49,9 @@ router.post('/register', async (req, res) => {
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '7d' }
     );
+
+    // Send welcome email (async, don't wait for it)
+    sendWelcomeEmail(user).catch(err => console.error('Email error:', err));
 
     res.status(201).json({
       message: 'User created successfully',
