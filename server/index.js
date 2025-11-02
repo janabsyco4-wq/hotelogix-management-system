@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 const allowedOrigins = [
   'http://localhost:3000',
+  'https://hotelogix-management-system.vercel.app',
   'https://hotelogix-management-system-entl69r3b-shehrooz-hafeezs-projects.vercel.app',
   process.env.CLIENT_URL
 ].filter(Boolean);
