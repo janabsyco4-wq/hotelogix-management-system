@@ -1,6 +1,7 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
+const { sendBookingConfirmation } = require('../services/emailService');
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -78,6 +79,15 @@ router.post('/', authenticateToken, async (req, res) => {
     });
     
     console.log('✅ Booking created:', booking.id);
+
+    // Send booking confirmation email
+    try {
+      await sendBookingConfirmation(booking, booking.user, booking.room);
+      console.log('📧 Booking confirmation email sent to:', booking.user.email);
+    } catch (emailError) {
+      console.error('⚠️ Failed to send booking email:', emailError.message);
+      // Don't fail the booking if email fails
+    }
 
     // Parse JSON fields in room data
     const bookingWithParsedData = {
