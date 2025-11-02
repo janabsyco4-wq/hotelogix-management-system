@@ -3,6 +3,7 @@ const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { sendPaymentReceipt, sendRefundConfirmation } = require('../services/emailService');
 
 // Middleware to verify JWT token
 const jwt = require('jsonwebtoken');
@@ -148,6 +149,23 @@ router.post('/confirm-booking', authenticateToken, async (req, res) => {
         return res.status(400).json({ error: 'Invalid booking type' });
     }
 
+    // Send payment receipt email for room bookings
+    if (bookingType === 'room') {
+      try {
+        const payment = {
+          id: paymentIntent.id,
+          amount: `$${(paymentIntent.amount / 100).toFixed(2)}`,
+          stripePaymentId: paymentIntent.id,
+          status: 'paid',
+          createdAt: new Date()
+        };
+        await sendPaymentReceipt(payment, booking, booking.user, booking.room);
+        console.log('📧 Payment receipt email sent to:', booking.user.email);
+      } catch (emailError) {
+        console.error('⚠️ Failed to send payment email:', emailError.message);
+      }
+    }
+
     res.json({
       success: true,
       booking: booking,
@@ -245,6 +263,25 @@ router.post('/refund', authenticateToken, async (req, res) => {
 
       default:
         return res.status(400).json({ error: 'Invalid booking type' });
+    }
+
+    // Send refund confirmation email for room bookings
+    if (bookingType === 'room') {
+      try {
+        const payment = {
+          id: paymentIntent.id,
+          amount: `$${(paymentIntent.amount / 100).toFixed(2)}`,
+          refundAmount: `$${(refund.amount / 100).toFixed(2)}`,
+          stripePaymentId: paymentIntent.id,
+          stripeRefundId: refund.id,
+          status: 'refunded',
+          createdAt: new Date()
+        };
+        await sendRefundConfirmation(payment, updatedBooking, updatedBooking.user, updatedBooking.room);
+        console.log('📧 Refund confirmation email sent to:', updatedBooking.user.email);
+      } catch (emailError) {
+        console.error('⚠️ Failed to send refund email:', emailError.message);
+      }
     }
 
     res.json({
