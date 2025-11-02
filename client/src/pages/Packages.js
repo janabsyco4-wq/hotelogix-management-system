@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './Packages.css';
 
 const Packages = () => {
@@ -53,16 +54,7 @@ const Packages = () => {
   };
 
   if (loading) {
-    return (
-      <div className="packages-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-            <p>Loading packages...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading packages..." />;
   }
 
   return (

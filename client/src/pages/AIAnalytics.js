@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './AIAnalytics.css';
 
 const AIAnalytics = () => {
@@ -193,16 +194,7 @@ const AIAnalytics = () => {
   };
 
   if (loading) {
-    return (
-      <div className="ai-analytics">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-            <p>Loading AI Analytics...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading AI Analytics..." />;
   }
 
   return (

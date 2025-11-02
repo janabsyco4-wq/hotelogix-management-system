@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './Bookings.css';
 
 const MyBookings = () => {
@@ -131,16 +132,7 @@ const MyBookings = () => {
     };
 
     if (loading) {
-        return (
-            <div className="bookings-page">
-                <div className="container">
-                    <div className="loading">
-                        <div className="spinner"></div>
-                        <p>Loading your bookings...</p>
-                    </div>
-                </div>
-            </div>
-        );
+        return <Loading message="Loading your bookings..." />;
     }
 
     const totalBookings = roomBookings.length + diningReservations.length + dealRedemptions.length + packageBookings.length;

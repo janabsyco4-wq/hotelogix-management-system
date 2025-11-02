@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './DealDetail.css';
 
 const DealView = () => {
@@ -36,15 +37,7 @@ const DealView = () => {
   };
 
   if (loading) {
-    return (
-      <div className="deal-detail-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading deal details..." />;
   }
 
   if (!deal) {

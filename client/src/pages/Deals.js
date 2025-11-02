@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './Deals.css';
 
 const Deals = () => {
@@ -71,16 +72,7 @@ const Deals = () => {
   };
 
   if (loading) {
-    return (
-      <div className="deals-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-            <p>Loading deals...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading deals..." />;
   }
 
   return (

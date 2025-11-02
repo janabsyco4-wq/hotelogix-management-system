@@ -18,33 +18,27 @@ const allowedOrigins = [
   process.env.CLIENT_URL
 ].filter(Boolean);
 
-// Add explicit CORS headers before cors middleware
+// CORS configuration - Allow all origins for ngrok compatibility
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning', 'X-Requested-With', 'Accept', 'Origin'],
+  credentials: false, // Set to false when using origin: '*'
+  optionsSuccessStatus: 200
+}));
+
+// Additional CORS headers for ngrok
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, ngrok-skip-browser-warning');
-  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, ngrok-skip-browser-warning, X-Requested-With, Accept, Origin');
   
-  // Handle preflight
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
+    return res.status(200).end();
   }
   next();
 });
-
-app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(null, true); // Allow all for now during development
-    }
-  },
-  credentials: true
-}));
 app.use(express.json());
 
 // Routes
@@ -59,6 +53,7 @@ app.use('/api/deals', require('./routes/deals'));
 app.use('/api/packages', require('./routes/packages'));
 app.use('/api/payment', require('./routes/payment'));
 app.use('/api/reviews', require('./routes/reviews'));
+app.use('/api/profile', require('./routes/profile'));
 
 // Root endpoint
 app.get('/', (req, res) => {

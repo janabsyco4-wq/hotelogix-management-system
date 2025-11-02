@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './Rooms.css';
 
 const Rooms = () => {
@@ -123,15 +124,7 @@ const Rooms = () => {
   const roomTypes = [...new Set(rooms.map(room => room.type))];
 
   if (loading) {
-    return (
-      <div className="rooms-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading rooms..." />;
   }
 
   return (

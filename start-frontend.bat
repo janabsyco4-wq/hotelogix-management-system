@@ -1,4 +1,9 @@
 @echo off
-echo Starting Frontend Server...
+echo ========================================
+echo  Starting Frontend Development Server
+echo ========================================
+echo.
+echo Starting React app on http://localhost:3000
+echo.
 cd client
-npm start
+node node_modules/react-scripts/scripts/start.js

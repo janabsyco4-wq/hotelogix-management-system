@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './ProcessRefund.css';
 
 const ProcessRefund = () => {
@@ -109,16 +110,7 @@ const ProcessRefund = () => {
   };
 
   if (loading) {
-    return (
-      <div className="process-refund-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-            <p>Loading booking details...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading booking details..." />;
   }
 
   if (!booking) {

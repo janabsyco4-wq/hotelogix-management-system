@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './SmartRoomFinder.css';
 
 const SmartRoomFinder = () => {
@@ -312,10 +313,7 @@ const SmartRoomFinder = () => {
                             </div>
 
                             {loading ? (
-                                <div className="loading">
-                                    <div className="spinner"></div>
-                                    <p>AI is analyzing your preferences...</p>
-                                </div>
+                                <Loading message="AI is analyzing your preferences..." />
                             ) : (
                                 <>
                                     <div className="recommendations-grid">

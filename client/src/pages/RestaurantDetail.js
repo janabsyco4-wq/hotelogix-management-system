@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './RestaurantDetail.css';
 
 const RestaurantDetail = () => {
@@ -72,15 +73,7 @@ const RestaurantDetail = () => {
   };
 
   if (loading) {
-    return (
-      <div className="restaurant-detail-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading restaurant details..." />;
   }
 
   if (!restaurant) {

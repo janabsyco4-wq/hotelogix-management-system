@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './Dining.css';
 
 const Dining = () => {
@@ -52,16 +53,7 @@ const Dining = () => {
   };
 
   if (loading) {
-    return (
-      <div className="dining-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-            <p>Loading restaurants...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading restaurants..." />;
   }
 
   return (

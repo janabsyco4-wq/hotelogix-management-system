@@ -6,6 +6,7 @@ import axios from '../api/axios';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import StripePayment from '../components/StripePayment';
+import Loading from '../components/Loading';
 import './RedeemDeal.css';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || 'pk_test_51SOjybFsAUb4gKn6SYm9xmCiVHgXyvhnIz5VrMEK02X772dYOQoh3UHIlNXtf9vT5UBzS19GfW9qXr9VZtY01Y4h006hoQfgFc');
@@ -70,15 +71,7 @@ const RedeemDeal = () => {
   };
 
   if (loading) {
-    return (
-      <div className="redeem-deal-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading deal details..." />;
   }
 
   if (!deal) {

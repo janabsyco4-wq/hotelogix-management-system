@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 import { useAuth } from '../contexts/AuthContext';
+import Loading from '../components/Loading';
 import './Home.css';
 
 const Home = () => {
@@ -56,6 +57,10 @@ const Home = () => {
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + Math.max(1, attractions.length - 2)) % Math.max(1, attractions.length - 2));
   };
+
+  if (loading) {
+    return <Loading message="Loading home page..." />;
+  }
 
   return (
     <div className="home">

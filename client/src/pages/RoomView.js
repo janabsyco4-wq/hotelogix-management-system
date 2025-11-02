@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './RoomView.css';
 
 const RoomView = () => {
@@ -33,11 +34,7 @@ const RoomView = () => {
   };
 
   if (loading) {
-    return (
-      <div className="room-view">
-        <div className="loading">Loading...</div>
-      </div>
-    );
+    return <Loading message="Loading room details..." />;
   }
 
   if (!room) {

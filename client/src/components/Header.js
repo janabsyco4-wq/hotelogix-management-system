@@ -161,6 +161,9 @@ const Header = () => {
             {user && (
               <>
                 <li><Link to="/my-bookings" className={`nav-link ${isActive('/my-bookings') ? 'active' : ''}`}>MY BOOKINGS</Link></li>
+                {!user.email.includes('admin') && (
+                  <li><Link to="/profile" className={`nav-link ${isActive('/profile') ? 'active' : ''}`}>👤 PROFILE</Link></li>
+                )}
                 {user.email.includes('admin') && (
                   <>
                     <li><Link to="/admin" className={`nav-link ${isActive('/admin') ? 'active' : ''}`}>ADMIN</Link></li>

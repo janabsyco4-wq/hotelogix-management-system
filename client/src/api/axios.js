@@ -6,6 +6,9 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000
 // Add ngrok bypass header for all requests
 axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'true';
 
+// Don't send credentials with CORS requests (required for wildcard origin)
+axios.defaults.withCredentials = false;
+
 // Request queue to limit concurrent requests (ngrok free tier limitation)
 let requestQueue = [];
 let activeRequests = 0;

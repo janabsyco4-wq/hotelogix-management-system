@@ -23,6 +23,7 @@ import DealView from './pages/DealView';
 import RedeemDeal from './pages/RedeemDeal';
 import PackageView from './pages/PackageView';
 import BookPackage from './pages/BookPackage';
+import Profile from './pages/Profile';
 import { useAuth } from './contexts/AuthContext';
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <>
               <Route path="/bookings" element={<Bookings />} />
               <Route path="/my-bookings" element={<MyBookings />} />
+              <Route path="/profile" element={<Profile />} />
               {user.email.includes('admin') && (
                 <>
                   <Route path="/admin" element={<AdminDashboard />} />

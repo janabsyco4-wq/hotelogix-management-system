@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './PackageDetail.css';
 
 const PackageView = () => {
@@ -28,15 +29,7 @@ const PackageView = () => {
   };
 
   if (loading) {
-    return (
-      <div className="package-detail-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading package details..." />;
   }
 
   if (!pkg) {

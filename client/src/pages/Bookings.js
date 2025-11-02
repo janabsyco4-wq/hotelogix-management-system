@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import Loading from '../components/Loading';
 import './Bookings.css';
 
 const Bookings = () => {
@@ -172,15 +173,7 @@ const Bookings = () => {
   };
 
   if (loading) {
-    return (
-      <div className="bookings-page">
-        <div className="container">
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading your bookings..." />;
   }
 
   return (
