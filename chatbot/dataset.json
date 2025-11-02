@@ -1,0 +1,403 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi", "Hello", "Hey", "Good morning", "Good afternoon", "Good evening", "Good night",
+        "Hi there", "Hello there", "Hey there", "Greetings", "What's up", "Howdy", "Yo",
+        "How are you", "How's it going", "Nice to meet you", "Pleased to meet you",
+        "How do you do", "How are things", "How's everything", "How are you doing",
+        "What's happening", "What's new", "How's your day", "Good to see you",
+        "How have you been", "What's going on", "How's life", "How are you today",
+        "Hope you're well", "How's your day going", "What's cooking", "Hiya",
+        "Aloha", "Bonjour", "Namaste", "Salutations", "Welcome", "Hola",
+        "Start", "Begin", "Help", "Assist me", "I need help", "Support"
+      ],
+      "responses": [
+        "Hello! Welcome to Hotelogix! How can I assist you today?",
+        "Hi there! I'm here to help you with your hotel needs. What can I do for you?",
+        "Greetings! I'm your virtual assistant. How may I help you?",
+        "Hello! Ready to help you find the perfect stay. What would you like to know?",
+        "Welcome to Hotelogix! I'm your AI assistant. How can I make your day better?",
+        "Hi! Great to see you! What brings you here today?",
+        "Hello and welcome! I'm excited to help you with your hotel booking!"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye", "Goodbye", "See you later", "Talk to you later", "Farewell", "Adios",
+        "Take care", "Have a good day", "Until next time", "Catch you later", "Ciao",
+        "Thanks, bye", "That's all, thanks", "Have a great day", "Have a nice day",
+        "Have a wonderful day", "Good night", "Sleep well", "I'm done", "I'm leaving",
+        "Gotta go", "I have to go", "Time to go", "I'm off", "I'm out", "Peace out",
+        "I'm good", "All done", "That's it", "Nothing else", "I'm finished",
+        "That's all I needed", "Exit", "Quit", "Close", "End", "Stop",
+        "No more questions", "I'm satisfied", "Thank you goodbye", "Cheers", "Later"
+      ],
+      "responses": [
+        "Goodbye! Thank you for choosing Hotelogix. Have a wonderful day!",
+        "See you later! Don't hesitate to reach out if you need anything else.",
+        "Take care! We're always here to help with your hotel needs.",
+        "Farewell! Hope to assist you again soon.",
+        "Thanks for chatting! Have a great day ahead!",
+        "Goodbye! We look forward to welcoming you to Hotelogix!",
+        "See you soon! Safe travels!"
+      ]
+    },
+    {
+      "tag": "booking",
+      "patterns": [
+        "I want to book a room", "How do I make a reservation", "Book a room", "Reserve a room",
+        "Make a booking", "I need accommodation", "How to book", "Booking process",
+        "Make reservation", "Room booking", "I want to stay", "Need a room", "Hotel booking",
+        "Book now", "Reserve now", "I need a place to stay", "Looking for accommodation",
+        "Want to reserve", "How can I book", "Booking a hotel", "Reserve accommodation",
+        "I'd like to book", "Can I book", "Book for tonight", "Book for tomorrow",
+        "Book for this weekend", "Book for next week", "Last minute booking",
+        "Emergency booking", "Urgent booking", "Quick booking", "Immediate booking",
+        "Group booking", "Family booking", "Business booking", "Vacation booking",
+        "Honeymoon booking", "Anniversary booking", "Birthday booking", "Special occasion",
+        "Long term stay", "Extended stay", "Weekly booking", "Monthly booking",
+        "Book multiple rooms", "Book a suite", "Book deluxe room", "Book standard room",
+        "Online booking", "Phone booking", "Direct booking", "Instant booking"
+      ],
+      "responses": [
+        "I'd be happy to help you book a room! You can browse our available rooms and make a reservation directly on our website. Would you like me to guide you through the process?",
+        "To book a room, simply visit our Rooms page, select your preferred dates, and choose from our available accommodations. You can also use our AI Room Finder for personalized recommendations!",
+        "Great! You can make a booking by selecting your check-in and check-out dates on our Rooms page. Our AI Room Finder can also help match you with the perfect room based on your preferences.",
+        "Excellent! Let me help you with that. Visit our Rooms section, choose your dates, and browse through our 48 beautifully designed rooms. Need help deciding? Try our AI Room Finder!",
+        "Perfect timing! We have great availability. Head to our Rooms page to see all options, or use our Smart AI Finder to get personalized room recommendations!"
+      ]
+    },
+    {
+      "tag": "rooms",
+      "patterns": [
+        "What rooms do you have", "Room types", "Available rooms", "Show me rooms",
+        "Room options", "What kind of rooms", "Room categories", "Accommodation types",
+        "Tell me about rooms", "Room information", "What rooms are available",
+        "Standard room", "Deluxe room", "Suite", "Premium suite", "Luxury room",
+        "Single room", "Double room", "Twin room", "Family room", "King room", "Queen room",
+        "Executive room", "Junior suite", "Presidential suite", "Penthouse",
+        "Smoking room", "Non-smoking room", "Pet-friendly room", "Accessible room",
+        "Wheelchair accessible", "Room with view", "Ocean view", "City view", "Garden view",
+        "Room size", "Room capacity", "How many people", "Room for 2", "Room for 4",
+        "Biggest room", "Smallest room", "Cheapest room", "Most expensive room",
+        "Best room", "Popular room", "Recommended room", "Top rated room",
+        "Room with balcony", "Room with terrace", "Room with jacuzzi", "Room with kitchen",
+        "Room features", "Room amenities", "Room details", "Room specifications"
+      ],
+      "responses": [
+        "We offer a variety of room types including Standard Rooms, Deluxe Rooms, Suites, and Premium Suites. Each comes with modern amenities like free WiFi, air conditioning, and premium toiletries. Would you like details about a specific room type?",
+        "Our rooms range from cozy Standard Rooms to luxurious Premium Suites. All rooms feature comfortable beds, modern bathrooms, flat-screen TVs, and complimentary WiFi. Check out our Rooms page for detailed information and photos!",
+        "We have 48 beautifully designed rooms across different categories. From budget-friendly options to luxury suites, we have something for every traveler. Visit our Rooms section to explore all options!",
+        "Our accommodation options include: Standard Rooms (perfect for solo travelers or couples), Deluxe Rooms (extra space and comfort), Suites (separate living areas), and Premium Suites (ultimate luxury)!",
+        "Choose from our diverse room selection: Standard, Deluxe, Suite, or Premium Suite. Each category offers unique features while maintaining our high standards of comfort!"
+      ]
+    },
+    {
+      "tag": "pricing",
+      "patterns": [
+        "How much does it cost", "Room prices", "What are your rates", "Pricing", "Cost",
+        "How expensive", "Cost of rooms", "Room rates", "Price range", "Charges",
+        "How much for a room", "What's the price", "Rates", "Fees", "Tariff",
+        "What do you charge", "Price per night", "Nightly rate", "Daily rate",
+        "Weekly rate", "Monthly rate", "Price list", "Rate card", "Pricing details",
+        "Budget", "Affordable rooms", "Cheap rooms", "Expensive rooms", "Luxury pricing",
+        "Standard room price", "Deluxe room price", "Suite price", "Premium suite price",
+        "Discount", "Special rate", "Corporate rate", "Group rate", "Member rate",
+        "Best price", "Lowest price", "Cheapest option", "Most affordable",
+        "Price comparison", "Cost breakdown", "Total cost", "Final price",
+        "Hidden fees", "Extra charges", "Additional costs", "Taxes included",
+        "Price for two nights", "Price for a week", "Price for a month"
+      ],
+      "responses": [
+        "Our room rates vary depending on the room type, dates, and availability. Prices typically range from $89 for Standard Rooms to $299 for Premium Suites. Check our Rooms page for current rates!",
+        "Room prices depend on your selected dates and room category. We often have special deals available. Visit our Deals page for promotions!",
+        "Pricing varies by room type and season. For accurate rates, select your dates on our booking page. We also offer package deals!",
+        "Standard Rooms start at $89/night, Deluxe Rooms at $149/night, Suites at $199/night, and Premium Suites at $299/night. Prices may vary by season!",
+        "We offer competitive pricing across all categories! Visit our Rooms page for current rates, or check our Deals section for special promotions!"
+      ]
+    },
+    {
+      "tag": "amenities",
+      "patterns": [
+        "What amenities do you have", "Hotel facilities", "What's included", "Room amenities",
+        "Hotel features", "What do you offer", "Facilities", "Services",
+        "What comes with the room", "Hotel services", "Room features",
+        "WiFi", "Internet", "Free WiFi", "Wireless internet", "Internet access",
+        "Parking", "Free parking", "Valet parking", "Self parking", "Car parking",
+        "Pool", "Swimming pool", "Gym", "Fitness center", "Exercise room", "Workout facility",
+        "Restaurant", "Dining", "Food", "Bar", "Lounge", "Cafe",
+        "Spa", "Massage", "Wellness", "Sauna", "Steam room",
+        "Laundry", "Dry cleaning", "Laundry service", "Ironing",
+        "Room service", "24 hour service", "Concierge", "Front desk",
+        "Business center", "Meeting rooms", "Conference facilities", "Event space",
+        "Breakfast", "Free breakfast", "Complimentary breakfast", "Breakfast included",
+        "Mini bar", "Coffee maker", "Tea", "Refrigerator", "Microwave",
+        "TV", "Television", "Cable TV", "Satellite TV", "Smart TV",
+        "Air conditioning", "AC", "Heating", "Climate control",
+        "Safe", "Security box", "Iron", "Hair dryer", "Toiletries",
+        "Towels", "Linens", "Bedding", "Pillows", "Blankets",
+        "Balcony", "Terrace", "Patio", "View", "Bathtub", "Shower", "Jacuzzi"
+      ],
+      "responses": [
+        "Our rooms include free WiFi, air conditioning, flat-screen TV, mini bar, coffee maker, and premium toiletries. Hotel amenities include restaurants, room service, fitness center, and concierge services.",
+        "We offer comprehensive amenities including 24/7 room service, multiple dining options, fitness facilities, business center, and concierge services. All rooms feature modern comforts and complimentary WiFi.",
+        "Each room comes with essential amenities like AC, WiFi, TV, and coffee maker. Our hotel also features restaurants, spa services, and 24/7 customer support.",
+        "Enjoy free WiFi, flat-screen TV, mini bar, coffee/tea facilities, premium toiletries, plush bedding, and more in every room! Hotel facilities include restaurants, fitness center, and business center.",
+        "All rooms feature: Free high-speed WiFi, Smart TV, climate control, mini bar, coffee maker, safe, iron/ironing board, hair dryer, and luxury toiletries!"
+      ]
+    },
+    {
+      "tag": "location",
+      "patterns": [
+        "Where are you located", "Hotel location", "Address", "Where is the hotel",
+        "Location", "How to find you", "Where are you", "Hotel address",
+        "Directions", "How to get there", "How do I get there", "Map",
+        "GPS coordinates", "Exact location", "Street address", "City",
+        "Neighborhood", "Area", "District", "Region", "Nearby landmarks",
+        "Close to airport", "Near downtown", "City center", "Distance from airport",
+        "How far from", "Proximity to", "Nearby attractions", "Local area",
+        "Transportation", "Public transport", "Metro", "Bus", "Train station",
+        "Taxi", "Uber", "Shuttle service", "Airport transfer"
+      ],
+      "responses": [
+        "We're located in Kansas City and Independence, Missouri. Our properties are strategically positioned to provide easy access to local attractions and business districts.",
+        "Our hotels are situated in Kansas City and Independence, MO, offering convenient access to the area's best attractions, dining, and entertainment options.",
+        "You can find us in the heart of Kansas City and Independence, Missouri. We're easily accessible and close to major landmarks and transportation hubs.",
+        "We have properties in Kansas City and Independence, MO. Both locations offer excellent access to local attractions, shopping, and dining. Visit our website for detailed directions!",
+        "Located in Kansas City and Independence, Missouri, our hotels provide convenient access to everything the area has to offer. We're close to major highways and public transportation!"
+      ]
+    },
+    {
+      "tag": "dining",
+      "patterns": [
+        "Do you have restaurants", "Dining options", "Food", "Restaurant",
+        "Where can I eat", "Dining", "Food service", "Room service",
+        "Breakfast", "Lunch", "Dinner", "Menu", "Cuisine", "Food menu",
+        "Restaurant hours", "Dining hours", "When is breakfast", "Breakfast time",
+        "Room service menu", "In-room dining", "Order food", "Food delivery",
+        "Bar", "Drinks", "Beverages", "Cocktails", "Wine", "Beer",
+        "Coffee shop", "Cafe", "Snacks", "Light meals", "Quick bites",
+        "Fine dining", "Casual dining", "Buffet", "A la carte",
+        "Vegetarian options", "Vegan options", "Gluten free", "Dietary restrictions",
+        "Special diet", "Allergies", "Food allergies", "Kosher", "Halal"
+      ],
+      "responses": [
+        "Yes! We have multiple dining options including fine dining restaurants and casual cafes. We also offer 24/7 room service. Check out our Dining page to explore all our culinary offerings!",
+        "We feature several restaurants with diverse cuisines, from casual dining to upscale experiences. Room service is available 24/7, and we often have special dining deals available.",
+        "Our dining options include award-winning restaurants, cozy cafes, and comprehensive room service. Visit our Dining section to see menus, make reservations, and discover current food deals!",
+        "We offer multiple dining venues including restaurants, bars, and cafes. Room service is available 24/7. We can accommodate special dietary requirements - just let us know!",
+        "Enjoy diverse dining experiences at our property! From fine dining to casual meals, plus 24/7 room service. Check our Dining page for menus and reservations!"
+      ]
+    },
+    {
+      "tag": "deals",
+      "patterns": [
+        "Do you have deals", "Special offers", "Discounts", "Promotions", "Sales",
+        "Packages", "Special packages", "Offers", "Savings", "Deals",
+        "Any discounts", "Current offers", "Special rates", "Promo code",
+        "Coupon", "Voucher", "Discount code", "Special pricing",
+        "Early bird", "Last minute deals", "Flash sale", "Limited time offer",
+        "Seasonal offers", "Holiday deals", "Weekend deals", "Weekday deals",
+        "Group discounts", "Corporate discounts", "Member discounts",
+        "Loyalty program", "Rewards", "Points", "Benefits",
+        "Package deals", "Bundled offers", "Combo deals", "All-inclusive",
+        "Honeymoon package", "Romance package", "Family package",
+        "Business package", "Spa package", "Dining package"
+      ],
+      "responses": [
+        "Yes! We regularly offer special deals and packages. Check our Deals page for current promotions on rooms, dining, and experiences. We also have exclusive packages that combine accommodation with local attractions!",
+        "We have various deals available including room discounts, dining packages, and experience bundles. Our Packages section features curated offers that provide great value for different types of stays.",
+        "Absolutely! We offer seasonal promotions, early booking discounts, and special packages. Visit our Deals and Packages pages to see all current offers and save on your stay!",
+        "We have great deals available! From early bird discounts to last-minute offers, check our Deals page for current promotions. We also offer special packages for honeymoons, families, and business travelers!",
+        "Yes! We have ongoing promotions and package deals. Visit our Deals section to see current offers on rooms, dining, and experiences. Sign up for our newsletter to get exclusive deals!"
+      ]
+    },
+    {
+      "tag": "cancellation",
+      "patterns": [
+        "Can I cancel my booking", "Cancellation policy", "Cancel reservation",
+        "How to cancel", "Refund policy", "Can I get a refund", "Cancellation",
+        "Change booking", "Modify reservation", "Cancel my room",
+        "Cancellation fee", "Penalty for cancelling", "Free cancellation",
+        "Cancel without penalty", "Cancellation deadline", "Last minute cancellation",
+        "Emergency cancellation", "Refund process", "How long for refund",
+        "Partial refund", "Full refund", "No refund", "Non-refundable",
+        "Flexible booking", "Flexible cancellation", "Reschedule booking",
+        "Change dates", "Modify dates", "Update reservation",
+        "Cancel and rebook", "Transfer booking", "Change room type"
+      ],
+      "responses": [
+        "Yes, you can cancel your booking! Our standard policy allows free cancellation up to 24 hours before check-in. You can manage your booking through the 'My Bookings' section or contact us directly.",
+        "We offer flexible cancellation policies. Most bookings can be cancelled free of charge up to 24 hours before your arrival. For specific terms, please check your booking confirmation or visit our Terms & Conditions.",
+        "Cancellations are typically free up to 24 hours before check-in. You can cancel or modify your reservation through your account or by contacting our support team. Refunds are processed within 5-10 business days.",
+        "Our cancellation policy allows free cancellation up to 24 hours before check-in. After that, cancellation fees may apply. You can manage your booking online or contact us for assistance!",
+        "You can cancel or modify your booking up to 24 hours before check-in without penalty. Visit 'My Bookings' to manage your reservation or contact our support team for help!"
+      ]
+    },
+    {
+      "tag": "checkin",
+      "patterns": [
+        "What time is check-in", "Check-in time", "When can I check in",
+        "Check in", "Arrival time", "What time can I arrive", "Check-in process",
+        "Early check-in", "Late check-in", "Check-in procedure",
+        "Check-out time", "When is check-out", "Late check-out",
+        "Check-in requirements", "What do I need to check in",
+        "ID required", "Credit card required", "Deposit required",
+        "Check-in desk", "Reception", "Front desk hours",
+        "24 hour check-in", "After hours check-in", "Self check-in",
+        "Online check-in", "Mobile check-in", "Express check-in",
+        "Check-in age", "Minimum age", "Age requirement"
+      ],
+      "responses": [
+        "Standard check-in time is 3:00 PM. Early check-in may be available upon request, subject to room availability. Please bring a valid ID and the credit card used for booking.",
+        "Check-in begins at 3:00 PM. If you need to arrive earlier, please contact us and we'll do our best to accommodate you. Don't forget to bring your ID and booking confirmation!",
+        "Our check-in time is 3:00 PM, and check-out is at 11:00 AM. For early check-in requests, please call ahead. We'll need your government-issued ID and the credit card used for the reservation.",
+        "Check-in is at 3:00 PM and check-out is at 11:00 AM. Early check-in and late check-out may be available for an additional fee, subject to availability. Contact us to arrange!",
+        "Standard check-in: 3:00 PM, Check-out: 11:00 AM. We offer 24-hour front desk service. For early arrival or late departure, please contact us in advance!"
+      ]
+    },
+    {
+      "tag": "contact",
+      "patterns": [
+        "How can I contact you", "Phone number", "Email", "Contact information",
+        "How to reach you", "Customer service", "Support", "Contact details",
+        "Call you", "Get in touch", "Reach out", "Contact form",
+        "Customer support", "Help desk", "Support team", "Service desk",
+        "Phone", "Telephone", "Call", "Ring", "Dial",
+        "Email address", "Send email", "Write to you",
+        "WhatsApp", "Text", "SMS", "Message",
+        "Live chat", "Chat support", "Online chat",
+        "Social media", "Facebook", "Twitter", "Instagram",
+        "24 hour support", "24/7 support", "Round the clock",
+        "Emergency contact", "Urgent help", "Immediate assistance"
+      ],
+      "responses": [
+        "You can reach us at +92 310 4594964 (phone/WhatsApp) or email us at shehroozking3@gmail.com. We're available 24/7 to assist you! You can also use our Contact page on the website.",
+        "Our contact details are: Phone: +92 310 4594964, WhatsApp: +92 310 4594964, Email: shehroozking3@gmail.com. We provide 24/7 customer support for all your needs!",
+        "Feel free to contact us anytime! Call or WhatsApp: +92 310 4594964, Email: shehroozking3@gmail.com. You can also fill out the contact form on our website for non-urgent inquiries.",
+        "We're here to help 24/7! Phone: +92 310 4594964, WhatsApp: +92 310 4594964, Email: shehroozking3@gmail.com. Visit our Contact page for more ways to reach us!",
+        "Contact us anytime: Phone/WhatsApp: +92 310 4594964, Email: shehroozking3@gmail.com. We also have live chat on our website for instant assistance!"
+      ]
+    },
+    {
+      "tag": "ai_finder",
+      "patterns": [
+        "What is AI Room Finder", "AI finder", "Smart room finder", "AI recommendations",
+        "How does AI work", "Room recommendations", "AI room matching",
+        "Smart recommendations", "AI room selection", "Intelligent search",
+        "AI technology", "Machine learning", "Smart search",
+        "Personalized recommendations", "Custom recommendations",
+        "Room matcher", "Find perfect room", "Best room for me",
+        "AI assistant", "Smart assistant", "Virtual assistant",
+        "How does it work", "AI features", "Smart features"
+      ],
+      "responses": [
+        "Our AI Room Finder is a smart tool that analyzes your preferences (travel type, group size, budget, dates) and recommends the perfect room for you! It uses machine learning to match you with accommodations based on your specific needs.",
+        "The AI Room Finder uses advanced algorithms to understand your travel preferences and suggest the best room options. Just answer a few questions about your trip, and it will provide personalized recommendations!",
+        "Our Smart Room Finder leverages AI technology to analyze your requirements and match you with the ideal accommodation. It considers factors like travel purpose, group size, budget, and dates to find your perfect room!",
+        "The AI Room Finder is an intelligent tool that learns your preferences and suggests the best rooms for your stay. It's like having a personal hotel concierge powered by artificial intelligence!",
+        "Our AI technology analyzes your travel needs and recommends rooms that match your preferences perfectly. It's fast, smart, and helps you find the ideal accommodation in seconds!"
+      ]
+    },
+    {
+      "tag": "wifi",
+      "patterns": [
+        "Do you have WiFi", "Internet", "WiFi password", "Free WiFi",
+        "Internet access", "WiFi connection", "Wireless internet",
+        "Is WiFi free", "Internet service", "WiFi speed",
+        "High speed internet", "Fast WiFi", "WiFi in rooms",
+        "WiFi coverage", "Internet connection", "Online access",
+        "WiFi network", "Network name", "SSID", "WiFi login",
+        "Internet password", "WiFi code", "Connection details"
+      ],
+      "responses": [
+        "Yes! We provide complimentary high-speed WiFi throughout the property. All guests have free access to our wireless internet in rooms and common areas.",
+        "Free WiFi is available in all rooms and public areas. You'll receive the network details at check-in, and our high-speed connection ensures you stay connected throughout your stay.",
+        "Absolutely! Complimentary WiFi is included with your stay. Our high-speed wireless internet is available 24/7 in all rooms and hotel facilities.",
+        "We offer free high-speed WiFi throughout the hotel. Network details will be provided at check-in. Stay connected in your room and all public areas!",
+        "Yes! Free WiFi is available everywhere in the hotel. We provide high-speed internet access to all guests at no additional charge!"
+      ]
+    },
+    {
+      "tag": "parking",
+      "patterns": [
+        "Do you have parking", "Parking available", "Where can I park",
+        "Parking fees", "Free parking", "Valet parking", "Self parking",
+        "Car parking", "Parking space", "Parking lot", "Garage",
+        "Parking charges", "Parking cost", "Parking rates",
+        "Overnight parking", "Long term parking", "Secure parking",
+        "Covered parking", "Underground parking", "Parking reservation",
+        "EV charging", "Electric car charging", "Tesla charging",
+        "Parking validation", "Parking ticket", "Parking pass"
+      ],
+      "responses": [
+        "Yes, we offer both self-parking and valet parking services. Parking fees vary by location, and some packages include complimentary parking. Please check with our front desk for current rates.",
+        "Parking is available at our properties. We provide both self-service and valet options. Some room packages include free parking - please inquire about availability when booking.",
+        "We have parking facilities available for guests. Options include self-parking and valet services. Rates vary, and complimentary parking may be included with certain bookings.",
+        "Yes! We offer convenient parking options including self-parking and valet service. Contact us for current rates and to check if your booking includes complimentary parking!",
+        "Parking is available on-site. We offer both self-parking and valet options. Some packages include free parking - check your booking details or contact us for information!"
+      ]
+    },
+    {
+      "tag": "pets",
+      "patterns": [
+        "Are pets allowed", "Can I bring my pet", "Pet friendly", "Dogs allowed",
+        "Pet policy", "Animals allowed", "Bring my dog", "Pet fees",
+        "Pet accommodation", "Pets welcome", "Dog friendly", "Cat friendly",
+        "Pet deposit", "Pet charges", "Pet restrictions", "Pet size limit",
+        "Service animals", "Emotional support animals", "ESA",
+        "Pet amenities", "Pet services", "Dog walking", "Pet sitting",
+        "Pet food", "Pet bowls", "Pet beds", "Pet toys"
+      ],
+      "responses": [
+        "We offer pet-friendly rooms in select properties! Please contact us in advance to arrange pet accommodation. Additional fees may apply, and we'll ensure both you and your furry friend have a comfortable stay.",
+        "Yes, we welcome pets in designated pet-friendly rooms. Please let us know when booking so we can arrange appropriate accommodation. Pet fees and policies vary, so please contact us for details.",
+        "We're happy to accommodate your pets! Pet-friendly rooms are available with advance notice. Please call us to discuss pet policies, fees, and to ensure we have suitable accommodation ready for your arrival.",
+        "Yes! We welcome pets in select rooms. Please inform us when booking so we can prepare a pet-friendly room. Additional fees apply. We want both you and your pet to have a great stay!",
+        "We love pets! Pet-friendly accommodations are available with advance reservation. Contact us to discuss our pet policy, fees, and to book a suitable room for you and your furry companion!"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thank you", "Thanks", "Thank you so much", "Thanks a lot",
+        "I appreciate it", "Thanks for your help", "Thank you for the information",
+        "Great, thanks", "Perfect, thank you", "Awesome, thanks",
+        "Much appreciated", "Many thanks", "Thanks a bunch",
+        "Thank you very much", "Thanks so much", "Appreciate it",
+        "Grateful", "Thankful", "Cheers", "Ta", "Thx", "Ty",
+        "Thanks for everything", "Thanks for your time", "Thanks for helping"
+      ],
+      "responses": [
+        "You're very welcome! I'm glad I could help. If you have any other questions about Hotelogix, feel free to ask anytime!",
+        "My pleasure! I'm here to help make your hotel experience as smooth as possible. Don't hesitate to reach out if you need anything else!",
+        "You're welcome! Happy to assist you. If you need any more information about our services or want to make a booking, I'm here to help!",
+        "Anytime! I'm always here to help with your hotel needs. Feel free to ask if you have more questions!",
+        "You're most welcome! It's my pleasure to assist you. Have a wonderful day!"
+      ]
+    },
+    {
+      "tag": "help",
+      "patterns": [
+        "I need help", "Can you help me", "Help", "I'm confused",
+        "I don't understand", "Can you assist", "I need assistance",
+        "Support", "I have a problem", "Can you guide me",
+        "I'm lost", "I'm stuck", "Help me", "Assist me",
+        "I need support", "Can you explain", "I have a question",
+        "I'm not sure", "Clarify", "Explain", "Guide me",
+        "What can you do", "How can you help", "What do you do",
+        "Tell me more", "More information", "Additional info"
+      ],
+      "responses": [
+        "Of course! I'm here to help you with anything related to Hotelogix. Whether you need information about rooms, bookings, amenities, or services, just let me know what you'd like to know!",
+        "I'd be happy to assist you! You can ask me about room bookings, hotel amenities, dining options, deals, policies, or any other questions about our services. What would you like help with?",
+        "Absolutely! I'm your virtual assistant for all things Hotelogix. Feel free to ask about accommodations, reservations, facilities, or any other hotel-related questions. How can I help you today?",
+        "I'm here to help! You can ask me about rooms, pricing, amenities, location, dining, deals, policies, and more. What would you like to know?",
+        "Happy to assist! I can help with bookings, room information, hotel facilities, pricing, policies, and more. What do you need help with?"
+      ]
+    }
+  ]
+}
