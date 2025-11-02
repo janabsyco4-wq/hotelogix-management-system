@@ -44,9 +44,9 @@ const sendWelcomeEmail = async (user) => {
     const transporter = createTransporter();
     
     const mailOptions = {
-      from: '"Stoney Creek Resort" <janabsyco4@gmail.com>',
+      from: '"Hotelogix" <janabsyco4@gmail.com>',
       to: user.email,
-      subject: 'Welcome to Stoney Creek Resort! 🏨',
+      subject: 'Welcome to Hotelogix! 🏨',
       html: `
         <!DOCTYPE html>
         <html>
@@ -63,11 +63,11 @@ const sendWelcomeEmail = async (user) => {
         <body>
           <div class="container">
             <div class="header">
-              <h1>Welcome to Stoney Creek Resort!</h1>
+              <h1>Welcome to Hotelogix!</h1>
             </div>
             <div class="content">
               <h2>Hi ${user.name}! 👋</h2>
-              <p>Thank you for joining Stoney Creek Resort. We're excited to have you as part of our community!</p>
+              <p>Thank you for joining Hotelogix. We're excited to have you as part of our community!</p>
               
               <p><strong>Your account is now active and ready to use.</strong></p>
               
@@ -87,10 +87,10 @@ const sendWelcomeEmail = async (user) => {
               
               <p>If you have any questions, feel free to contact our support team.</p>
               
-              <p>Best regards,<br>The Stoney Creek Resort Team</p>
+              <p>Best regards,<br>The Hotelogix Team</p>
             </div>
             <div class="footer">
-              <p>© 2025 Stoney Creek Resort. All rights reserved.</p>
+              <p>© 2025 Hotelogix. All rights reserved.</p>
               <p>You're receiving this email because you created an account with us.</p>
             </div>
           </div>
@@ -119,7 +119,7 @@ const sendBookingConfirmation = async (booking, user, room) => {
     });
     
     const mailOptions = {
-      from: '"Stoney Creek Resort" <janabsyco4@gmail.com>',
+      from: '"Hotelogix" <janabsyco4@gmail.com>',
       to: user.email,
       subject: `Booking Confirmation - ${room.name} 🎉`,
       html: `
@@ -146,7 +146,7 @@ const sendBookingConfirmation = async (booking, user, room) => {
             </div>
             <div class="content">
               <h2>Hi ${user.name}! 🎉</h2>
-              <p>Great news! Your booking has been confirmed. We can't wait to welcome you to Stoney Creek Resort!</p>
+              <p>Great news! Your booking has been confirmed. We can't wait to welcome you to Hotelogix!</p>
               
               <div class="booking-details">
                 <h3>Booking Details</h3>
@@ -194,10 +194,10 @@ const sendBookingConfirmation = async (booking, user, room) => {
               
               <p>Looking forward to hosting you!</p>
               
-              <p>Best regards,<br>The Stoney Creek Resort Team</p>
+              <p>Best regards,<br>The Hotelogix Team</p>
             </div>
             <div class="footer">
-              <p>© 2025 Stoney Creek Resort. All rights reserved.</p>
+              <p>© 2025 Hotelogix. All rights reserved.</p>
               <p>Booking ID: #${booking.id}</p>
             </div>
           </div>
@@ -223,7 +223,7 @@ const sendPaymentReceipt = async (payment, booking, user, room) => {
     });
     
     const mailOptions = {
-      from: '"Stoney Creek Resort" <janabsyco4@gmail.com>',
+      from: '"Hotelogix" <janabsyco4@gmail.com>',
       to: user.email,
       subject: `Payment Receipt - Booking #${booking.id} 💳`,
       html: `
@@ -292,10 +292,10 @@ const sendPaymentReceipt = async (payment, booking, user, room) => {
               
               <p>If you have any questions about this payment, please contact our support team.</p>
               
-              <p>Best regards,<br>The Stoney Creek Resort Team</p>
+              <p>Best regards,<br>The Hotelogix Team</p>
             </div>
             <div class="footer">
-              <p>© 2025 Stoney Creek Resort. All rights reserved.</p>
+              <p>© 2025 Hotelogix. All rights reserved.</p>
               <p>This is an automated receipt. Please do not reply to this email.</p>
             </div>
           </div>
@@ -321,7 +321,7 @@ const sendRefundConfirmation = async (payment, booking, user, room) => {
     });
     
     const mailOptions = {
-      from: '"Stoney Creek Resort" <janabsyco4@gmail.com>',
+      from: '"Hotelogix" <janabsyco4@gmail.com>',
       to: user.email,
       subject: `Refund Processed - Booking #${booking.id} 💰`,
       html: `
@@ -388,14 +388,14 @@ const sendRefundConfirmation = async (payment, booking, user, room) => {
               
               <p><strong>⏰ Processing Time:</strong> The refund will appear in your account within 5-10 business days, depending on your bank.</p>
               
-              <p>We're sorry to see you cancel your booking. We hope to welcome you to Stoney Creek Resort in the future!</p>
+              <p>We're sorry to see you cancel your booking. We hope to welcome you to Hotelogix in the future!</p>
               
               <p>If you have any questions, please don't hesitate to contact us.</p>
               
-              <p>Best regards,<br>The Stoney Creek Resort Team</p>
+              <p>Best regards,<br>The Hotelogix Team</p>
             </div>
             <div class="footer">
-              <p>© 2025 Stoney Creek Resort. All rights reserved.</p>
+              <p>© 2025 Hotelogix. All rights reserved.</p>
               <p>Refund ID: ${payment.stripeRefundId || 'N/A'}</p>
             </div>
           </div>
