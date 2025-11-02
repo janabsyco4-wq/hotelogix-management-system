@@ -15,19 +15,21 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px 20px;
-  gap: 20px;
+  gap: 30px;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
   transition: transform 0.3s ease;
   flex-shrink: 0;
-  min-width: 180px;
+  min-width: 200px;
+  margin-right: 20px;
+  z-index: 10;
 }
 
 .logo:hover {
@@ -61,15 +63,16 @@
 
 .logo-main {
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--text-heading);
   letter-spacing: -0.5px;
-  text-transform: lowercase;
+  text-transform: capitalize;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  white-space: nowrap;
 }
 
 .logo-sub {
@@ -86,8 +89,9 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
   min-width: 0;
+  margin: 0 20px;
 }
 
 .nav-list {
@@ -295,11 +299,13 @@
 .auth-section {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-shrink: 0;
-  min-width: 180px;
+  min-width: 200px;
   justify-content: flex-end;
   white-space: nowrap;
+  margin-left: 20px;
+  z-index: 10;
 }
 
 .user-menu {

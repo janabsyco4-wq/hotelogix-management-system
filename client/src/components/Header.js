@@ -181,7 +181,6 @@ const Header = () => {
           </button>
           {user ? (
             <div className="user-menu">
-              <span className="user-name">Hello, {user.name}</span>
               <button onClick={handleLogout} className="btn btn-secondary">
                 LOGOUT
               </button>
