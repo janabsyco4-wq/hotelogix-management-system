@@ -128,7 +128,7 @@ const RestaurantDetail = () => {
                     <div key={index} className="menu-item">
                       <div className="menu-item-header">
                         <h4>{item.name}</h4>
-                        <span className="price">${item.price.toFixed(2)}</span>
+                        <span className="price">₨{item.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                       </div>
                       <span className="category">{item.category}</span>
                     </div>

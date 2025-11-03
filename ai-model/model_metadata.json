@@ -1,0 +1,25 @@
+{
+  "trained_at": "2025-11-03T19:00:55.846765",
+  "room_types": [
+    "Budget Room",
+    "Economy Room",
+    "Standard Room",
+    "Deluxe Room",
+    "Business Room",
+    "Junior Suite",
+    "Executive Suite",
+    "Family Suite",
+    "Presidential Suite",
+    "Royal Suite"
+  ],
+  "user_types": [
+    "business",
+    "family",
+    "couple",
+    "solo",
+    "group",
+    "luxury",
+    "budget"
+  ],
+  "version": "2.0-Pakistan"
+}

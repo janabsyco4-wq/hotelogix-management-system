@@ -197,8 +197,8 @@ const ReserveTable = () => {
                     <span>{reservationData.guests}</span>
                   </div>
                   <div className="summary-row total">
-                    <span>Deposit (${DEPOSIT_PER_GUEST}/guest)</span>
-                    <span>${calculateTotal()}</span>
+                    <span>Deposit (₨{DEPOSIT_PER_GUEST}/guest)</span>
+                    <span>₨{calculateTotal()}</span>
                   </div>
                 </div>
 

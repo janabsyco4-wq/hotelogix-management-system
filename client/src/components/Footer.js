@@ -22,7 +22,7 @@ const Footer = () => {
               <h3 className="footer-title">Hotelogix</h3>
               <p className="footer-description">
                 Your premier destination for luxury accommodations and exceptional hospitality. 
-                Experience comfort, elegance, and world-class service at our properties in Kansas City and Independence, MO.
+                Experience comfort, elegance, and world-class service at our properties across Okara, Lahore, Sheikhupura, and Multan.
               </p>
               <div className="footer-social">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-link">
@@ -72,7 +72,7 @@ const Footer = () => {
               <ul className="footer-contact">
                 <li>
                   <i className="fas fa-map-marker-alt"></i>
-                  <span>Kansas City & Independence, MO</span>
+                  <span>Okara, Lahore, Sheikhupura & Multan, Punjab</span>
                 </li>
                 <li>
                   <i className="fas fa-phone"></i>

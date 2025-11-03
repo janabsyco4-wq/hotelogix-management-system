@@ -38,7 +38,7 @@ const Bookings = () => {
           room: {
             title: 'Executive Suite',
             type: 'Executive Suite',
-            location: 'Kansas City, MO',
+            location: 'Lahore, Punjab',
             capacity: 2,
             images: ['https://via.placeholder.com/400x250/3b82f6/FFFFFF?text=Executive+Suite']
           }
@@ -54,7 +54,7 @@ const Bookings = () => {
           room: {
             title: 'Deluxe Room',
             type: 'Deluxe Room',
-            location: 'Independence, MO',
+            location: 'Multan, Punjab',
             capacity: 2,
             images: ['https://via.placeholder.com/400x250/2563eb/FFFFFF?text=Deluxe+Room']
           }
@@ -70,7 +70,7 @@ const Bookings = () => {
           room: {
             title: 'Standard Room',
             type: 'Standard Room',
-            location: 'Kansas City, MO',
+            location: 'Okara, Punjab',
             capacity: 2,
             images: ['https://via.placeholder.com/400x250/1e40af/FFFFFF?text=Standard+Room']
           }
@@ -306,7 +306,7 @@ const Bookings = () => {
                         <div className="booking-footer">
                           <div className="booking-price">
                             <span className="price-label">Total Amount</span>
-                            <span className="price-value">${booking.totalPrice.toFixed(2)}</span>
+                            <span className="price-value">₨{booking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
                           </div>
                           <div className="booking-actions">
                             <button 
@@ -418,15 +418,15 @@ const Bookings = () => {
                 <div className="payment-breakdown">
                   <div className="payment-row">
                     <span>Room Rate ({selectedBooking.nights || calculateNights(selectedBooking.checkIn, selectedBooking.checkOut)} nights)</span>
-                    <span>${(selectedBooking.totalPrice * 0.85).toFixed(2)}</span>
+                    <span>₨{(selectedBooking.totalPrice * 0.85).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   </div>
                   <div className="payment-row">
                     <span>Taxes & Fees</span>
-                    <span>${(selectedBooking.totalPrice * 0.15).toFixed(2)}</span>
+                    <span>₨{(selectedBooking.totalPrice * 0.15).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   </div>
                   <div className="payment-row total">
                     <span>Total Amount</span>
-                    <span>${selectedBooking.totalPrice.toFixed(2)}</span>
+                    <span>₨{selectedBooking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   </div>
                 </div>
               </div>

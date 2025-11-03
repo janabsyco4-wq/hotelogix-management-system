@@ -127,15 +127,15 @@ const RedeemDeal = () => {
               </div>
               <div className="summary-row">
                 <span>Original Price</span>
-                <span>${deal.originalPrice.toFixed(2)}</span>
+                <span>₨{deal.originalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
               </div>
               <div className="summary-row highlight">
                 <span>Deal Price</span>
-                <span>${deal.dealPrice.toFixed(2)}</span>
+                <span>₨{deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
               </div>
               <div className="summary-row savings">
                 <span>You Save</span>
-                <span>${(deal.originalPrice - deal.dealPrice).toFixed(2)}</span>
+                <span>₨{(deal.originalPrice - deal.dealPrice).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
               </div>
             </div>
 
@@ -197,15 +197,15 @@ const RedeemDeal = () => {
                   <div className="pricing-display">
                 <div className="price-row">
                   <span className="label">Original Price</span>
-                  <span className="original">${deal.originalPrice.toFixed(2)}</span>
+                  <span className="original">₨{deal.originalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                 </div>
                 <div className="price-row">
                   <span className="label">Deal Price</span>
-                  <span className="deal">${deal.dealPrice.toFixed(2)}</span>
+                  <span className="deal">₨{deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                 </div>
                 <div className="price-row savings">
                   <span className="label">You Save</span>
-                  <span className="amount">${(deal.originalPrice - deal.dealPrice).toFixed(2)}</span>
+                  <span className="amount">₨{(deal.originalPrice - deal.dealPrice).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                 </div>
               </div>
 

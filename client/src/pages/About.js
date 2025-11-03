@@ -29,7 +29,7 @@ const About = () => {
               an unparalleled guest experience.
             </p>
             <p>
-              Located in the heart of Kansas City and Independence, Missouri, our properties offer the perfect 
+              Located in the heart of Okara, Lahore, Sheikhupura, and Multan, Punjab, our properties offer the perfect 
               blend of comfort, elegance, and modern amenities. Whether you're traveling for business or leisure, 
               we're committed to making your stay memorable.
             </p>

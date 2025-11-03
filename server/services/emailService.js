@@ -14,7 +14,7 @@ const createTransporter = () => {
       }
     });
   }
-  
+
   // Production (SendGrid)
   if (process.env.NODE_ENV === 'production' && process.env.EMAIL_HOST) {
     return nodemailer.createTransport({
@@ -42,11 +42,11 @@ const createTransporter = () => {
 const sendWelcomeEmail = async (user) => {
   try {
     const transporter = createTransporter();
-    
+
     const mailOptions = {
-      from: '"Hotelogix" <janabsyco4@gmail.com>',
+      from: '"Hotelogix Pakistan" <reservations@hotelogix.pk>',
       to: user.email,
-      subject: 'Welcome to Hotelogix! 🏨',
+      subject: 'Welcome to Hotelogix Pakistan! 🏨',
       html: `
         <!DOCTYPE html>
         <html>
@@ -63,20 +63,22 @@ const sendWelcomeEmail = async (user) => {
         <body>
           <div class="container">
             <div class="header">
-              <h1>Welcome to Hotelogix!</h1>
+              <h1>Welcome to Hotelogix Pakistan!</h1>
+              <p>Your Gateway to Premium Hospitality</p>
             </div>
             <div class="content">
               <h2>Hi ${user.name}! 👋</h2>
-              <p>Thank you for joining Hotelogix. We're excited to have you as part of our community!</p>
+              <p>Thank you for joining Hotelogix Pakistan. We're excited to have you as part of our community!</p>
               
               <p><strong>Your account is now active and ready to use.</strong></p>
               
-              <p>Here's what you can do:</p>
+              <p>Discover the best of Pakistani hospitality:</p>
               <ul>
-                <li>🏨 Browse our luxurious rooms and suites</li>
-                <li>🍽️ Make restaurant reservations</li>
-                <li>🎁 Discover exclusive deals and packages</li>
-                <li>⭐ Enjoy personalized recommendations</li>
+                <li>🏨 Browse luxurious rooms across Lahore, Multan, Okara & Sheikhupura</li>
+                <li>🍽️ Reserve tables at authentic Pakistani restaurants</li>
+                <li>🎁 Discover exclusive deals and travel packages</li>
+                <li>⭐ Get AI-powered personalized recommendations</li>
+                <li>💬 24/7 chatbot assistance in English & Urdu</li>
               </ul>
               
               <div style="text-align: center;">
@@ -85,12 +87,15 @@ const sendWelcomeEmail = async (user) => {
                 </a>
               </div>
               
-              <p>If you have any questions, feel free to contact our support team.</p>
+              <p>Need assistance? Contact us:</p>
+              <p>📞 +92-300-1234567 | 📧 support@hotelogix.pk<br>
+              🌐 www.hotelogix.pk</p>
               
-              <p>Best regards,<br>The Hotelogix Team</p>
+              <p>Best regards,<br>The Hotelogix Pakistan Team</p>
             </div>
             <div class="footer">
-              <p>© 2025 Hotelogix. All rights reserved.</p>
+              <p>© 2025 Hotelogix Pakistan. All rights reserved.</p>
+              <p>Serving Lahore, Multan, Okara & Sheikhupura</p>
               <p>You're receiving this email because you created an account with us.</p>
             </div>
           </div>
@@ -98,7 +103,7 @@ const sendWelcomeEmail = async (user) => {
         </html>
       `
     };
-    
+
     await transporter.sendMail(mailOptions);
     console.log('✅ Welcome email sent to:', user.email);
   } catch (error) {
@@ -110,18 +115,18 @@ const sendWelcomeEmail = async (user) => {
 const sendBookingConfirmation = async (booking, user, room) => {
   try {
     const transporter = createTransporter();
-    
-    const checkIn = new Date(booking.checkIn).toLocaleDateString('en-US', { 
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+
+    const checkIn = new Date(booking.checkIn).toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
-    const checkOut = new Date(booking.checkOut).toLocaleDateString('en-US', { 
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+    const checkOut = new Date(booking.checkOut).toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
-    
+
     const mailOptions = {
-      from: '"Hotelogix" <janabsyco4@gmail.com>',
+      from: '"Hotelogix Pakistan" <reservations@hotelogix.pk>',
       to: user.email,
-      subject: `Booking Confirmation - ${room.name} 🎉`,
+      subject: `Booking Confirmed - ${room.title} 🎉`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -146,14 +151,19 @@ const sendBookingConfirmation = async (booking, user, room) => {
             </div>
             <div class="content">
               <h2>Hi ${user.name}! 🎉</h2>
-              <p>Great news! Your booking has been confirmed. We can't wait to welcome you to Hotelogix!</p>
+              <p>Great news! Your booking has been confirmed. We can't wait to welcome you to Hotelogix Pakistan!</p>
               
               <div class="booking-details">
-                <h3>Booking Details</h3>
+                <h3>📋 Booking Details</h3>
                 
                 <div class="detail-row">
                   <span class="detail-label">Room:</span>
-                  <span>${room.name}</span>
+                  <span>${room.title}</span>
+                </div>
+                
+                <div class="detail-row">
+                  <span class="detail-label">Location:</span>
+                  <span>${room.location}</span>
                 </div>
                 
                 <div class="detail-row">
@@ -178,7 +188,7 @@ const sendBookingConfirmation = async (booking, user, room) => {
                 
                 <div class="detail-row" style="border-bottom: none; margin-top: 20px;">
                   <span class="detail-label">Total Amount:</span>
-                  <span class="total">$${booking.totalPrice}</span>
+                  <span class="total">₨${booking.totalPrice.toLocaleString('en-PK')}</span>
                 </div>
               </div>
               
@@ -186,8 +196,9 @@ const sendBookingConfirmation = async (booking, user, room) => {
               <ul>
                 <li>📧 Save this email for your records</li>
                 <li>🆔 Bring a valid ID for check-in</li>
-                <li>⏰ Check-in time: 3:00 PM</li>
-                <li>🚪 Check-out time: 11:00 AM</li>
+                <li>⏰ Check-in time: 2:00 PM</li>
+                <li>🚪 Check-out time: 12:00 PM (Noon)</li>
+                <li>🆔 Bring valid CNIC or Passport</li>
               </ul>
               
               <p><strong>Need to make changes?</strong> Visit your bookings page or contact us.</p>
@@ -205,7 +216,7 @@ const sendBookingConfirmation = async (booking, user, room) => {
         </html>
       `
     };
-    
+
     await transporter.sendMail(mailOptions);
     console.log('✅ Booking confirmation sent to:', user.email);
   } catch (error) {
@@ -217,13 +228,13 @@ const sendBookingConfirmation = async (booking, user, room) => {
 const sendPaymentReceipt = async (payment, booking, user, room) => {
   try {
     const transporter = createTransporter();
-    
-    const paymentDate = new Date(payment.createdAt).toLocaleDateString('en-US', { 
+
+    const paymentDate = new Date(payment.createdAt).toLocaleDateString('en-US', {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
     });
-    
+
     const mailOptions = {
-      from: '"Hotelogix" <janabsyco4@gmail.com>',
+      from: '"Hotelogix Pakistan" <janabsyco4@gmail.com>',
       to: user.email,
       subject: `Payment Receipt - Booking #${booking.id} 💳`,
       html: `
@@ -255,7 +266,7 @@ const sendPaymentReceipt = async (payment, booking, user, room) => {
               <div class="receipt">
                 <h3 style="text-align: center; color: #10b981;">Payment Receipt</h3>
                 
-                <div class="amount">$${payment.amount}</div>
+                <div class="amount">₨${payment.amount.toLocaleString('en-PK')}</div>
                 
                 <div class="detail-row">
                   <span class="detail-label">Payment ID:</span>
@@ -292,10 +303,12 @@ const sendPaymentReceipt = async (payment, booking, user, room) => {
               
               <p>If you have any questions about this payment, please contact our support team.</p>
               
-              <p>Best regards,<br>The Hotelogix Team</p>
+              <p>Best regards,<br>The Hotelogix Pakistan Team<br>
+              📞 +92 310 4594964 | 📧 shehroozking3@gmail.com</p>
             </div>
             <div class="footer">
-              <p>© 2025 Hotelogix. All rights reserved.</p>
+              <p>© 2025 Hotelogix Pakistan. All rights reserved.</p>
+              <p>Lahore • Multan • Okara • Sheikhupura</p>
               <p>This is an automated receipt. Please do not reply to this email.</p>
             </div>
           </div>
@@ -303,7 +316,7 @@ const sendPaymentReceipt = async (payment, booking, user, room) => {
         </html>
       `
     };
-    
+
     await transporter.sendMail(mailOptions);
     console.log('✅ Payment receipt sent to:', user.email);
   } catch (error) {
@@ -315,13 +328,13 @@ const sendPaymentReceipt = async (payment, booking, user, room) => {
 const sendRefundConfirmation = async (payment, booking, user, room) => {
   try {
     const transporter = createTransporter();
-    
-    const refundDate = new Date().toLocaleDateString('en-US', { 
+
+    const refundDate = new Date().toLocaleDateString('en-US', {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
     });
-    
+
     const mailOptions = {
-      from: '"Hotelogix" <janabsyco4@gmail.com>',
+      from: '"Hotelogix Pakistan" <janabsyco4@gmail.com>',
       to: user.email,
       subject: `Refund Processed - Booking #${booking.id} 💰`,
       html: `
@@ -367,7 +380,7 @@ const sendRefundConfirmation = async (payment, booking, user, room) => {
                 
                 <div class="detail-row">
                   <span class="detail-label">Original Payment:</span>
-                  <span>$${payment.amount}</span>
+                  <span>₨${payment.amount.toLocaleString('en-PK')}</span>
                 </div>
                 
                 <div class="detail-row">
@@ -392,10 +405,12 @@ const sendRefundConfirmation = async (payment, booking, user, room) => {
               
               <p>If you have any questions, please don't hesitate to contact us.</p>
               
-              <p>Best regards,<br>The Hotelogix Team</p>
+              <p>Best regards,<br>The Hotelogix Pakistan Team<br>
+              📞 +92 310 4594964 | 📧 shehroozking3@gmail.com</p>
             </div>
             <div class="footer">
-              <p>© 2025 Hotelogix. All rights reserved.</p>
+              <p>© 2025 Hotelogix Pakistan. All rights reserved.</p>
+              <p>Lahore • Multan • Okara • Sheikhupura</p>
               <p>Refund ID: ${payment.stripeRefundId || 'N/A'}</p>
             </div>
           </div>
@@ -403,7 +418,7 @@ const sendRefundConfirmation = async (payment, booking, user, room) => {
         </html>
       `
     };
-    
+
     await transporter.sendMail(mailOptions);
     console.log('✅ Refund confirmation sent to:', user.email);
   } catch (error) {

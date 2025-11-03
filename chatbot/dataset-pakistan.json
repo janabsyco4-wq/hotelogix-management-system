@@ -1,0 +1,139 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Assalam o Alaikum", "Salam", "Hey", "Good morning", "Good evening", "Adaab"],
+      "responses": ["Assalam o Alaikum! Welcome to Hotelogix Pakistan. How may I assist you today?", "Hello! Welcome to our hotel booking system. How can I help you?", "Wa Alaikum Assalam! I'm here to help you find the perfect accommodation in Pakistan."]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "Goodbye", "See you", "Allah Hafiz", "Khuda Hafiz", "Thanks bye", "Later"],
+      "responses": ["Allah Hafiz! Have a wonderful stay!", "Goodbye! Feel free to return if you need any assistance.", "Khuda Hafiz! Safe travels!"]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "Shukriya", "Jazak Allah", "Appreciate it", "Thanks a lot"],
+      "responses": ["You're welcome! Happy to help!", "My pleasure! Enjoy your stay!", "Khush amdeed! Feel free to ask anything else."]
+    },
+    {
+      "tag": "cities",
+      "patterns": ["Which cities", "Available cities", "Where are hotels", "Cities list", "Locations", "Kahan hotels hain", "Cities available"],
+      "responses": ["We have hotels in 4 major cities: Okara, Lahore, Sheikhupura, and Multan. Each city offers unique experiences and attractions!"]
+    },
+    {
+      "tag": "lahore_info",
+      "patterns": ["Tell me about Lahore", "Lahore hotels", "What's in Lahore", "Lahore attractions", "Lahore mein kya hai"],
+      "responses": ["Lahore, the heart of Pakistan! We offer hotels near Badshahi Mosque, Lahore Fort, and Shalimar Gardens. Prices range from PKR 2,000 to PKR 150,000 per night."]
+    },
+    {
+      "tag": "multan_info",
+      "patterns": ["Tell me about Multan", "Multan hotels", "What's in Multan", "Multan attractions"],
+      "responses": ["Multan, the City of Saints! Visit the famous Tomb of Shah Rukn-e-Alam and enjoy our comfortable accommodations ranging from budget to luxury suites."]
+    },
+    {
+      "tag": "okara_info",
+      "patterns": ["Tell me about Okara", "Okara hotels", "What's in Okara"],
+      "responses": ["Okara offers peaceful stays with easy access to the historic Garrison area. We have budget-friendly to premium rooms available."]
+    },
+    {
+      "tag": "sheikhupura_info",
+      "patterns": ["Tell me about Sheikhupura", "Sheikhupura hotels", "What's in Sheikhupura"],
+      "responses": ["Sheikhupura is home to the beautiful Hiran Minar! We offer comfortable accommodations for visitors exploring this historic city."]
+    },
+    {
+      "tag": "room_types",
+      "patterns": ["What room types", "Types of rooms", "Room categories", "Available rooms", "Kamre ki qismein"],
+      "responses": ["We offer 10 room categories: Budget (PKR 2K-5K), Economy (5K-10K), Standard (10K-15K), Deluxe (15K-25K), Business (20K-30K), Junior Suite (25K-35K), Executive Suite (35K-50K), Family Suite (30K-45K), Presidential Suite (50K-100K), and Royal Suite (100K-150K)!"]
+    },
+    {
+      "tag": "budget_rooms",
+      "patterns": ["Cheap rooms", "Budget rooms", "Affordable", "Low price", "Sasta kamra", "Budget friendly"],
+      "responses": ["Our Budget Rooms start from just PKR 2,000 per night! They include Free WiFi, AC, TV, and attached bathroom. Perfect for budget-conscious travelers!"]
+    },
+    {
+      "tag": "luxury_rooms",
+      "patterns": ["Luxury rooms", "Expensive rooms", "Premium", "Royal suite", "Best rooms", "Luxury kamra"],
+      "responses": ["Experience ultimate luxury in our Royal Suites (PKR 100K-150K) or Presidential Suites (PKR 50K-100K)! Features include multiple bedrooms, home theater, jacuzzi, 24/7 butler service, and panoramic views!"]
+    },
+    {
+      "tag": "family_rooms",
+      "patterns": ["Family rooms", "Rooms for family", "Family suite", "Large rooms", "Family ke liye"],
+      "responses": ["Our Family Suites (PKR 30K-45K) are perfect for families! They accommodate 6-8 people with separate bedrooms, kitchenette, family games, and kids welcome pack!"]
+    },
+    {
+      "tag": "business_rooms",
+      "patterns": ["Business rooms", "Work rooms", "Office", "Business traveler", "Meeting rooms"],
+      "responses": ["Our Business Rooms (PKR 20K-30K) are designed for professionals! Features include executive desk, printer access, business center, and meeting room access!"]
+    },
+    {
+      "tag": "booking",
+      "patterns": ["How to book", "Book a room", "Make reservation", "Booking process", "Kaise book karun"],
+      "responses": ["Booking is easy! Browse our rooms, select your dates, choose a room, and complete payment. You'll receive instant confirmation via email and SMS!"]
+    },
+    {
+      "tag": "payment",
+      "patterns": ["Payment methods", "How to pay", "Payment options", "Kaise payment karun", "Pay kaise karun"],
+      "responses": ["We accept multiple payment methods: Credit/Debit Cards, JazzCash, EasyPaisa, Bank Transfer, and Cash on Arrival. All transactions are secure!"]
+    },
+    {
+      "tag": "amenities",
+      "patterns": ["What amenities", "Facilities", "What's included", "Room features", "Kya facilities hain"],
+      "responses": ["Amenities vary by room type but include: Free WiFi, AC, TV, attached bathroom, room service, mini fridge, work desk, and more! Luxury rooms include butler service, jacuzzi, and private terraces!"]
+    },
+    {
+      "tag": "cancellation",
+      "patterns": ["Cancel booking", "Cancellation policy", "Refund", "Cancel kaise karun"],
+      "responses": ["Free cancellation up to 24 hours before check-in! Cancel within 24 hours for 50% refund. No refund for no-shows. Contact support for assistance."]
+    },
+    {
+      "tag": "check_in_out",
+      "patterns": ["Check in time", "Check out time", "Arrival time", "Departure time", "Kab check in"],
+      "responses": ["Check-in: 2:00 PM | Check-out: 12:00 PM. Early check-in and late check-out available on request (subject to availability and additional charges)."]
+    },
+    {
+      "tag": "food",
+      "patterns": ["Food", "Restaurant", "Breakfast", "Dining", "Khana", "Nashta"],
+      "responses": ["Most rooms include complimentary breakfast! We also have on-site restaurants serving Pakistani, Continental, and Chinese cuisine. Room service available 24/7!"]
+    },
+    {
+      "tag": "wifi",
+      "patterns": ["WiFi", "Internet", "Free wifi", "Internet speed"],
+      "responses": ["Yes! All rooms include FREE high-speed WiFi. Business and premium rooms get priority bandwidth for video calls and streaming!"]
+    },
+    {
+      "tag": "parking",
+      "patterns": ["Parking", "Car parking", "Vehicle", "Gaari ki parking"],
+      "responses": ["Free secure parking available for all guests! We have covered parking for premium guests and 24/7 security surveillance."]
+    },
+    {
+      "tag": "pets",
+      "patterns": ["Pets allowed", "Can I bring pet", "Dog allowed", "Animals"],
+      "responses": ["Sorry, pets are not allowed in most rooms. However, service animals are welcome. Please contact us for special arrangements."]
+    },
+    {
+      "tag": "airport",
+      "patterns": ["Airport pickup", "Airport transfer", "Transport", "Airport se kaise aun"],
+      "responses": ["Yes! We offer airport pickup/drop services in Lahore and Multan. Charges apply based on distance. Book during reservation or contact reception!"]
+    },
+    {
+      "tag": "contact",
+      "patterns": ["Contact", "Phone number", "Email", "Support", "Rabta kaise karun"],
+      "responses": ["Contact us: Phone: +92-300-1234567 | Email: support@hotelogix.pk | WhatsApp: +92-321-9876543 | Available 24/7!"]
+    },
+    {
+      "tag": "price_range",
+      "patterns": ["Price range", "How much", "Cost", "Kitna paisa", "Rates"],
+      "responses": ["Our rooms range from PKR 2,000 (Budget) to PKR 150,000 (Royal Suite) per night. We have options for every budget!"]
+    },
+    {
+      "tag": "discounts",
+      "patterns": ["Discount", "Offers", "Deals", "Promotion", "Discount milega"],
+      "responses": ["We offer: 10% off for 7+ night stays, 15% off for monthly bookings, special corporate rates, and seasonal promotions! Check our Deals page!"]
+    },
+    {
+      "tag": "group_booking",
+      "patterns": ["Group booking", "Multiple rooms", "Wedding", "Event", "Shaadi ke liye"],
+      "responses": ["We offer special group rates for weddings, events, and corporate bookings! Contact our sales team at sales@hotelogix.pk for customized packages!"]
+    }
+  ]
+}

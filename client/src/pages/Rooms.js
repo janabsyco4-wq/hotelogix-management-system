@@ -86,7 +86,11 @@ const Rooms = () => {
         return sorted.sort((a, b) => b.capacity - a.capacity);
       case 'featured':
       default:
-        return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+        // Featured rooms first (true comes before false)
+        return sorted.sort((a, b) => {
+          if (a.featured === b.featured) return 0;
+          return a.featured ? -1 : 1;
+        });
     }
   };
 
@@ -195,7 +199,7 @@ const Rooms = () => {
                       value={filters.minPrice}
                       onChange={(e) => handleFilterChange('minPrice', e.target.value)}
                       className="form-input"
-                      placeholder="Min $"
+                      placeholder="Min PKR"
                     />
                     <span className="price-separator">-</span>
                     <input
@@ -203,7 +207,7 @@ const Rooms = () => {
                       value={filters.maxPrice}
                       onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
                       className="form-input"
-                      placeholder="Max $"
+                      placeholder="Max PKR"
                     />
                   </div>
                 </div>
@@ -266,8 +270,8 @@ const Rooms = () => {
                       className="sort-select"
                     >
                       <option value="featured">Featured</option>
-                      <option value="price-low">Price: Low to High</option>
-                      <option value="price-high">Price: High to Low</option>
+                      <option value="price-low">Price: High to Low</option>
+                      <option value="price-high">Price: Low to High</option>
                       <option value="rating">Rating: High to Low</option>
                       <option value="capacity">Capacity: High to Low</option>
                     </select>
@@ -300,7 +304,7 @@ const Rooms = () => {
                           alt={room.title}
                         />
                         <div className="price-badge">
-                          ${room.pricePerNight}/night
+                          ₨{room.pricePerNight.toLocaleString('en-PK')}/night
                         </div>
                         {!room.isAvailable && (
                           <div className="unavailable-overlay">

@@ -70,7 +70,7 @@ const RoomView = () => {
               <span>🛏️ Bed</span> {room.bedType}
             </div>
             <div className="detail">
-              <span>💰 Price</span> ${room.pricePerNight}/night
+              <span>💰 Price</span> ₨{room.pricePerNight.toLocaleString('en-PK')}/night
             </div>
           </div>
 

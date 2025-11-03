@@ -49,7 +49,7 @@ const PackageView = () => {
             <h1>{pkg.name}</h1>
             <div className="package-meta">
               <span className="location">📍 {pkg.location}</span>
-              <span className="price">${pkg.price.toFixed(2)}</span>
+              <span className="price">₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const PackageView = () => {
                 <h3>Package Pricing</h3>
                 <div className="package-price">
                   <span className="price-label">Total Price</span>
-                  <span className="price-amount">${pkg.price.toFixed(2)}</span>
+                  <span className="price-amount">₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   <span className="price-note">per package</span>
                 </div>
 

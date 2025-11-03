@@ -77,8 +77,8 @@ const Contact = () => {
                     <i className="fas fa-map-marker-alt"></i>
                   </div>
                   <h3>Visit Us</h3>
-                  <p>Kansas City & Independence, MO</p>
-                  <p className="contact-detail">United States</p>
+                  <p>Okara, Lahore, Sheikhupura & Multan</p>
+                  <p className="contact-detail">Punjab, Pakistan</p>
                 </div>
 
                 <div className="contact-card">

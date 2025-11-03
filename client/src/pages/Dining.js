@@ -12,7 +12,6 @@ const Dining = () => {
   const [filters, setFilters] = useState({
     cuisine: '',
     location: '',
-    priceRange: '',
     featured: false
   });
 
@@ -26,7 +25,6 @@ const Dining = () => {
       const params = new URLSearchParams();
       if (filters.cuisine) params.append('cuisine', filters.cuisine);
       if (filters.location) params.append('location', filters.location);
-      if (filters.priceRange) params.append('priceRange', filters.priceRange);
       if (filters.featured) params.append('featured', 'true');
 
       const response = await axios.get(`/api/restaurants?${params}`);
@@ -47,7 +45,6 @@ const Dining = () => {
     setFilters({
       cuisine: '',
       location: '',
-      priceRange: '',
       featured: false
     });
   };
@@ -95,22 +92,10 @@ const Dining = () => {
                 onChange={(e) => setFilters({ ...filters, location: e.target.value })}
               >
                 <option value="">All Locations</option>
-                <option value="Kansas City, MO">Kansas City</option>
-                <option value="Independence, MO">Independence</option>
-              </select>
-            </div>
-
-            <div className="filter-group">
-              <label>Price Range</label>
-              <select
-                value={filters.priceRange}
-                onChange={(e) => setFilters({ ...filters, priceRange: e.target.value })}
-              >
-                <option value="">All Prices</option>
-                <option value="$">$ - Budget</option>
-                <option value="$$">$$ - Moderate</option>
-                <option value="$$$">$$$ - Upscale</option>
-                <option value="$$$$">$$$$ - Fine Dining</option>
+                <option value="Okara, Punjab">Okara</option>
+                <option value="Lahore, Punjab">Lahore</option>
+                <option value="Sheikhupura, Punjab">Sheikhupura</option>
+                <option value="Multan, Punjab">Multan</option>
               </select>
             </div>
 

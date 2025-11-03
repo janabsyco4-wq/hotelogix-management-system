@@ -96,11 +96,11 @@ def load_models():
         return False
 
 def prepare_features(user_data):
-    """Prepare features for prediction"""
+    """Prepare features for prediction - Pakistan Model (10 features)"""
     
     # Encode categorical features
     user_type_enc = label_encoders['user_type'].transform([user_data.get('user_type', 'solo')])[0]
-    room_type_enc = label_encoders['room_type'].transform([user_data.get('room_type', 'Standard')])[0]
+    room_type_enc = label_encoders['room_type'].transform([user_data.get('room_type', 'Standard Room')])[0]
     season_enc = label_encoders['season'].transform([user_data.get('season', 'summer')])[0]
     day_type_enc = label_encoders['day_type'].transform([user_data.get('day_type', 'weekday')])[0]
     
@@ -110,18 +110,13 @@ def prepare_features(user_data):
     group_size = user_data.get('group_size', 2)
     view_time = user_data.get('view_time', 120)
     previous_bookings = user_data.get('previous_bookings', 0)
-    budget = user_data.get('budget', 150)
+    budget = user_data.get('budget', 15000)  # PKR default
     
-    # Feature engineering
-    urgency = booking_advance * view_time
-    value_ratio = budget / (stay_duration + 1)
-    loyalty = previous_bookings * stay_duration
-    
-    # Create feature vector
+    # Create feature vector (10 features - no feature engineering)
     features = np.array([[
         user_type_enc, room_type_enc, season_enc, day_type_enc,
         booking_advance, stay_duration, group_size, view_time,
-        previous_bookings, budget, urgency, value_ratio, loyalty
+        previous_bookings, budget
     ]])
     
     # Scale features
@@ -253,9 +248,10 @@ def get_recommendations():
         view_time = int(data.get('viewTime', 120))
         previous_bookings = int(data.get('previousBookings', 0))
         
-        # Room types to evaluate
-        room_types = ['Standard', 'Deluxe', 'Business', 'Junior Suite', 
-                     'Executive Suite', 'Family Suite', 'Presidential Suite']
+        # Room types to evaluate (Pakistan - 10 types)
+        room_types = ['Budget Room', 'Economy Room', 'Standard Room', 'Deluxe Room',
+                     'Business Room', 'Junior Suite', 'Executive Suite', 'Family Suite',
+                     'Presidential Suite', 'Royal Suite']
         
         recommendations = []
         

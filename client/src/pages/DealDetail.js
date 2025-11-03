@@ -143,15 +143,15 @@ const DealDetail = () => {
                 <div className="price-comparison">
                   <div className="original-price">
                     <span className="label">Original Price</span>
-                    <span className="amount">${deal.originalPrice.toFixed(2)}</span>
+                    <span className="amount">₨{deal.originalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   </div>
                   <div className="deal-price">
                     <span className="label">Deal Price</span>
-                    <span className="amount">${deal.dealPrice.toFixed(2)}</span>
+                    <span className="amount">₨{deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   </div>
                   <div className="savings">
                     <span className="label">You Save</span>
-                    <span className="amount">${(deal.originalPrice - deal.dealPrice).toFixed(2)}</span>
+                    <span className="amount">₨{(deal.originalPrice - deal.dealPrice).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   </div>
                 </div>
 

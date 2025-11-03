@@ -165,7 +165,7 @@ const BookPackage = () => {
                   </div>
                   <div className="summary-row total">
                     <span>Total Price</span>
-                    <span>${pkg.price.toFixed(2)}</span>
+                    <span>₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   </div>
                 </div>
 

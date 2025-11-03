@@ -164,7 +164,7 @@ const AdminDashboard = () => {
 
       const roomRevenue = activeBookings.reduce((sum, b) => sum + (b.totalPrice || 0), 0);
       const packageRevenue = activePackages.reduce((sum, p) => sum + (p.totalPrice || 0), 0);
-      const diningDeposits = activeReservations.length * 50; // $25 per guest × 2 guests average
+      const diningDeposits = activeReservations.length * 50; // ₨25 per guest × 2 guests average
       const dealRevenue = activeRedemptions.length * 78; // Average deal price
 
       const refundedBookings = paidBookings.filter(b => b.status === 'refunded' || b.status === 'cancelled');
@@ -484,7 +484,7 @@ const AdminDashboard = () => {
                         <td>{room.title}</td>
                         <td>{room.type}</td>
                         <td>{room.location}</td>
-                        <td>${room.pricePerNight}</td>
+                        <td>₨{room.pricePerNight.toLocaleString('en-PK', {minimumFractionDigits: 0})}</td>
                         <td>{room.capacity}</td>
                         <td>
                           <span className={`badge ${room.isAvailable ? 'success' : 'danger'}`}>
@@ -579,7 +579,7 @@ const AdminDashboard = () => {
                         <td>{deal.title}</td>
                         <td>{deal.type}</td>
                         <td>{deal.discount}%</td>
-                        <td>${deal.dealPrice}</td>
+                        <td>₨{deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</td>
                         <td>{formatDate(deal.validUntil)}</td>
                         <td>{deal.currentRedemptions}/{deal.maxRedemptions || '∞'}</td>
                         <td>
@@ -627,7 +627,7 @@ const AdminDashboard = () => {
                         <td>{pkg.name}</td>
                         <td>{pkg.duration}</td>
                         <td>{pkg.location}</td>
-                        <td>${pkg.price}</td>
+                        <td>₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</td>
                         <td>{pkg.includes?.length || 0} items</td>
                         <td>
                           <span className={`badge ${pkg.isActive ? 'success' : 'danger'}`}>
@@ -677,7 +677,7 @@ const AdminDashboard = () => {
                           <td>{booking.room?.title || 'N/A'}</td>
                           <td>{formatDate(booking.checkIn)}</td>
                           <td>{formatDate(booking.checkOut)}</td>
-                          <td>${booking.totalPrice}</td>
+                          <td>₨{booking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</td>
                           <td>
                             <span className={`badge ${booking.status === 'confirmed' ? 'success' : booking.status === 'pending' ? 'warning' : 'danger'}`}>
                               {booking.status}
@@ -840,7 +840,7 @@ const AdminDashboard = () => {
                           <td>{pkgBooking.package?.name || 'N/A'}</td>
                           <td>{formatDate(pkgBooking.startDate)}</td>
                           <td>{pkgBooking.guests}</td>
-                          <td>${pkgBooking.totalPrice}</td>
+                          <td>₨{pkgBooking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</td>
                           <td>
                             <span className={`badge ${pkgBooking.status === 'confirmed' ? 'success' : pkgBooking.status === 'pending' ? 'warning' : 'danger'}`}>
                               {pkgBooking.status}
@@ -928,7 +928,7 @@ const AdminDashboard = () => {
                   <div className="stat-card revenue-card">
                     <div className="stat-icon">💰</div>
                     <div className="stat-info">
-                      <h3>${paymentStats.totalRevenue?.toFixed(2) || '0.00'}</h3>
+                      <h3>₨{paymentStats.totalRevenue?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</h3>
                       <p>Total Revenue</p>
                       <span className="stat-detail">{paymentStats.totalPaidBookings || 0} paid bookings</span>
                     </div>
@@ -936,7 +936,7 @@ const AdminDashboard = () => {
                   <div className="stat-card">
                     <div className="stat-icon">🛏️</div>
                     <div className="stat-info">
-                      <h3>${paymentStats.roomRevenue?.toFixed(2) || '0.00'}</h3>
+                      <h3>₨{paymentStats.roomRevenue?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</h3>
                       <p>Room Bookings</p>
                       <span className="stat-detail">{paymentStats.paidRoomBookings || 0} paid</span>
                     </div>
@@ -944,7 +944,7 @@ const AdminDashboard = () => {
                   <div className="stat-card">
                     <div className="stat-icon">📦</div>
                     <div className="stat-info">
-                      <h3>${paymentStats.packageRevenue?.toFixed(2) || '0.00'}</h3>
+                      <h3>₨{paymentStats.packageRevenue?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</h3>
                       <p>Package Bookings</p>
                       <span className="stat-detail">{paymentStats.paidPackageBookings || 0} paid</span>
                     </div>
@@ -952,7 +952,7 @@ const AdminDashboard = () => {
                   <div className="stat-card">
                     <div className="stat-icon">🍽️</div>
                     <div className="stat-info">
-                      <h3>${paymentStats.diningDeposits?.toFixed(2) || '0.00'}</h3>
+                      <h3>₨{paymentStats.diningDeposits?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</h3>
                       <p>Dining Deposits</p>
                       <span className="stat-detail">{paymentStats.paidDiningReservations || 0} paid</span>
                     </div>
@@ -960,7 +960,7 @@ const AdminDashboard = () => {
                   <div className="stat-card">
                     <div className="stat-icon">🎁</div>
                     <div className="stat-info">
-                      <h3>${paymentStats.dealRevenue?.toFixed(2) || '0.00'}</h3>
+                      <h3>₨{paymentStats.dealRevenue?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</h3>
                       <p>Deal Redemptions</p>
                       <span className="stat-detail">{paymentStats.paidDealRedemptions || 0} paid</span>
                     </div>
@@ -976,7 +976,7 @@ const AdminDashboard = () => {
                   <div className="stat-card refunded-card">
                     <div className="stat-icon">💸</div>
                     <div className="stat-info">
-                      <h3>${paymentStats.refundedAmount?.toFixed(2) || '0.00'}</h3>
+                      <h3>₨{paymentStats.refundedAmount?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</h3>
                       <p>Refunded Amount</p>
                       <span className="stat-detail">{paymentStats.refundedBookings || 0} refunded</span>
                     </div>
@@ -1019,7 +1019,7 @@ const AdminDashboard = () => {
                         } else if (isDining) {
                           type = '🍽️';
                           description = `Dining: ${item.restaurant?.name || 'N/A'}`;
-                          amount = item.guests * 25; // $25 per guest
+                          amount = item.guests * 25; // ₨25 per guest
                         } else if (isDeal) {
                           type = '🎁';
                           description = `Deal: ${item.deal?.title || 'N/A'}`;
@@ -1035,7 +1035,7 @@ const AdminDashboard = () => {
                             <td>#{item.id}</td>
                             <td>{item.user?.email || 'N/A'}</td>
                             <td>{description}</td>
-                            <td className="amount">${amount.toFixed(2)}</td>
+                            <td className="amount">₨{amount.toLocaleString('en-PK', {minimumFractionDigits: 0})}</td>
                             <td className="payment-id">{item.paymentIntentId?.substring(0, 20)}...</td>
                             <td>
                               <span className={`badge ${item.status === 'confirmed' ? 'success' :
@@ -1084,7 +1084,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="breakdown-info">
                       <span className="label">🛏️ Room Bookings</span>
-                      <span className="value">${paymentStats.roomRevenue?.toFixed(2) || '0.00'}</span>
+                      <span className="value">₨{paymentStats.roomRevenue?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</span>
                       <span className="percentage">
                         {((paymentStats.roomRevenue / paymentStats.totalRevenue * 100) || 0).toFixed(1)}%
                       </span>
@@ -1099,7 +1099,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="breakdown-info">
                       <span className="label">📦 Package Bookings</span>
-                      <span className="value">${paymentStats.packageRevenue?.toFixed(2) || '0.00'}</span>
+                      <span className="value">₨{paymentStats.packageRevenue?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</span>
                       <span className="percentage">
                         {((paymentStats.packageRevenue / paymentStats.totalRevenue * 100) || 0).toFixed(1)}%
                       </span>
@@ -1114,7 +1114,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="breakdown-info">
                       <span className="label">🍽️ Dining Deposits</span>
-                      <span className="value">${paymentStats.diningDeposits?.toFixed(2) || '0.00'}</span>
+                      <span className="value">₨{paymentStats.diningDeposits?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</span>
                       <span className="percentage">
                         {((paymentStats.diningDeposits / paymentStats.totalRevenue * 100) || 0).toFixed(1)}%
                       </span>
@@ -1129,7 +1129,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="breakdown-info">
                       <span className="label">🎁 Deal Redemptions</span>
-                      <span className="value">${paymentStats.dealRevenue?.toFixed(2) || '0.00'}</span>
+                      <span className="value">₨{paymentStats.dealRevenue?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0'}</span>
                       <span className="percentage">
                         {((paymentStats.dealRevenue / paymentStats.totalRevenue * 100) || 0).toFixed(1)}%
                       </span>
@@ -1238,7 +1238,7 @@ const AdminDashboard = () => {
                           type="text"
                           value={profile.city}
                           onChange={(e) => setProfile({ ...profile, city: e.target.value })}
-                          placeholder="Kansas City"
+                          placeholder="Lahore"
                         />
                       </div>
 

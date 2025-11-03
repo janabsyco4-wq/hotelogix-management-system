@@ -88,7 +88,7 @@ const PackageDetail = () => {
             <h1>{pkg.name}</h1>
             <div className="package-meta">
               <span className="location">📍 {pkg.location}</span>
-              <span className="price">${pkg.price.toFixed(2)}</span>
+              <span className="price">₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@ const PackageDetail = () => {
                 <h3>Book This Package</h3>
                 <div className="package-price">
                   <span className="price-label">Total Price</span>
-                  <span className="price-amount">${pkg.price.toFixed(2)}</span>
+                  <span className="price-amount">₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                   <span className="price-note">per package</span>
                 </div>
 
@@ -174,11 +174,11 @@ const PackageDetail = () => {
                     <div className="booking-summary">
                       <div className="summary-row">
                         <span>Package Price</span>
-                        <span>${pkg.price.toFixed(2)}</span>
+                        <span>₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                       </div>
                       <div className="summary-row total">
                         <span>Total</span>
-                        <span>${pkg.price.toFixed(2)}</span>
+                        <span>₨{pkg.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                       </div>
                     </div>
 

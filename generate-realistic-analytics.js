@@ -20,16 +20,19 @@ function generateRealisticData() {
     sessionTimes.push(sessionTime);
   }
 
-  // Generate booking revenues
+  // Generate booking revenues (Pakistan - PKR)
   const bookingRevenues = [];
   const roomPrices = {
-    'Standard': [80, 120],
-    'Deluxe': [150, 200],
-    'Business': [180, 250],
-    'Junior Suite': [220, 300],
-    'Family Suite': [280, 400],
-    'Executive Suite': [350, 500],
-    'Presidential Suite': [600, 1000]
+    'Budget Room': [2000, 5000],
+    'Economy Room': [5000, 10000],
+    'Standard Room': [10000, 15000],
+    'Deluxe Room': [15000, 25000],
+    'Business Room': [20000, 30000],
+    'Junior Suite': [25000, 35000],
+    'Executive Suite': [35000, 50000],
+    'Family Suite': [30000, 45000],
+    'Presidential Suite': [50000, 100000],
+    'Royal Suite': [100000, 150000]
   };
 
   const roomTypes = Object.keys(roomPrices);

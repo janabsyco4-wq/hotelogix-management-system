@@ -25,24 +25,38 @@ const Home = () => {
       setAttractions([
         {
           id: 1,
-          title: "Harry S. Truman Presidential Library & Museum",
-          subtitle: "Truman's Legacy & Artifacts",
-          description: "Just three miles from most hotels in Independence MO, this world-class...",
-          image: "https://via.placeholder.com/300x200/4A90E6/FFFFFF?text=Truman+Library"
+          title: "Badshahi Mosque",
+          subtitle: "Historic Mughal Architecture",
+          description: "One of the largest mosques in the world, built in 1671 by Mughal Emperor Aurangzeb...",
+          image: "https://via.placeholder.com/300x200/4A90E6/FFFFFF?text=Badshahi+Mosque"
         },
         {
           id: 2,
-          title: "Independence Square",
-          subtitle: "Downtown Shops & Eateries",
-          description: "Centered around the historic Truman Courthouse, this walkable downtown...",
-          image: "https://via.placeholder.com/300x200/FF8C00/FFFFFF?text=Independence+Square"
+          title: "Lahore Fort (Shahi Qila)",
+          subtitle: "UNESCO World Heritage Site",
+          description: "A magnificent fort complex with stunning palaces, gardens, and museums...",
+          image: "https://via.placeholder.com/300x200/FF8C00/FFFFFF?text=Lahore+Fort"
         },
         {
           id: 3,
-          title: "Kansas City Royals at Kauffman Stadium",
-          subtitle: "Major League Baseball Close By",
-          description: "Catch the excitement of a Major League Baseball game at the iconic...",
-          image: "https://via.placeholder.com/300x200/008000/FFFFFF?text=Royals+Stadium"
+          title: "Shalimar Gardens",
+          subtitle: "Mughal Gardens",
+          description: "Beautiful Mughal gardens built in 1641, featuring terraced levels and fountains...",
+          image: "https://via.placeholder.com/300x200/008000/FFFFFF?text=Shalimar+Gardens"
+        },
+        {
+          id: 4,
+          title: "Tomb of Shah Rukn-e-Alam",
+          subtitle: "Sufi Shrine in Multan",
+          description: "A magnificent mausoleum and one of the most impressive Sufi shrines in Pakistan...",
+          image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Shah+Rukn+Alam"
+        },
+        {
+          id: 5,
+          title: "Hiran Minar",
+          subtitle: "Mughal Monument in Sheikhupura",
+          description: "A unique Mughal-era monument built by Emperor Jahangir with beautiful architecture...",
+          image: "https://via.placeholder.com/300x200/4B0082/FFFFFF?text=Hiran+Minar"
         }
       ]);
     } finally {

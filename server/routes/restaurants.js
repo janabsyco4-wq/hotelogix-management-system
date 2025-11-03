@@ -64,7 +64,7 @@ router.get('/', optionalAuth, async (req, res) => {
     const restaurantsWithParsedData = restaurants.map(restaurant => ({
       ...restaurant,
       images: JSON.parse(restaurant.images || '[]'),
-      openingHours: JSON.parse(restaurant.openingHours || '{}'),
+      openingHours: restaurant.openingHours, // Keep as string
       menu: JSON.parse(restaurant.menu || '[]'),
       amenities: JSON.parse(restaurant.amenities || '[]')
     }));
@@ -90,10 +90,18 @@ router.get('/:id', optionalAuth, async (req, res) => {
     }
 
     // Parse JSON fields
+    let openingHours;
+    try {
+      openingHours = JSON.parse(restaurant.openingHours || '{}');
+    } catch (e) {
+      // If openingHours is a plain string, keep it as is
+      openingHours = restaurant.openingHours || 'Contact for hours';
+    }
+
     const restaurantWithParsedData = {
       ...restaurant,
       images: JSON.parse(restaurant.images || '[]'),
-      openingHours: JSON.parse(restaurant.openingHours || '{}'),
+      openingHours: openingHours,
       menu: JSON.parse(restaurant.menu || '[]'),
       amenities: JSON.parse(restaurant.amenities || '[]')
     };
@@ -162,16 +170,26 @@ router.get('/reservations/my-reservations', authenticateToken, async (req, res) 
     });
 
     // Parse JSON fields
-    const reservationsWithParsedData = reservations.map(reservation => ({
-      ...reservation,
-      restaurant: {
-        ...reservation.restaurant,
-        images: JSON.parse(reservation.restaurant.images || '[]'),
-        openingHours: JSON.parse(reservation.restaurant.openingHours || '{}'),
-        menu: JSON.parse(reservation.restaurant.menu || '[]'),
-        amenities: JSON.parse(reservation.restaurant.amenities || '[]')
+    const reservationsWithParsedData = reservations.map(reservation => {
+      let openingHours;
+      try {
+        openingHours = JSON.parse(reservation.restaurant.openingHours || '{}');
+      } catch (e) {
+        // If openingHours is a plain string, keep it as is
+        openingHours = reservation.restaurant.openingHours || 'Contact for hours';
       }
-    }));
+
+      return {
+        ...reservation,
+        restaurant: {
+          ...reservation.restaurant,
+          images: JSON.parse(reservation.restaurant.images || '[]'),
+          openingHours: openingHours,
+          menu: JSON.parse(reservation.restaurant.menu || '[]'),
+          amenities: JSON.parse(reservation.restaurant.amenities || '[]')
+        }
+      };
+    });
 
     res.json(reservationsWithParsedData);
   } catch (error) {

@@ -286,7 +286,7 @@ function Profile() {
                       type="text"
                       value={profile.city}
                       onChange={(e) => setProfile({ ...profile, city: e.target.value })}
-                      placeholder="Kansas City"
+                      placeholder="Lahore"
                     />
                   </div>
 
@@ -430,7 +430,7 @@ function Profile() {
                 <div className="stat-card highlight">
                   <div className="stat-icon">💰</div>
                   <div className="stat-info">
-                    <h3>${stats.totalSpent?.toFixed(2) || '0.00'}</h3>
+                    <h3>₨{stats.totalSpent?.toLocaleString('en-PK', {minimumFractionDigits: 0}) || '0.00'}</h3>
                     <p>Total Spent</p>
                   </div>
                 </div>

@@ -179,7 +179,7 @@ const ProcessRefund = () => {
               
               <div className="detail-row">
                 <span className="label">Original Amount:</span>
-                <span className="value amount">${(booking.amount || booking.totalPrice || 0).toFixed(2)}</span>
+                <span className="value amount">₨{(booking.amount || booking.totalPrice || 0).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
               </div>
               
               <div className="detail-row">
@@ -208,7 +208,7 @@ const ProcessRefund = () => {
                     className="form-input"
                     required
                   />
-                  <small>Maximum: ${(booking.amount || booking.totalPrice || 0).toFixed(2)}</small>
+                  <small>Maximum: ₨{(booking.amount || booking.totalPrice || 0).toLocaleString('en-PK', {minimumFractionDigits: 0})}</small>
                 </div>
 
                 <div className="form-group">

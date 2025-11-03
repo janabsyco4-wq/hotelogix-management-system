@@ -68,12 +68,18 @@ const RestaurantView = () => {
               <section className="section">
                 <h2>Opening Hours</h2>
                 <div className="hours-grid">
-                  {Object.entries(restaurant.openingHours).map(([day, hours]) => (
-                    <div key={day} className="hours-row">
-                      <span className="day">{day.charAt(0).toUpperCase() + day.slice(1)}</span>
-                      <span className="hours">{hours}</span>
+                  {typeof restaurant.openingHours === 'object' && restaurant.openingHours !== null ? (
+                    Object.entries(restaurant.openingHours).map(([day, hours]) => (
+                      <div key={day} className="hours-row">
+                        <span className="day">{day.charAt(0).toUpperCase() + day.slice(1)}</span>
+                        <span className="hours">{hours}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="hours-row">
+                      <span className="hours">{restaurant.openingHours || 'Contact for hours'}</span>
                     </div>
-                  ))}
+                  )}
                 </div>
               </section>
 
@@ -84,7 +90,7 @@ const RestaurantView = () => {
                     <div key={index} className="menu-item">
                       <div className="menu-item-header">
                         <h4>{item.name}</h4>
-                        <span className="price">${item.price.toFixed(2)}</span>
+                        <span className="price">₨{item.price.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                       </div>
                       <span className="category">{item.category}</span>
                     </div>

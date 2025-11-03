@@ -86,7 +86,7 @@ const StripePayment = ({ amount, bookingType, bookingData, onSuccess, onCancel }
           <h3>Payment Summary</h3>
           <div className="summary-row">
             <span>Total Amount:</span>
-            <span className="amount">${amount.toFixed(2)}</span>
+            <span className="amount">₨{amount.toLocaleString('en-PK', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>
           </div>
         </div>
 
@@ -115,7 +115,7 @@ const StripePayment = ({ amount, bookingType, bookingData, onSuccess, onCancel }
             className="btn btn-primary"
             disabled={!stripe || processing}
           >
-            {processing ? 'Processing...' : `Pay $${amount.toFixed(2)}`}
+            {processing ? 'Processing...' : `Pay ₨${amount.toLocaleString('en-PK', {minimumFractionDigits: 0, maximumFractionDigits: 0})}`}
           </button>
         </div>
 

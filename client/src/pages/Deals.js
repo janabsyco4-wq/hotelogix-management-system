@@ -114,9 +114,11 @@ const Deals = () => {
                 onChange={(e) => setFilters({ ...filters, location: e.target.value })}
               >
                 <option value="">All Locations</option>
-                <option value="Kansas City, MO">Kansas City</option>
-                <option value="Independence, MO">Independence</option>
-                <option value="Both">Both Locations</option>
+                <option value="Okara, Punjab">Okara</option>
+                <option value="Lahore, Punjab">Lahore</option>
+                <option value="Sheikhupura, Punjab">Sheikhupura</option>
+                <option value="Multan, Punjab">Multan</option>
+                <option value="All">All Cities</option>
               </select>
             </div>
 
@@ -158,10 +160,10 @@ const Deals = () => {
 
                     <div className="deal-pricing">
                       <div className="price-row">
-                        <span className="original-price">${deal.originalPrice.toFixed(2)}</span>
-                        <span className="deal-price">${deal.dealPrice.toFixed(2)}</span>
+                        <span className="original-price">₨{deal.originalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
+                        <span className="deal-price">₨{deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                       </div>
-                      <span className="savings">Save ${(deal.originalPrice - deal.dealPrice).toFixed(2)}</span>
+                      <span className="savings">Save ₨{(deal.originalPrice - deal.dealPrice).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                     </div>
 
                     <div className="deal-meta">

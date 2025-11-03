@@ -237,7 +237,7 @@ const MyBookings = () => {
                                                 </div>
                                                 <div className="booking-price">
                                                     <span className="label">Total</span>
-                                                    <span className="amount">${booking.totalPrice.toFixed(2)}</span>
+                                                    <span className="amount">₨{booking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                                                 </div>
                                                 <div className="booking-actions">
                                                     <button onClick={() => navigate(`/rooms/${booking.room.id}`)} className="btn btn-secondary">
@@ -346,10 +346,10 @@ const MyBookings = () => {
                                                 </div>
                                                 <div className="deal-pricing">
                                                     <div className="price-row">
-                                                        <span className="original">${redemption.deal.originalPrice.toFixed(2)}</span>
-                                                        <span className="deal-price">${redemption.deal.dealPrice.toFixed(2)}</span>
+                                                        <span className="original">₨{redemption.deal.originalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
+                                                        <span className="deal-price">₨{redemption.deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                                                     </div>
-                                                    <span className="savings">You saved ${(redemption.deal.originalPrice - redemption.deal.dealPrice).toFixed(2)}</span>
+                                                    <span className="savings">You saved ₨{(redemption.deal.originalPrice - redemption.deal.dealPrice).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                                                 </div>
                                                 <p className="redeemed-date">Redeemed: {formatDate(redemption.createdAt)}</p>
                                                 {redemption.redeemedAt && (
@@ -419,7 +419,7 @@ const MyBookings = () => {
                                                 </div>
                                                 <div className="booking-price">
                                                     <span className="label">Total</span>
-                                                    <span className="amount">${booking.totalPrice.toFixed(2)}</span>
+                                                    <span className="amount">₨{booking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
                                                 </div>
                                                 <div className="booking-actions">
                                                     <button onClick={() => navigate(`/packages/${booking.package.id}`)} className="btn btn-secondary">

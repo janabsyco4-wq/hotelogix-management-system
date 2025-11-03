@@ -220,16 +220,16 @@ const BookRoom = () => {
 
               <div className="price-breakdown">
                 <div className="price-row">
-                  <span>${room.pricePerNight} × {nights} nights</span>
-                  <span>${nights * room.pricePerNight}</span>
+                  <span>₨{room.pricePerNight.toLocaleString('en-PK')} × {nights} nights</span>
+                  <span>₨{(nights * room.pricePerNight).toLocaleString('en-PK')}</span>
                 </div>
                 <div className="price-row">
                   <span>Service fee</span>
-                  <span>$0</span>
+                  <span>₨0</span>
                 </div>
                 <div className="price-row total">
                   <span>Total</span>
-                  <span>${total}</span>
+                  <span>₨{total.toLocaleString('en-PK')}</span>
                 </div>
               </div>
             </div>
