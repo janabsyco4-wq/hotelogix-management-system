@@ -107,14 +107,14 @@ const AIAnalytics = () => {
           confidenceDistribution: confidenceDistribution
         },
         userBehavior: {
-          totalInteractions: totalRequests,
-          clickThroughRate: 0,
-          conversionRate: 0,
-          averageSessionTime: 0,
-          bounceRate: 0,
+          totalInteractions: aiStats.user_behavior?.total_interactions || totalRequests,
+          clickThroughRate: aiStats.user_behavior?.click_through_rate || 0,
+          conversionRate: aiStats.user_behavior?.conversion_rate || 0,
+          averageSessionTime: aiStats.user_behavior?.average_session_time || 0,
+          bounceRate: aiStats.user_behavior?.bounce_rate || 0,
           topUserTypes: userTypeData,
-          deviceBreakdown: { desktop: 0, mobile: 0, tablet: 0 },
-          timeOfDay: []
+          deviceBreakdown: aiStats.user_behavior?.device_breakdown || { desktop: 0, mobile: 0, tablet: 0 },
+          timeOfDay: aiStats.user_behavior?.time_of_day || []
         },
         recommendations: {
           totalRecommendations: aiStats.performance.total_recommendations || 0,

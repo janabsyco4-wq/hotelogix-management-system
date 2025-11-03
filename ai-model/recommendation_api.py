@@ -28,7 +28,16 @@ stats = {
     "day_type_counts": {},
     "avg_compatibility": [],
     "avg_booking_likelihood": [],
-    "start_time": datetime.now().isoformat()
+    "start_time": datetime.now().isoformat(),
+    # Enhanced tracking
+    "clicks": 0,
+    "views": 0,
+    "bookings": 0,
+    "device_breakdown": {"desktop": 0, "mobile": 0, "tablet": 0},
+    "time_of_day": {},  # hour: count
+    "session_times": [],
+    "bounce_count": 0,
+    "total_sessions": 0
 }
 
 def load_models():
@@ -108,6 +117,29 @@ def get_stats():
     try:
         avg_compat = np.mean(stats["avg_compatibility"]) if stats["avg_compatibility"] else 0
         avg_booking = np.mean(stats["avg_booking_likelihood"]) if stats["avg_booking_likelihood"] else 0
+        avg_session_time = np.mean(stats["session_times"]) if stats["session_times"] else 0
+        
+        # Calculate click-through rate
+        ctr = (stats["clicks"] / stats["views"] * 100) if stats["views"] > 0 else 0
+        
+        # Calculate conversion rate
+        conversion_rate = (stats["bookings"] / stats["views"] * 100) if stats["views"] > 0 else 0
+        
+        # Calculate bounce rate
+        bounce_rate = (stats["bounce_count"] / stats["total_sessions"] * 100) if stats["total_sessions"] > 0 else 0
+        
+        # Calculate device percentages
+        total_devices = sum(stats["device_breakdown"].values())
+        device_percentages = {
+            device: round((count / total_devices * 100), 1) if total_devices > 0 else 0
+            for device, count in stats["device_breakdown"].items()
+        }
+        
+        # Format time of day data
+        time_of_day_data = [
+            {"hour": hour, "interactions": count}
+            for hour, count in sorted(stats["time_of_day"].items())
+        ]
         
         return jsonify({
             'success': True,
@@ -129,6 +161,17 @@ def get_stats():
                 'user_type_distribution': stats["user_type_counts"],
                 'season_distribution': stats["season_counts"],
                 'day_type_distribution': stats["day_type_counts"]
+            },
+            'user_behavior': {
+                'total_interactions': stats["views"],
+                'clicks': stats["clicks"],
+                'bookings': stats["bookings"],
+                'click_through_rate': round(ctr, 2),
+                'conversion_rate': round(conversion_rate, 2),
+                'average_session_time': round(avg_session_time, 0),
+                'bounce_rate': round(bounce_rate, 2),
+                'device_breakdown': device_percentages,
+                'time_of_day': time_of_day_data
             },
             'timestamp': datetime.now().isoformat()
         })
@@ -218,9 +261,24 @@ def get_recommendations():
         
         # Track stats
         stats["total_predictions"] += 1
+        stats["views"] += 1  # Auto-track view
+        stats["total_sessions"] += 1
         stats["user_type_counts"][user_type_raw] = stats["user_type_counts"].get(user_type_raw, 0) + 1
         stats["season_counts"][season] = stats["season_counts"].get(season, 0) + 1
         stats["day_type_counts"][day_type] = stats["day_type_counts"].get(day_type, 0) + 1
+        
+        # Track device (from request headers)
+        user_agent = request.headers.get('User-Agent', '').lower()
+        if 'mobile' in user_agent:
+            stats["device_breakdown"]["mobile"] += 1
+        elif 'tablet' in user_agent or 'ipad' in user_agent:
+            stats["device_breakdown"]["tablet"] += 1
+        else:
+            stats["device_breakdown"]["desktop"] += 1
+        
+        # Track time of day
+        current_hour = datetime.now().hour
+        stats["time_of_day"][current_hour] = stats["time_of_day"].get(current_hour, 0) + 1
         
         for rec in recommendations:
             room_type = rec["roomType"]
@@ -286,6 +344,52 @@ def get_recommendation_text(compatibility, booking_prob):
         return "Popular choice among similar users."
     else:
         return "Consider other options for better match."
+
+@app.route('/track', methods=['POST'])
+def track_interaction():
+    """Track user interactions for analytics"""
+    try:
+        data = request.json
+        interaction_type = data.get('type', 'view')  # view, click, booking, session
+        device = data.get('device', 'desktop')  # desktop, mobile, tablet
+        
+        current_hour = datetime.now().hour
+        
+        if interaction_type == 'view':
+            stats["views"] += 1
+            stats["total_sessions"] += 1
+            
+        elif interaction_type == 'click':
+            stats["clicks"] += 1
+            
+        elif interaction_type == 'booking':
+            stats["bookings"] += 1
+            
+        elif interaction_type == 'bounce':
+            stats["bounce_count"] += 1
+            
+        elif interaction_type == 'session':
+            session_time = data.get('duration', 0)
+            stats["session_times"].append(session_time)
+            # Keep only last 1000 session times
+            if len(stats["session_times"]) > 1000:
+                stats["session_times"] = stats["session_times"][-1000:]
+        
+        # Track device
+        if device in stats["device_breakdown"]:
+            stats["device_breakdown"][device] += 1
+        
+        # Track time of day
+        stats["time_of_day"][current_hour] = stats["time_of_day"].get(current_hour, 0) + 1
+        
+        return jsonify({
+            'success': True,
+            'message': 'Interaction tracked',
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     print("="*70)
