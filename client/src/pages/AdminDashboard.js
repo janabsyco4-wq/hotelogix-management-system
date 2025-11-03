@@ -903,7 +903,14 @@ const AdminDashboard = () => {
                             {user.role}
                           </span>
                         </td>
-                        <td>{user._count?.bookings || 0}</td>
+                        <td>
+                          {user.totalBookings || 0}
+                          {user._count && (
+                            <span style={{ fontSize: '0.85em', color: '#666', marginLeft: '5px' }}>
+                              (🛏️{user._count.bookings || 0} 🍽️{user._count.reservations || 0} 🎁{user._count.redemptions || 0} 📦{user._count.packageBookings || 0})
+                            </span>
+                          )}
+                        </td>
                         <td>{formatDate(user.createdAt)}</td>
                         <td>
                           <button className="btn-icon" title="View Details">👁️</button>

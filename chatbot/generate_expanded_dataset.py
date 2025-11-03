@@ -155,7 +155,7 @@ def generate_expanded_dataset():
     print("Loading base dataset...")
     
     # Load base dataset
-    with open('chatbot/dataset.json', 'r', encoding='utf-8') as f:
+    with open('chatbot/dataset-pakistan.json', 'r', encoding='utf-8') as f:
         base_dataset = json.load(f)
     
     original_patterns = sum(len(i["patterns"]) for i in base_dataset["intents"])

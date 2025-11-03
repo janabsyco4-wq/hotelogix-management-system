@@ -179,13 +179,27 @@ router.get('/users', authenticateToken, requireAdmin, async (req, res) => {
         role: true,
         createdAt: true,
         _count: {
-          select: { bookings: true }
+          select: {
+            bookings: true,
+            reservations: true,
+            redemptions: true,
+            packageBookings: true
+          }
         }
       },
       orderBy: { createdAt: 'desc' }
     });
 
-    res.json(users);
+    // Calculate total bookings for each user
+    const usersWithTotalBookings = users.map(user => ({
+      ...user,
+      totalBookings: (user._count?.bookings || 0) + 
+                     (user._count?.reservations || 0) + 
+                     (user._count?.redemptions || 0) + 
+                     (user._count?.packageBookings || 0)
+    }));
+
+    res.json(usersWithTotalBookings);
   } catch (error) {
     console.error('Error fetching users:', error);
     res.status(500).json({ error: 'Failed to fetch users' });
