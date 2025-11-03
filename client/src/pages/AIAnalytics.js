@@ -29,6 +29,13 @@ const AIAnalytics = () => {
     }
 
     fetchAnalyticsData();
+    
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(() => {
+      fetchAnalyticsData();
+    }, 30000);
+    
+    return () => clearInterval(interval);
   }, [user, navigate, timeRange]);
 
   const fetchAnalyticsData = async () => {
@@ -36,13 +43,17 @@ const AIAnalytics = () => {
       setLoading(true);
 
       // Fetch from AI model API - NO MOCK DATA
-      const aiStatsResponse = await fetch('http://localhost:5002/stats');
+      const AI_MODEL_URL = process.env.REACT_APP_AI_MODEL_URL || 'http://localhost:5002';
+      console.log('🔍 Fetching AI stats from:', `${AI_MODEL_URL}/stats`);
+      
+      const aiStatsResponse = await fetch(`${AI_MODEL_URL}/stats`);
 
       if (!aiStatsResponse.ok) {
-        throw new Error('AI model API not available');
+        throw new Error(`AI model API returned ${aiStatsResponse.status}`);
       }
 
       const aiStats = await aiStatsResponse.json();
+      console.log('✅ AI Stats received:', aiStats);
 
       // Process room type data from real AI stats
       const roomTypeData = Object.entries(aiStats.usage_stats.room_type_distribution || {}).map(([type, count]) => ({
