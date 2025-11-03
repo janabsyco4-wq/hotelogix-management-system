@@ -1,5 +1,6 @@
 const ngrok = require('@ngrok/ngrok');
 const http = require('http');
+const fs = require('fs');
 
 console.log('\n🔄 Starting ngrok tunnel for backend...\n');
 console.log('⏳ Connecting to ngrok...\n');
@@ -14,11 +15,15 @@ async function startNgrok() {
 
         const url = listener.url();
 
+        // Save URL to file
+        fs.writeFileSync('ngrok-url.txt', url);
+
         console.log('✅ Ngrok tunnel started successfully!');
         console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
         console.log('📡 Your backend is now accessible at:');
         console.log(`🌐 ${url}`);
         console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.log(`💾 URL saved to: ngrok-url.txt`);
         console.log('\n📋 Next steps:');
         console.log('1. Copy the URL above');
         console.log(`2. Update client/.env: REACT_APP_API_URL=${url}`);
