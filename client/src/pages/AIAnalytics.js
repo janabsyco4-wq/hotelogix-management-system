@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -29,12 +29,12 @@ const AIAnalytics = () => {
     }
 
     fetchAnalyticsData();
-    
+
     // Auto-refresh every 30 seconds
     const interval = setInterval(() => {
       fetchAnalyticsData();
     }, 30000);
-    
+
     return () => clearInterval(interval);
   }, [user, navigate, timeRange]);
 
@@ -45,7 +45,7 @@ const AIAnalytics = () => {
       // Fetch from AI model API - NO MOCK DATA
       const AI_MODEL_URL = process.env.REACT_APP_AI_MODEL_URL || 'http://localhost:5002';
       console.log('🔍 Fetching AI stats from:', `${AI_MODEL_URL}/stats`);
-      
+
       const aiStatsResponse = await fetch(`${AI_MODEL_URL}/stats`);
 
       if (!aiStatsResponse.ok) {
@@ -56,10 +56,11 @@ const AIAnalytics = () => {
       console.log('✅ AI Stats received:', aiStats);
 
       // Process room type data from real AI stats
+      const roomBookings = aiStats.revenue?.room_bookings || {};
       const roomTypeData = Object.entries(aiStats.usage_stats.room_type_distribution || {}).map(([type, count]) => ({
         roomType: type,
         count: count,
-        bookingRate: 0 // Real booking data would come from backend
+        bookingRate: count > 0 ? ((roomBookings[type] || 0) / count * 100).toFixed(1) : 0
       })).sort((a, b) => b.count - a.count);
 
       // Process user type data from real AI stats
@@ -124,10 +125,10 @@ const AIAnalytics = () => {
           accuracyByUserType: accuracyByUserType
         },
         revenue: {
-          aiDrivenRevenue: 0,
-          totalRevenue: 0,
-          aiContribution: 0,
-          averageOrderValue: 0,
+          aiDrivenRevenue: aiStats.revenue?.ai_driven_revenue || 0,
+          totalRevenue: aiStats.revenue?.total_revenue || 0,
+          aiContribution: aiStats.revenue?.ai_contribution || 0,
+          averageOrderValue: aiStats.revenue?.average_order_value || 0,
           revenueGrowth: 0,
           monthlyTrends: []
         }

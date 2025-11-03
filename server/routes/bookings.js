@@ -80,6 +80,24 @@ router.post('/', authenticateToken, async (req, res) => {
     
     console.log('✅ Booking created:', booking.id);
 
+    // Track booking in AI Model for analytics
+    try {
+      const axios = require('axios');
+      const AI_MODEL_URL = process.env.AI_MODEL_URL || 'http://localhost:5002';
+      
+      await axios.post(`${AI_MODEL_URL}/track`, {
+        type: 'booking',
+        device: req.headers['user-agent']?.includes('Mobile') ? 'mobile' : 'desktop',
+        revenue: totalPrice,
+        room_type: room.type
+      });
+      
+      console.log('📊 Booking tracked in AI Analytics');
+    } catch (trackError) {
+      console.warn('⚠️ Failed to track booking in AI:', trackError.message);
+      // Don't fail the booking if tracking fails
+    }
+
     // Send booking confirmation email
     try {
       await sendBookingConfirmation(booking, booking.user, booking.room);

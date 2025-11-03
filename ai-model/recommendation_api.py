@@ -8,10 +8,14 @@ from flask_cors import CORS
 import pickle
 import numpy as np
 import os
+import json
 from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
+
+# Stats file path
+STATS_FILE = 'ai-model/stats_data.json'
 
 # Global model variables
 compatibility_model = None
@@ -19,26 +23,50 @@ booking_model = None
 scaler = None
 label_encoders = None
 
-# Global stats tracking
-stats = {
-    "total_predictions": 0,
-    "room_type_counts": {},
-    "user_type_counts": {},
-    "season_counts": {},
-    "day_type_counts": {},
-    "avg_compatibility": [],
-    "avg_booking_likelihood": [],
-    "start_time": datetime.now().isoformat(),
-    # Enhanced tracking
-    "clicks": 0,
-    "views": 0,
-    "bookings": 0,
-    "device_breakdown": {"desktop": 0, "mobile": 0, "tablet": 0},
-    "time_of_day": {},  # hour: count
-    "session_times": [],
-    "bounce_count": 0,
-    "total_sessions": 0
-}
+def load_stats():
+    """Load stats from file if exists"""
+    if os.path.exists(STATS_FILE):
+        try:
+            with open(STATS_FILE, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"⚠️ Could not load stats: {e}")
+    
+    # Return default stats
+    return {
+        "total_predictions": 0,
+        "room_type_counts": {},
+        "user_type_counts": {},
+        "season_counts": {},
+        "day_type_counts": {},
+        "avg_compatibility": [],
+        "avg_booking_likelihood": [],
+        "start_time": datetime.now().isoformat(),
+        "clicks": 0,
+        "views": 0,
+        "bookings": 0,
+        "device_breakdown": {"desktop": 0, "mobile": 0, "tablet": 0},
+        "time_of_day": {},
+        "session_times": [],
+        "bounce_count": 0,
+        "total_sessions": 0,
+        "total_revenue": 0,
+        "ai_driven_revenue": 0,
+        "booking_revenues": [],
+        "room_bookings": {}
+    }
+
+def save_stats():
+    """Save stats to file"""
+    try:
+        with open(STATS_FILE, 'w') as f:
+            json.dump(stats, f, indent=2)
+    except Exception as e:
+        print(f"⚠️ Could not save stats: {e}")
+
+# Global stats tracking - load from file
+stats = load_stats()
+print(f"📊 Loaded stats: {stats['total_predictions']} predictions, {stats['bookings']} bookings")
 
 def load_models():
     """Load trained ML models"""
@@ -128,6 +156,10 @@ def get_stats():
         # Calculate bounce rate
         bounce_rate = (stats["bounce_count"] / stats["total_sessions"] * 100) if stats["total_sessions"] > 0 else 0
         
+        # Calculate revenue metrics
+        avg_order_value = (stats["total_revenue"] / stats["bookings"]) if stats["bookings"] > 0 else 0
+        ai_contribution = (stats["ai_driven_revenue"] / stats["total_revenue"] * 100) if stats["total_revenue"] > 0 else 0
+        
         # Calculate device percentages
         total_devices = sum(stats["device_breakdown"].values())
         device_percentages = {
@@ -172,6 +204,14 @@ def get_stats():
                 'bounce_rate': round(bounce_rate, 2),
                 'device_breakdown': device_percentages,
                 'time_of_day': time_of_day_data
+            },
+            'revenue': {
+                'total_revenue': round(stats["total_revenue"], 2),
+                'ai_driven_revenue': round(stats["ai_driven_revenue"], 2),
+                'ai_contribution': round(ai_contribution, 2),
+                'average_order_value': round(avg_order_value, 2),
+                'total_bookings': stats["bookings"],
+                'room_bookings': stats["room_bookings"]
             },
             'timestamp': datetime.now().isoformat()
         })
@@ -291,6 +331,9 @@ def get_recommendations():
             stats["avg_compatibility"] = stats["avg_compatibility"][-10000:]
             stats["avg_booking_likelihood"] = stats["avg_booking_likelihood"][-10000:]
         
+        # Save stats to file
+        save_stats()
+        
         return jsonify({
             'success': True,
             'recommendations': recommendations,
@@ -365,6 +408,21 @@ def track_interaction():
         elif interaction_type == 'booking':
             stats["bookings"] += 1
             
+            # Track revenue
+            revenue = data.get('revenue', 0)
+            room_type = data.get('room_type', 'Unknown')
+            
+            stats["total_revenue"] += revenue
+            stats["ai_driven_revenue"] += revenue  # Assume all bookings are AI-driven
+            stats["booking_revenues"].append(revenue)
+            
+            # Track bookings by room type
+            stats["room_bookings"][room_type] = stats["room_bookings"].get(room_type, 0) + 1
+            
+            # Keep only last 1000 revenues
+            if len(stats["booking_revenues"]) > 1000:
+                stats["booking_revenues"] = stats["booking_revenues"][-1000:]
+            
         elif interaction_type == 'bounce':
             stats["bounce_count"] += 1
             
@@ -381,6 +439,9 @@ def track_interaction():
         
         # Track time of day
         stats["time_of_day"][current_hour] = stats["time_of_day"].get(current_hour, 0) + 1
+        
+        # Save stats to file
+        save_stats()
         
         return jsonify({
             'success': True,
