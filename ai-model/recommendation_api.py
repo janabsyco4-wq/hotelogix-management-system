@@ -169,8 +169,8 @@ def get_stats():
         
         # Format time of day data
         time_of_day_data = [
-            {"hour": hour, "interactions": count}
-            for hour, count in sorted(stats["time_of_day"].items())
+            {"hour": int(hour), "interactions": count}
+            for hour, count in sorted(stats["time_of_day"].items(), key=lambda x: int(x[0]))
         ]
         
         return jsonify({
