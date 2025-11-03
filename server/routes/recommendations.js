@@ -1,19 +1,24 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
-const RecommendationEngine = require('../../ai-model/recommendation_engine');
+const axios = require('axios');
 
 const router = express.Router();
 const prisma = new PrismaClient();
-const recommendationEngine = new RecommendationEngine();
 
-// Initialize the recommendation engine
+// AI Model API URL (Python Flask API)
+const AI_MODEL_URL = process.env.AI_MODEL_URL || 'http://localhost:5002';
+
+// Check if AI model is available
 let engineReady = false;
-recommendationEngine.loadModel().then(() => {
-  engineReady = true;
-}).catch(err => {
-  console.warn('⚠️ AI recommendation engine not available:', err.message);
-});
+axios.get(`${AI_MODEL_URL}/health`)
+  .then(() => {
+    engineReady = true;
+    console.log('✅ AI Model API connected');
+  })
+  .catch(err => {
+    console.warn('⚠️ AI recommendation engine not available:', err.message);
+  });
 
 // Middleware to verify JWT token (optional for recommendations)
 const optionalAuth = (req, res, next) => {
@@ -101,11 +106,29 @@ router.get('/rooms', optionalAuth, async (req, res) => {
       viewTime: 120 // Default view time
     };
 
-    // Get AI recommendations
-    const recommendations = await recommendationEngine.getRecommendations(
-      userProfile,
-      roomsWithParsedData
-    );
+    // Get AI recommendations from Python API
+    let recommendations = roomsWithParsedData;
+    
+    if (engineReady) {
+      try {
+        // Call Python AI Model API
+        const aiResponse = await axios.post(`${AI_MODEL_URL}/recommend`, {
+          user_profile: userProfile,
+          rooms: roomsWithParsedData
+        });
+        
+        if (aiResponse.data && aiResponse.data.recommendations) {
+          recommendations = aiResponse.data.recommendations;
+        }
+      } catch (error) {
+        console.warn('AI recommendation failed, using fallback:', error.message);
+        // Fallback to basic sorting by price
+        recommendations = roomsWithParsedData.sort((a, b) => a.pricePerNight - b.pricePerNight);
+      }
+    } else {
+      // Fallback: sort by price if AI not available
+      recommendations = roomsWithParsedData.sort((a, b) => a.pricePerNight - b.pricePerNight);
+    }
 
     // Add user interaction tracking if user is logged in
     if (req.user) {
@@ -173,12 +196,38 @@ router.get('/pricing/:roomId', optionalAuth, async (req, res) => {
       groupSize: parseInt(groupSize)
     };
 
-    // Get personalized pricing
-    const pricingInfo = await recommendationEngine.getPersonalizedPricing(
-      userProfile,
-      room.id,
-      room.pricePerNight
-    );
+    // Get personalized pricing from AI or use base price
+    let pricingInfo = {
+      basePrice: room.pricePerNight,
+      recommendedPrice: room.pricePerNight,
+      discount: 0
+    };
+    
+    if (engineReady) {
+      try {
+        const aiResponse = await axios.post(`${AI_MODEL_URL}/recommend`, {
+          user_profile: userProfile,
+          rooms: [{
+            ...room,
+            images: JSON.parse(room.images || '[]'),
+            amenities: JSON.parse(room.amenities || '[]')
+          }]
+        });
+        
+        if (aiResponse.data && aiResponse.data.recommendations && aiResponse.data.recommendations[0]) {
+          const rec = aiResponse.data.recommendations[0];
+          pricingInfo = {
+            basePrice: room.pricePerNight,
+            recommendedPrice: rec.predicted_price || room.pricePerNight,
+            discount: rec.predicted_price ? ((room.pricePerNight - rec.predicted_price) / room.pricePerNight * 100).toFixed(2) : 0,
+            compatibilityScore: rec.compatibility_score,
+            bookingLikelihood: rec.booking_likelihood
+          };
+        }
+      } catch (error) {
+        console.warn('AI pricing failed, using base price:', error.message);
+      }
+    }
 
     res.json({
       room: {
@@ -262,16 +311,28 @@ router.get('/stats', optionalAuth, async (req, res) => {
       }
     });
 
+    // Get stats from Python AI Model API
+    let aiStats = {};
+    if (engineReady) {
+      try {
+        const aiResponse = await axios.get(`${AI_MODEL_URL}/stats`);
+        aiStats = aiResponse.data;
+      } catch (error) {
+        console.warn('Failed to get AI stats:', error.message);
+      }
+    }
+    
     const stats = {
       aiModelStatus: engineReady ? 'active' : 'inactive',
-      modelVersion: engineReady ? recommendationEngine.metadata?.version : null,
-      totalRecommendations: 0, // Would track this in production
-      averageAccuracy: 0.85, // Would calculate from actual data
+      modelVersion: aiStats.model_info?.version || null,
+      totalRecommendations: aiStats.performance?.total_recommendations || 0,
+      averageAccuracy: aiStats.performance?.avg_compatibility_score || 0,
       popularRoomTypes: roomTypes.map(rt => ({
         type: rt.type,
         count: rt._count.id
       })),
-      lastModelUpdate: engineReady ? recommendationEngine.metadata?.createdAt : null
+      lastModelUpdate: aiStats.model_info?.last_trained || null,
+      aiStats: aiStats
     };
 
     res.json(stats);
