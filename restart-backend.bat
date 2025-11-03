@@ -1,6 +1,0 @@
-@echo off
-echo Regenerating Prisma client...
-call npx prisma generate
-echo.
-echo Starting backend server...
-call npm run server

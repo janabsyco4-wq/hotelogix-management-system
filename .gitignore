@@ -138,6 +138,7 @@ IMPLEMENTATION_*.md
 
 # AI Model generated files
 ai-model/models/*.json
+ai-model/models/*.pkl
 ai-model/ai-model/
 
 # Themes (if not used)
