@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 import Loading from '../components/Loading';
+import CancellationPolicy from '../components/CancellationPolicy';
 import './RoomView.css';
 
 const RoomView = () => {
@@ -89,6 +90,9 @@ const RoomView = () => {
               ))}
             </ul>
           </div>
+
+          {/* Cancellation Policy */}
+          <CancellationPolicy compact={true} />
 
           {/* Buttons */}
           <div className="action-buttons">

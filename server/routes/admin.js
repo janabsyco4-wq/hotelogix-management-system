@@ -181,8 +181,8 @@ router.get('/users', authenticateToken, requireAdmin, async (req, res) => {
         _count: {
           select: {
             bookings: true,
-            reservations: true,
-            redemptions: true,
+            diningReservations: true,
+            dealRedemptions: true,
             packageBookings: true
           }
         }
@@ -194,8 +194,8 @@ router.get('/users', authenticateToken, requireAdmin, async (req, res) => {
     const usersWithTotalBookings = users.map(user => ({
       ...user,
       totalBookings: (user._count?.bookings || 0) + 
-                     (user._count?.reservations || 0) + 
-                     (user._count?.redemptions || 0) + 
+                     (user._count?.diningReservations || 0) + 
+                     (user._count?.dealRedemptions || 0) + 
                      (user._count?.packageBookings || 0)
     }));
 

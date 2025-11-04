@@ -232,7 +232,7 @@ router.post('/refund', authenticateToken, async (req, res) => {
       case 'room':
         updatedBooking = await prisma.booking.update({
           where: { id: bookingId },
-          data: { status: 'refunded' },
+          data: { status: 'cancelled' }, // Changed from 'refunded' to 'cancelled'
           include: { room: true, user: true }
         });
         break;

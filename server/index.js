@@ -1,13 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('./prismaClient');
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
-const prisma = new PrismaClient();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -54,6 +53,7 @@ app.use('/api/packages', require('./routes/packages'));
 app.use('/api/payment', require('./routes/payment'));
 app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api/profile', require('./routes/profile'));
+app.use('/api/notifications', require('./routes/notifications'));
 
 // Root endpoint
 app.get('/', (req, res) => {

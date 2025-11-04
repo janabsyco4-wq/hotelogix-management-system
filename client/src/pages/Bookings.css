@@ -1257,6 +1257,20 @@
   background: rgba(239, 68, 68, 0.9);
 }
 
+.status-badge.pending_cancellation {
+  background: rgba(245, 158, 11, 0.9);
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .status-badge.active {
   background: rgba(59, 130, 246, 0.9);
 }
@@ -1606,5 +1620,32 @@
 
   .booking-actions .btn {
     width: 100%;
+  }
+}
+
+/* Cancellation Notice */
+.cancellation-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  border-radius: 8px;
+  color: #f59e0b;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+  animation: pulse-notice 2s ease-in-out infinite;
+}
+
+@keyframes pulse-notice {
+  0%, 100% {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.1);
+  }
+  50% {
+    border-color: rgba(245, 158, 11, 0.5);
+    background: rgba(245, 158, 11, 0.15);
   }
 }

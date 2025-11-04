@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
 import Loading from '../components/Loading';
+import AdminNotifications from '../components/AdminNotifications';
 import './AdminDashboard.css';
 import '../pages/Profile.css';
 
@@ -297,8 +298,13 @@ const AdminDashboard = () => {
           <div className="float-element float-4"></div>
         </div>
         <div className="container">
-          <h1>🛠️ Admin Dashboard</h1>
-          <p>Manage your hotel system</p>
+          <div className="admin-header-content">
+            <div className="admin-header-text">
+              <h1>🛠️ Admin Dashboard</h1>
+              <p>Manage your hotel system</p>
+            </div>
+            <AdminNotifications />
+          </div>
         </div>
       </div>
 
@@ -907,7 +913,7 @@ const AdminDashboard = () => {
                           {user.totalBookings || 0}
                           {user._count && (
                             <span style={{ fontSize: '0.85em', color: '#666', marginLeft: '5px' }}>
-                              (🛏️{user._count.bookings || 0} 🍽️{user._count.reservations || 0} 🎁{user._count.redemptions || 0} 📦{user._count.packageBookings || 0})
+                              (🛏️{user._count.bookings || 0} 🍽️{user._count.diningReservations || 0} 🎁{user._count.dealRedemptions || 0} 📦{user._count.packageBookings || 0})
                             </span>
                           )}
                         </td>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
 import Loading from '../components/Loading';
+
 import './Bookings.css';
 
 const MyBookings = () => {
@@ -16,6 +17,7 @@ const MyBookings = () => {
     const [packageBookings, setPackageBookings] = useState([]);
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
         if (!user) {
             navigate('/login');
@@ -27,7 +29,7 @@ const MyBookings = () => {
     const fetchAllBookings = async () => {
         try {
             setLoading(true);
-            
+
             // Add auth token to requests
             const config = {
                 headers: {
@@ -68,22 +70,11 @@ const MyBookings = () => {
         }
     };
 
-    const cancelRoomBooking = async (id) => {
-        if (!window.confirm('Cancel this booking?')) return;
-        try {
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            };
-            await axios.patch(`/api/bookings/${id}/cancel`, {}, config);
-            toast.success('Booking cancelled');
-            fetchAllBookings();
-        } catch (error) {
-            console.error('Cancel booking error:', error);
-            toast.error(error.response?.data?.error || 'Failed to cancel booking');
-        }
+    const handleCancelClick = (bookingId) => {
+        navigate(`/cancel-booking/${bookingId}`);
     };
+
+
 
     const cancelDiningReservation = async (id) => {
         if (!window.confirm('Cancel this reservation?')) return;
@@ -220,7 +211,9 @@ const MyBookings = () => {
                                         <div key={booking.id} className="booking-card">
                                             <div className="booking-image">
                                                 <img src={booking.room.images?.[0] || ''} alt={booking.room.title} />
-                                                <span className={`status-badge ${booking.status}`}>{booking.status}</span>
+                                                <span className={`status-badge ${booking.status}`}>
+                                                    {booking.status === 'pending_cancellation' ? 'Cancellation in Progress' : booking.status}
+                                                </span>
                                             </div>
                                             <div className="booking-details">
                                                 <h3>{booking.room.title}</h3>
@@ -237,15 +230,24 @@ const MyBookings = () => {
                                                 </div>
                                                 <div className="booking-price">
                                                     <span className="label">Total</span>
-                                                    <span className="amount">₨{booking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
+                                                    <span className="amount">₨{booking.totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}</span>
                                                 </div>
                                                 <div className="booking-actions">
                                                     <button onClick={() => navigate(`/rooms/${booking.room.id}`)} className="btn btn-secondary">
                                                         View Room
                                                     </button>
-                                                    {booking.status === 'confirmed' && new Date() <= new Date(booking.checkOut) && (
-                                                        <button onClick={() => cancelRoomBooking(booking.id)} className="btn btn-danger">
-                                                            Cancel
+                                                    {booking.status === 'pending_cancellation' && (
+                                                        <div className="cancellation-notice">
+                                                            ⏳ Waiting for admin approval
+                                                        </div>
+                                                    )}
+                                                    {(booking.status === 'confirmed' || booking.status === 'pending') && booking.status !== 'cancelled' && booking.status !== 'pending_cancellation' && (
+                                                        <button
+                                                            onClick={() => handleCancelClick(booking.id)}
+                                                            className="btn btn-danger"
+                                                            style={{ marginLeft: '10px' }}
+                                                        >
+                                                            Cancel Booking
                                                         </button>
                                                     )}
                                                 </div>
@@ -346,10 +348,10 @@ const MyBookings = () => {
                                                 </div>
                                                 <div className="deal-pricing">
                                                     <div className="price-row">
-                                                        <span className="original">₨{redemption.deal.originalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
-                                                        <span className="deal-price">₨{redemption.deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
+                                                        <span className="original">₨{redemption.deal.originalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}</span>
+                                                        <span className="deal-price">₨{redemption.deal.dealPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}</span>
                                                     </div>
-                                                    <span className="savings">You saved ₨{(redemption.deal.originalPrice - redemption.deal.dealPrice).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
+                                                    <span className="savings">You saved ₨{(redemption.deal.originalPrice - redemption.deal.dealPrice).toLocaleString('en-PK', { minimumFractionDigits: 0 })}</span>
                                                 </div>
                                                 <p className="redeemed-date">Redeemed: {formatDate(redemption.createdAt)}</p>
                                                 {redemption.redeemedAt && (
@@ -419,7 +421,7 @@ const MyBookings = () => {
                                                 </div>
                                                 <div className="booking-price">
                                                     <span className="label">Total</span>
-                                                    <span className="amount">₨{booking.totalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
+                                                    <span className="amount">₨{booking.totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}</span>
                                                 </div>
                                                 <div className="booking-actions">
                                                     <button onClick={() => navigate(`/packages/${booking.package.id}`)} className="btn btn-secondary">
@@ -440,6 +442,8 @@ const MyBookings = () => {
                     )}
                 </div>
             </div>
+
+
         </div>
     );
 };

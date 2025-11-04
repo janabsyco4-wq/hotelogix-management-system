@@ -2,6 +2,7 @@ const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
 const { sendBookingConfirmation } = require('../services/emailService');
+const NotificationService = require('../services/notificationService');
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -107,6 +108,14 @@ router.post('/', authenticateToken, async (req, res) => {
       // Don't fail the booking if email fails
     }
 
+    // Create admin notification
+    try {
+      await NotificationService.notifyNewBooking(booking, booking.user, booking.room);
+      console.log('🔔 Admin notification created');
+    } catch (notifError) {
+      console.error('⚠️ Failed to create notification:', notifError.message);
+    }
+
     // Parse JSON fields in room data
     const bookingWithParsedData = {
       ...booking,
@@ -194,28 +203,54 @@ router.get('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Cancel booking
+// Cancel booking (Request cancellation - pending admin approval)
 router.patch('/:id/cancel', authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
+    const { reason } = req.body;
     const userId = req.user.userId;
 
     const booking = await prisma.booking.updateMany({
       where: {
         id: parseInt(id),
         userId,
-        status: { not: 'cancelled' }
+        status: { notIn: ['cancelled', 'pending_cancellation'] }
       },
       data: {
-        status: 'cancelled'
+        status: 'pending_cancellation',
+        cancellationReason: reason || 'No reason provided',
+        cancelledAt: new Date()
       }
     });
 
     if (booking.count === 0) {
-      return res.status(404).json({ error: 'Booking not found or already cancelled' });
+      return res.status(404).json({ error: 'Booking not found or cancellation already requested' });
     }
 
-    res.json({ message: 'Booking cancelled successfully' });
+    // Get booking details for notification
+    const bookingDetails = await prisma.booking.findUnique({
+      where: { id: parseInt(id) },
+      include: { user: true, room: true }
+    });
+
+    // Create admin notification for cancellation
+    try {
+      await NotificationService.notifyCancellation(
+        bookingDetails,
+        bookingDetails.user,
+        bookingDetails.room,
+        reason || 'No reason provided'
+      );
+      console.log('🔔 Cancellation notification created for admin');
+    } catch (notifError) {
+      console.error('⚠️ Failed to create cancellation notification:', notifError.message);
+    }
+
+    res.json({ 
+      message: 'Cancellation request submitted successfully. Please wait for admin approval.', 
+      reason,
+      status: 'pending_cancellation'
+    });
   } catch (error) {
     console.error('Error cancelling booking:', error);
     res.status(500).json({ error: 'Failed to cancel booking' });

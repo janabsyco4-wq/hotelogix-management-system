@@ -54,19 +54,21 @@ model Room {
 }
 
 model Booking {
-  id          Int      @id @default(autoincrement())
-  userId          Int
-  roomId          Int
-  checkIn         DateTime
-  checkOut        DateTime
-  totalPrice      Float
-  status          String   @default("pending")
-  paymentIntentId String?  // Stripe payment intent ID
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  user            User     @relation(fields: [userId], references: [id])
-  room            Room     @relation(fields: [roomId], references: [id])
-  review          Review?
+  id                 Int       @id @default(autoincrement())
+  userId             Int
+  roomId             Int
+  checkIn            DateTime
+  checkOut           DateTime
+  totalPrice         Float
+  status             String    @default("pending")
+  paymentIntentId    String?   // Stripe payment intent ID
+  cancellationReason String?   // Reason for cancellation
+  cancelledAt        DateTime? // When booking was cancelled
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id])
+  room               Room      @relation(fields: [roomId], references: [id])
+  review             Review?
 }
 
 model Attraction {
@@ -198,4 +200,17 @@ model Review {
   user        User     @relation(fields: [userId], references: [id])
   room        Room     @relation(fields: [roomId], references: [id])
   booking     Booking  @relation(fields: [bookingId], references: [id])
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  type        String   // "booking", "cancellation", "payment", "refund", "user", "review"
+  title       String
+  message     String
+  relatedId   Int?     // ID of related booking/user/etc
+  relatedType String?  // "booking", "user", "reservation", etc
+  isRead      Boolean  @default(false)
+  priority    String   @default("normal") // "low", "normal", "high", "urgent"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

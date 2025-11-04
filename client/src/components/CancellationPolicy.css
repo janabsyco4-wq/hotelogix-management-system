@@ -1,0 +1,227 @@
+.cancellation-policy {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.cancellation-policy-compact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #e8f5e9;
+  border-radius: 8px;
+  border-left: 4px solid #4caf50;
+  margin: 16px 0;
+}
+
+.cancellation-policy-compact .policy-icon {
+  font-size: 24px;
+}
+
+.cancellation-policy-compact .policy-text {
+  font-size: 14px;
+  color: #2e7d32;
+}
+
+.policy-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.policy-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.policy-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.policy-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.policy-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid;
+  transition: transform 0.2s;
+}
+
+.policy-item:hover {
+  transform: translateX(4px);
+}
+
+.policy-item.success {
+  background: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.policy-item.warning {
+  background: #fff3e0;
+  border-color: #ff9800;
+}
+
+.policy-item.danger {
+  background: #ffebee;
+  border-color: #f44336;
+}
+
+.policy-item .policy-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.policy-item .policy-details h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.policy-item .policy-details p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.refund-calculator {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+}
+
+.refund-calculator h4 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.calculator-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.calc-row.highlight {
+  padding-top: 12px;
+  border-top: 2px solid #ddd;
+  margin-top: 8px;
+}
+
+.calc-row span {
+  color: #666;
+  font-size: 14px;
+}
+
+.calc-row strong {
+  color: #333;
+  font-size: 15px;
+}
+
+.calc-row strong.success {
+  color: #4caf50;
+}
+
+.calc-row strong.warning {
+  color: #ff9800;
+}
+
+.calc-row strong.danger {
+  color: #f44336;
+}
+
+.policy-notes {
+  background: #fff9e6;
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #ffc107;
+}
+
+.policy-notes h4 {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 15px;
+}
+
+.policy-notes ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.policy-notes li {
+  margin-bottom: 8px;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.policy-contact {
+  text-align: center;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.policy-contact p {
+  margin: 0 0 12px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-info span {
+  font-size: 13px;
+  color: #333;
+  padding: 6px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+  .cancellation-policy {
+    padding: 16px;
+  }
+
+  .policy-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .calc-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}

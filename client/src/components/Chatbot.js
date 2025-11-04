@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Chatbot.css';
 
 const Chatbot = () => {
@@ -16,6 +17,7 @@ const Chatbot = () => {
   const [isConnected, setIsConnected] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     checkConnection();
@@ -30,6 +32,13 @@ const Chatbot = () => {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  // Auto-close chatbot when navigating to a new page
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  }, [location.pathname]); // Close when route changes
 
   const checkConnection = async () => {
     try {

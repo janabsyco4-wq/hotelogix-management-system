@@ -13,9 +13,11 @@ import MyBookings from './pages/MyBookings';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
+import Notifications from './pages/Notifications';
 import AIAnalytics from './pages/AIAnalytics';
 import SmartRoomFinder from './pages/SmartRoomFinder';
 import ProcessRefund from './pages/ProcessRefund';
+import CancelBooking from './pages/CancelBooking';
 import Dining from './pages/Dining';
 import Deals from './pages/Deals';
 import Packages from './pages/Packages';
@@ -69,10 +71,12 @@ function App() {
             <>
               <Route path="/bookings" element={<Bookings />} />
               <Route path="/my-bookings" element={<MyBookings />} />
+              <Route path="/cancel-booking/:id" element={<CancelBooking />} />
               <Route path="/profile" element={<Profile />} />
               {user.email.includes('admin') && (
                 <>
                   <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin/notifications" element={<Notifications />} />
                   <Route path="/admin/refund/:id" element={<ProcessRefund />} />
                   <Route path="/ai-analytics" element={<AIAnalytics />} />
                 </>
