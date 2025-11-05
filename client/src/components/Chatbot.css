@@ -355,6 +355,8 @@
     padding: 15px 20px;
     background: white;
     border-top: 1px solid #e2e8f0;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .quick-actions p {
@@ -362,6 +364,11 @@
     font-size: 13px;
     color: #718096;
     font-weight: 500;
+    position: sticky;
+    top: 0;
+    background: white;
+    padding-bottom: 5px;
+    z-index: 1;
 }
 
 .quick-buttons {

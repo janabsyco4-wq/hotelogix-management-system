@@ -136,9 +136,14 @@ const Chatbot = () => {
   const quickActions = [
     "I want to book a room",
     "What rooms do you have?",
+    "Show me rooms in Lahore",
     "Do you have any deals?",
     "What are your amenities?",
-    "How can I contact you?"
+    "What's your cancellation policy?",
+    "Do you have restaurants?",
+    "What payment methods do you accept?",
+    "How can I contact you?",
+    "Tell me about your locations"
   ];
 
   const handleQuickAction = (action) => {
