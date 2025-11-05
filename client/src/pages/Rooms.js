@@ -9,6 +9,8 @@ const Rooms = () => {
   const [loading, setLoading] = useState(true);
   const [filterOpen, setFilterOpen] = useState(false);
   const [sortBy, setSortBy] = useState('featured');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [roomsPerPage] = useState(10);
   const [filters, setFilters] = useState({
     featured: false,
     available: true,
@@ -71,6 +73,7 @@ const Rooms = () => {
     filteredRooms = sortRooms(filteredRooms, sortBy);
 
     setRooms(filteredRooms);
+    setCurrentPage(1); // Reset to first page when filters change
   };
 
   const sortRooms = (roomsList, criteria) => {
@@ -126,6 +129,17 @@ const Rooms = () => {
   const availableAmenities = ['WiFi', 'Pool', 'Gym', 'Parking', 'Room Service', 'Air Conditioning', 'Mini Bar', 'Balcony'];
 
   const roomTypes = [...new Set(rooms.map(room => room.type))];
+
+  // Pagination logic
+  const indexOfLastRoom = currentPage * roomsPerPage;
+  const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
+  const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
+  const totalPages = Math.ceil(rooms.length / roomsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (loading) {
     return <Loading message="Loading rooms..." />;
@@ -291,8 +305,9 @@ const Rooms = () => {
                   </button>
                 </div>
               ) : (
-                <div className="rooms-grid">
-                  {rooms.map((room) => (
+                <>
+                  <div className="rooms-grid">
+                    {currentRooms.map((room) => (
                     <div key={room.id} className={`room-card card ${room.featured ? 'featured' : ''}`}>
                       {room.featured && (
                         <div className="featured-badge">Featured</div>
@@ -387,6 +402,60 @@ const Rooms = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="pagination">
+                    <button
+                      onClick={() => paginate(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="pagination-btn"
+                    >
+                      ← Previous
+                    </button>
+
+                    <div className="pagination-numbers">
+                      {[...Array(totalPages)].map((_, index) => {
+                        const pageNumber = index + 1;
+                        // Show first page, last page, current page, and pages around current
+                        if (
+                          pageNumber === 1 ||
+                          pageNumber === totalPages ||
+                          (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                        ) {
+                          return (
+                            <button
+                              key={pageNumber}
+                              onClick={() => paginate(pageNumber)}
+                              className={`pagination-number ${currentPage === pageNumber ? 'active' : ''}`}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        } else if (
+                          pageNumber === currentPage - 2 ||
+                          pageNumber === currentPage + 2
+                        ) {
+                          return <span key={pageNumber} className="pagination-ellipsis">...</span>;
+                        }
+                        return null;
+                      })}
+                    </div>
+
+                    <button
+                      onClick={() => paginate(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="pagination-btn"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                )}
+
+                <div className="pagination-info">
+                  Showing {indexOfFirstRoom + 1}-{Math.min(indexOfLastRoom, rooms.length)} of {rooms.length} rooms
+                </div>
+              </>
               )}
             </div>
           </div>
