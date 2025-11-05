@@ -123,22 +123,81 @@ const Home = () => {
       {/* Features Section */}
       <section className="features-section">
         <div className="container">
-          <h2 className="section-title">Why Choose Hotelogix?</h2>
+          <h2 className="section-title">Why Choose Hotelogix Pakistan?</h2>
+          <p className="section-subtitle">Experience the perfect blend of Pakistani hospitality and cutting-edge technology</p>
+          
           <div className="features-grid grid grid-3">
             <div className="feature-card card">
               <div className="feature-icon">🏨</div>
-              <h3>Premium Accommodations</h3>
-              <p>Luxurious rooms and suites with modern amenities and comfortable furnishings.</p>
+              <h3>116 Premium Rooms</h3>
+              <p>Across 4 major cities - Okara, Lahore, Sheikhupura & Multan. From budget-friendly to royal suites (PKR 2,800 - 150,000).</p>
             </div>
+            
             <div className="feature-card card">
               <div className="feature-icon">🤖</div>
-              <h3>AI-Powered Recommendations</h3>
-              <p>Machine learning algorithms suggest the perfect rooms based on your preferences.</p>
+              <h3>AI-Powered Smart Finder</h3>
+              <p>Our intelligent system learns your preferences and suggests the perfect room based on your budget, location, and amenities needs.</p>
             </div>
+            
+            <div className="feature-card card">
+              <div className="feature-icon">💬</div>
+              <h3>24/7 Intelligent Chatbot</h3>
+              <p>Get instant answers about rooms, rates, bookings, and amenities. Bilingual support in English and Urdu available anytime!</p>
+            </div>
+            
+            <div className="feature-card card">
+              <div className="feature-icon">🍽️</div>
+              <h3>Authentic Pakistani Cuisine</h3>
+              <p>4 premium restaurants serving traditional Lahori, Multani, and Punjabi delicacies with modern dining experiences.</p>
+            </div>
+            
+            <div className="feature-card card">
+              <div className="feature-icon">🎁</div>
+              <h3>Exclusive Deals & Packages</h3>
+              <p>5 active deals and 4 curated tour packages including heritage tours, spiritual journeys, and cultural experiences.</p>
+            </div>
+            
+            <div className="feature-card card">
+              <div className="feature-icon">🗺️</div>
+              <h3>Cultural Attractions</h3>
+              <p>Explore 6 UNESCO sites and historical landmarks - Badshahi Mosque, Lahore Fort, Shalimar Gardens & more!</p>
+            </div>
+            
+            <div className="feature-card card">
+              <div className="feature-icon">💳</div>
+              <h3>Secure Payment Options</h3>
+              <p>Multiple payment methods: Credit/Debit cards, JazzCash, EasyPaisa, Bank Transfer, and Cash on Arrival.</p>
+            </div>
+            
+            <div className="feature-card card">
+              <div className="feature-icon">📱</div>
+              <h3>Real-Time Booking System</h3>
+              <p>Instant confirmation via email & SMS. Track your bookings, manage reservations, and request cancellations online.</p>
+            </div>
+            
             <div className="feature-card card">
               <div className="feature-icon">⭐</div>
-              <h3>Exceptional Service</h3>
-              <p>24/7 customer service and personalized attention to every guest.</p>
+              <h3>4.5+ Star Rating</h3>
+              <p>Trusted by thousands of guests. Exceptional service, cleanliness, and authentic Pakistani hospitality guaranteed.</p>
+            </div>
+          </div>
+          
+          <div className="stats-banner">
+            <div className="stat-item">
+              <div className="stat-number">116</div>
+              <div className="stat-label">Premium Rooms</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">4</div>
+              <div className="stat-label">Major Cities</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">10</div>
+              <div className="stat-label">Room Categories</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">24/7</div>
+              <div className="stat-label">Support</div>
             </div>
           </div>
         </div>
