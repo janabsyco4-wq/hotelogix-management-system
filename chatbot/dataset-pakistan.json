@@ -118,7 +118,7 @@
     {
       "tag": "contact",
       "patterns": ["Contact", "Phone number", "Email", "Support", "Rabta kaise karun"],
-      "responses": ["Contact us: Phone: +92-300-1234567 | Email: support@hotelogix.pk | WhatsApp: +92-321-9876543 | Available 24/7!"]
+      "responses": ["Contact us: Phone: +92 310 4594964 | Email: support@hotelogix.pk | WhatsApp: +92-321-9876543 | Available 24/7!"]
     },
     {
       "tag": "price_range",

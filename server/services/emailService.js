@@ -44,7 +44,7 @@ const sendWelcomeEmail = async (user) => {
     const transporter = createTransporter();
 
     const mailOptions = {
-      from: '"Hotelogix Pakistan" <reservations@hotelogix.pk>',
+      from: '"Hotelogix Pakistan" <janabsyco4@gmail.com>',
       to: user.email,
       subject: 'Welcome to Hotelogix Pakistan! 🏨',
       html: `
@@ -88,7 +88,7 @@ const sendWelcomeEmail = async (user) => {
               </div>
               
               <p>Need assistance? Contact us:</p>
-              <p>📞 +92-300-1234567 | 📧 support@hotelogix.pk<br>
+              <p>📞 +92 310 4594964 | 📧 support@hotelogix.pk<br>
               🌐 www.hotelogix.pk</p>
               
               <p>Best regards,<br>The Hotelogix Pakistan Team</p>
@@ -124,7 +124,7 @@ const sendBookingConfirmation = async (booking, user, room) => {
     });
 
     const mailOptions = {
-      from: '"Hotelogix Pakistan" <reservations@hotelogix.pk>',
+      from: '"Hotelogix Pakistan" <janabsyco4@gmail.com>',
       to: user.email,
       subject: `Booking Confirmed - ${room.title} 🎉`,
       html: `
@@ -304,7 +304,7 @@ const sendPaymentReceipt = async (payment, booking, user, room) => {
               <p>If you have any questions about this payment, please contact our support team.</p>
               
               <p>Best regards,<br>The Hotelogix Pakistan Team<br>
-              📞 +92 310 4594964 | 📧 shehroozking3@gmail.com</p>
+              📞 +92 310 4594964 | 📧 janabsyco4@gmail.com</p>
             </div>
             <div class="footer">
               <p>© 2025 Hotelogix Pakistan. All rights reserved.</p>
@@ -406,7 +406,7 @@ const sendRefundConfirmation = async (payment, booking, user, room) => {
               <p>If you have any questions, please don't hesitate to contact us.</p>
               
               <p>Best regards,<br>The Hotelogix Pakistan Team<br>
-              📞 +92 310 4594964 | 📧 shehroozking3@gmail.com</p>
+              📞 +92 310 4594964 | 📧 janabsyco4@gmail.com</p>
             </div>
             <div class="footer">
               <p>© 2025 Hotelogix Pakistan. All rights reserved.</p>

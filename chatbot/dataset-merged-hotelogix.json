@@ -1,0 +1,596 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hello",
+        "Assalam o Alaikum",
+        "Salam",
+        "Hey",
+        "Good morning",
+        "Good evening",
+        "Adaab",
+        "Kya haal hai"
+      ],
+      "responses": [
+        "Assalam o Alaikum! Welcome to Hotelogix Pakistan. How may I assist you today?",
+        "Hello! Welcome to Hotelogix. How can I help you find the perfect room?",
+        "Wa Alaikum Assalam! I'm here to help you with Hotelogix bookings across Pakistan."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye",
+        "Goodbye",
+        "See you",
+        "Allah Hafiz",
+        "Khuda Hafiz",
+        "Thanks bye",
+        "Later",
+        "Alvida"
+      ],
+      "responses": [
+        "Allah Hafiz! Have a wonderful stay at Hotelogix!",
+        "Goodbye! Feel free to return if you need any assistance.",
+        "Khuda Hafiz! Safe travels and thank you for choosing Hotelogix!"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thanks",
+        "Thank you",
+        "Shukriya",
+        "Jazak Allah",
+        "Appreciate it",
+        "Thanks a lot",
+        "Bohot shukriya"
+      ],
+      "responses": [
+        "You're welcome! Happy to help with your Hotelogix booking!",
+        "My pleasure! Enjoy your stay at Hotelogix!",
+        "Khush amdeed! Feel free to ask anything else about our hotels."
+      ]
+    },
+    {
+      "tag": "hotel_identity",
+      "patterns": [
+        "Which hotel",
+        "What hotel",
+        "Hotel name",
+        "Your hotel name",
+        "Kis hotel ki baat ho rahi hai"
+      ],
+      "responses": [
+        "I represent Hotelogix - Pakistan's premier hotel chain with locations in Okara, Lahore, Sheikhupura, and Multan. I can only help with Hotelogix bookings and information."
+      ]
+    },
+    {
+      "tag": "competitor_redirect",
+      "patterns": [
+        "Pearl Continental",
+        "Serena",
+        "Marriott",
+        "Avari",
+        "Best Western",
+        "Other hotels",
+        "Compare hotels",
+        "Better hotel"
+      ],
+      "responses": [
+        "I can only provide information about Hotelogix properties. For other hotels, please visit their websites directly. Would you like to know about our Hotelogix rooms and rates? Contact us: +92 310 4594964"
+      ]
+    },
+    {
+      "tag": "cities",
+      "patterns": [
+        "Which cities",
+        "Available cities",
+        "Where are hotels",
+        "Cities list",
+        "Locations",
+        "Kahan hotels hain",
+        "Cities available",
+        "Konse sheher"
+      ],
+      "responses": [
+        "Hotelogix operates in 4 major Punjab cities: Okara, Lahore, Sheikhupura, and Multan. Each location offers unique experiences with consistent Hotelogix quality!"
+      ]
+    },
+    {
+      "tag": "lahore_info",
+      "patterns": [
+        "Tell me about Lahore",
+        "Lahore hotels",
+        "What's in Lahore",
+        "Lahore attractions",
+        "Lahore mein kya hai",
+        "Lahore rates",
+        "Lahore prices"
+      ],
+      "responses": [
+        "Hotelogix Lahore is near Badshahi Mosque, Lahore Fort, and Shalimar Gardens. Rates: Budget PKR 3,400-4,500 | Economy PKR 5,900-8,000 | Standard PKR 12,300-13,800 | Deluxe PKR 18,000-24,700 | Business PKR 21,100-26,100 | Suites PKR 30,000-150,000. Book now!"
+      ]
+    },
+    {
+      "tag": "multan_info",
+      "patterns": [
+        "Tell me about Multan",
+        "Multan hotels",
+        "What's in Multan",
+        "Multan attractions",
+        "Multan rates",
+        "Multan prices"
+      ],
+      "responses": [
+        "Hotelogix Multan - City of Saints! Near Shah Rukn-e-Alam shrine. Rates: Budget PKR 3,200-4,800 | Economy PKR 6,500-9,200 | Standard PKR 11,500-14,500 | Deluxe PKR 19,000-26,000 | Business PKR 22,000-28,000 | Suites PKR 32,000-145,000."
+      ]
+    },
+    {
+      "tag": "okara_info",
+      "patterns": [
+        "Tell me about Okara",
+        "Okara hotels",
+        "What's in Okara",
+        "Okara rates",
+        "Okara prices"
+      ],
+      "responses": [
+        "Hotelogix Okara offers peaceful stays near Garrison area. Best rates: Budget PKR 3,000-4,500 | Economy PKR 7,700-9,900 | Standard PKR 10,200-14,200 | Deluxe PKR 18,000-24,700 | Business PKR 21,100-26,100 | Suites PKR 30,100-128,400."
+      ]
+    },
+    {
+      "tag": "sheikhupura_info",
+      "patterns": [
+        "Tell me about Sheikhupura",
+        "Sheikhupura hotels",
+        "What's in Sheikhupura",
+        "Sheikhupura rates"
+      ],
+      "responses": [
+        "Hotelogix Sheikhupura near beautiful Hiran Minar! Rates: Budget PKR 2,800-4,200 | Economy PKR 6,200-8,800 | Standard PKR 10,800-13,500 | Deluxe PKR 17,500-23,500 | Business PKR 20,500-25,500 | Suites PKR 29,000-140,000."
+      ]
+    },
+    {
+      "tag": "city_comparison",
+      "patterns": [
+        "Which city is cheapest",
+        "Best city",
+        "Compare cities",
+        "City rates comparison",
+        "Konsa sheher sasta hai"
+      ],
+      "responses": [
+        "At Hotelogix: Sheikhupura has the most budget-friendly rates (from PKR 2,800), Okara offers great value, Multan has premium options, and Lahore is our flagship location. All cities maintain Hotelogix quality standards!"
+      ]
+    },
+    {
+      "tag": "room_types",
+      "patterns": [
+        "What room types",
+        "Types of rooms",
+        "Room categories",
+        "Available rooms",
+        "Kamre ki qismein",
+        "Room options"
+      ],
+      "responses": [
+        "Hotelogix offers 10 room categories across all cities: Budget (PKR 2K-5K), Economy (5K-10K), Standard (10K-15K), Deluxe (15K-25K), Business (20K-30K), Junior Suite (25K-35K), Executive Suite (35K-50K), Family Suite (30K-45K), Presidential Suite (50K-100K), Royal Suite (100K-150K)!"
+      ]
+    },
+    {
+      "tag": "budget_rooms",
+      "patterns": [
+        "Cheap rooms",
+        "Budget rooms",
+        "Affordable",
+        "Low price",
+        "Sasta kamra",
+        "Budget friendly",
+        "Cheapest room"
+      ],
+      "responses": [
+        "Hotelogix Budget Rooms start from PKR 2,800 in Sheikhupura! Includes: Free WiFi, AC, TV, attached bathroom, room service. Available in all 4 cities. Perfect for budget travelers!"
+      ]
+    },
+    {
+      "tag": "economy_rooms",
+      "patterns": [
+        "Economy rooms",
+        "Mid range",
+        "Economy kamra",
+        "5000 to 10000"
+      ],
+      "responses": [
+        "Hotelogix Economy Rooms (PKR 5,900-9,900) accommodate 3 people. Features: Free WiFi, AC, LED TV, work desk, mini fridge, tea/coffee maker. Great value for small families!"
+      ]
+    },
+    {
+      "tag": "standard_rooms",
+      "patterns": [
+        "Standard rooms",
+        "Normal rooms",
+        "Standard kamra",
+        "10000 to 15000"
+      ],
+      "responses": [
+        "Hotelogix Standard Rooms (PKR 10,200-14,200) offer comfort for couples. Features: Smart TV, work desk, mini fridge, safe, premium bedding, 25-30 sqm space. King bed included!"
+      ]
+    },
+    {
+      "tag": "deluxe_rooms",
+      "patterns": [
+        "Deluxe rooms",
+        "Deluxe kamra",
+        "Premium rooms",
+        "15000 to 25000"
+      ],
+      "responses": [
+        "Hotelogix Deluxe Rooms (PKR 17,500-26,000) for families of 4. Features: Smart TV, mini bar, seating area, premium bedding, bathrobe, city view, 30-40 sqm. King bed + sofa bed!"
+      ]
+    },
+    {
+      "tag": "business_rooms",
+      "patterns": [
+        "Business rooms",
+        "Work rooms",
+        "Office",
+        "Business traveler",
+        "Meeting rooms",
+        "Corporate"
+      ],
+      "responses": [
+        "Hotelogix Business Rooms (PKR 20,500-28,000) designed for professionals. Features: Executive desk, printer access, business center, meeting room access, Smart TV, 28-35 sqm. Perfect for business trips!"
+      ]
+    },
+    {
+      "tag": "junior_suite",
+      "patterns": [
+        "Junior suite",
+        "Small suite",
+        "Junior kamra",
+        "25000 to 35000"
+      ],
+      "responses": [
+        "Hotelogix Junior Suites (PKR 29,000-35,000) for 3 people. Features: Living area, mini bar, premium coffee, work station, city view, Smart TV, 35-45 sqm. Elevated comfort!"
+      ]
+    },
+    {
+      "tag": "executive_suite",
+      "patterns": [
+        "Executive suite",
+        "Executive kamra",
+        "35000 to 50000",
+        "Business suite"
+      ],
+      "responses": [
+        "Hotelogix Executive Suites (PKR 37,700-49,700) accommodate 6 people. Features: 55\" Smart TV, separate living room, mini bar, premium bedding, executive lounge access, butler service, 50-65 sqm. Featured rooms!"
+      ]
+    },
+    {
+      "tag": "family_suite",
+      "patterns": [
+        "Family rooms",
+        "Rooms for family",
+        "Family suite",
+        "Large rooms",
+        "Family ke liye",
+        "30000 to 45000"
+      ],
+      "responses": [
+        "Hotelogix Family Suites (PKR 32,500-41,600) perfect for 6 people! Features: Kitchenette, separate bedrooms, family games, kids welcome pack, dining area, Smart TV, 55-70 sqm. King + twin beds!"
+      ]
+    },
+    {
+      "tag": "presidential_suite",
+      "patterns": [
+        "Presidential suite",
+        "Presidential kamra",
+        "50000 to 100000",
+        "VIP room"
+      ],
+      "responses": [
+        "Hotelogix Presidential Suites (PKR 52,400-78,200) for 8 people! Features: 75\" Smart TV, full kitchen, dining area, panoramic views, concierge, butler service, private terrace, 80-120 sqm. Ultimate luxury!"
+      ]
+    },
+    {
+      "tag": "royal_suite",
+      "patterns": [
+        "Royal suite",
+        "Luxury rooms",
+        "Expensive rooms",
+        "Royal kamra",
+        "Best rooms",
+        "100000 plus"
+      ],
+      "responses": [
+        "Hotelogix Royal Suite (PKR 128,400) - our crown jewel! Accommodates 10 people. Features: 85\" Smart TV, full kitchen, multiple bedrooms, dining hall, panoramic views, 24/7 butler, private terrace, jacuzzi, home theater, 120-180 sqm. Pure opulence!"
+      ]
+    },
+    {
+      "tag": "booking",
+      "patterns": [
+        "How to book",
+        "Book a room",
+        "Make reservation",
+        "Booking process",
+        "Kaise book karun",
+        "Reserve"
+      ],
+      "responses": [
+        "Book Hotelogix easily: 1) Browse rooms by city 2) Select dates 3) Choose room type 4) Complete secure payment 5) Get instant confirmation via email/SMS. Visit our website or call +92 310 4594964!"
+      ]
+    },
+    {
+      "tag": "payment",
+      "patterns": [
+        "Payment methods",
+        "How to pay",
+        "Payment options",
+        "Kaise payment karun",
+        "Pay kaise karun",
+        "Payment"
+      ],
+      "responses": [
+        "Hotelogix accepts: Credit/Debit Cards (Visa, Mastercard), JazzCash, EasyPaisa, Bank Transfer, and Cash on Arrival. All online transactions are 100% secure with SSL encryption!"
+      ]
+    },
+    {
+      "tag": "amenities",
+      "patterns": [
+        "What amenities",
+        "Facilities",
+        "What's included",
+        "Room features",
+        "Kya facilities hain",
+        "Services"
+      ],
+      "responses": [
+        "Hotelogix amenities by category: Budget (WiFi, AC, TV, bathroom), Standard (+ work desk, safe, mini fridge), Deluxe (+ mini bar, city view), Suites (+ butler service, jacuzzi, private terrace, home theater). All rooms include room service!"
+      ]
+    },
+    {
+      "tag": "cancellation",
+      "patterns": [
+        "Cancel booking",
+        "Cancellation policy",
+        "Refund",
+        "Cancel kaise karun",
+        "Refund policy"
+      ],
+      "responses": [
+        "Hotelogix Cancellation Policy: FREE cancellation up to 24 hours before check-in (100% refund). Cancel within 24 hours: 50% refund. No-show: No refund. Contact support@hotelogix.pk for assistance!"
+      ]
+    },
+    {
+      "tag": "check_in_out",
+      "patterns": [
+        "Check in time",
+        "Check out time",
+        "Arrival time",
+        "Departure time",
+        "Kab check in",
+        "Timing"
+      ],
+      "responses": [
+        "Hotelogix Check-in: 2:00 PM | Check-out: 12:00 PM (noon). Early check-in and late check-out available on request (subject to availability, additional charges may apply). Contact reception!"
+      ]
+    },
+    {
+      "tag": "food",
+      "patterns": [
+        "Food",
+        "Restaurant",
+        "Breakfast",
+        "Dining",
+        "Khana",
+        "Nashta",
+        "Meals"
+      ],
+      "responses": [
+        "Hotelogix dining: Complimentary breakfast included! On-site restaurants serve Pakistani, Continental, and Chinese cuisine. 24/7 room service available. Special dietary requirements accommodated!"
+      ]
+    },
+    {
+      "tag": "wifi",
+      "patterns": [
+        "WiFi",
+        "Internet",
+        "Free wifi",
+        "Internet speed",
+        "Wifi password"
+      ],
+      "responses": [
+        "All Hotelogix rooms include FREE high-speed WiFi! Business and premium rooms get priority bandwidth (50+ Mbps) for video calls and streaming. Password provided at check-in!"
+      ]
+    },
+    {
+      "tag": "parking",
+      "patterns": [
+        "Parking",
+        "Car parking",
+        "Vehicle",
+        "Gaari ki parking",
+        "Free parking"
+      ],
+      "responses": [
+        "Hotelogix offers FREE secure parking for all guests! Covered parking for premium guests, 24/7 CCTV surveillance, and valet service available. Your vehicle is safe with us!"
+      ]
+    },
+    {
+      "tag": "pets",
+      "patterns": [
+        "Pets allowed",
+        "Can I bring pet",
+        "Dog allowed",
+        "Animals",
+        "Cat allowed"
+      ],
+      "responses": [
+        "Hotelogix pet policy: Pets not allowed in standard rooms. Service animals always welcome. Special pet-friendly rooms available on request (additional charges apply). Contact us in advance!"
+      ]
+    },
+    {
+      "tag": "airport",
+      "patterns": [
+        "Airport pickup",
+        "Airport transfer",
+        "Transport",
+        "Airport se kaise aun",
+        "Taxi"
+      ],
+      "responses": [
+        "Hotelogix airport services: Pickup/drop available in Lahore (Allama Iqbal Airport) and Multan (Multan Airport). Charges: PKR 2,000-5,000 based on distance. Book during reservation or call reception!"
+      ]
+    },
+    {
+      "tag": "contact",
+      "patterns": [
+        "Contact",
+        "Phone number",
+        "Email",
+        "Support",
+        "Rabta kaise karun",
+        "Customer service"
+      ],
+      "responses": [
+        "Contact Hotelogix: Phone: +92 310 4594964 | Email: shehroozking3@gmail.com | WhatsApp: +92 310 4594964 | Available 24/7 for your convenience!"
+      ]
+    },
+    {
+      "tag": "price_range",
+      "patterns": [
+        "Price range",
+        "How much",
+        "Cost",
+        "Kitna paisa",
+        "Rates",
+        "Charges"
+      ],
+      "responses": [
+        "Hotelogix rates across all cities: Budget PKR 2,800-4,800 | Economy PKR 5,900-9,900 | Standard PKR 10,200-14,200 | Deluxe PKR 17,500-26,000 | Business PKR 20,500-28,000 | Suites PKR 29,000-150,000. Something for every budget!"
+      ]
+    },
+    {
+      "tag": "discounts",
+      "patterns": [
+        "Discount",
+        "Offers",
+        "Deals",
+        "Promotion",
+        "Discount milega",
+        "Special offer"
+      ],
+      "responses": [
+        "Hotelogix offers: 10% off for 7+ nights | 15% off for monthly bookings | 20% corporate rates | Early bird discounts | Seasonal promotions | Wedding packages! Check our Deals page or call for current offers!"
+      ]
+    },
+    {
+      "tag": "group_booking",
+      "patterns": [
+        "Group booking",
+        "Multiple rooms",
+        "Wedding",
+        "Event",
+        "Shaadi ke liye",
+        "Corporate booking"
+      ],
+      "responses": [
+        "Hotelogix group rates: Weddings, corporate events, conferences - we handle it all! Special packages for 10+ rooms. Contact sales@hotelogix.pk or call +92 310 4594964 for customized quotes!"
+      ]
+    },
+    {
+      "tag": "restaurants_nearby",
+      "patterns": [
+        "Restaurants",
+        "Food nearby",
+        "Where to eat",
+        "Dining options",
+        "Kahan khana milega"
+      ],
+      "responses": [
+        "Near Hotelogix properties: Lahore Chatkhara (Lahori cuisine), Multan Sajji House (BBQ), Okara Desi Dhaba (Punjabi), Sheikhupura Royal Cuisine (Mughlai). Plus our in-house restaurants!"
+      ]
+    },
+    {
+      "tag": "attractions",
+      "patterns": [
+        "Tourist places",
+        "What to visit",
+        "Attractions",
+        "Sightseeing",
+        "Kya dekhein"
+      ],
+      "responses": [
+        "Near Hotelogix: Lahore (Badshahi Mosque, Fort, Shalimar Gardens) | Multan (Shah Rukn-e-Alam, Sufi shrines) | Sheikhupura (Hiran Minar) | Okara (Garrison). We can arrange guided tours!"
+      ]
+    },
+    {
+      "tag": "packages",
+      "patterns": [
+        "Tour packages",
+        "Deals",
+        "Package deals",
+        "Holiday packages",
+        "Tour"
+      ],
+      "responses": [
+        "Hotelogix packages: Lahore Heritage 3D/2N (PKR 25,000) | Multan Spiritual 2D/1N (PKR 18,000) | Punjab Grand Tour 5D/4N (PKR 45,000) | Sheikhupura Weekend (PKR 12,000). Includes stay, meals, tours!"
+      ]
+    },
+    {
+      "tag": "safety",
+      "patterns": [
+        "Is it safe",
+        "Security",
+        "Safe hotel",
+        "Safety measures",
+        "Secure"
+      ],
+      "responses": [
+        "Hotelogix safety: 24/7 security guards | CCTV surveillance | Fire safety systems | Secure key card access | Female-only floors available | COVID-19 protocols | Your safety is our priority!"
+      ]
+    },
+    {
+      "tag": "reviews",
+      "patterns": [
+        "Reviews",
+        "Ratings",
+        "Customer feedback",
+        "Testimonials",
+        "Rating kya hai"
+      ],
+      "responses": [
+        "Hotelogix maintains 4.5+ star ratings across all properties! Guests love our cleanliness, hospitality, and value for money. Check reviews on our website or Google!"
+      ]
+    },
+    {
+      "tag": "loyalty",
+      "patterns": [
+        "Loyalty program",
+        "Rewards",
+        "Points",
+        "Membership",
+        "Loyalty card"
+      ],
+      "responses": [
+        "Join Hotelogix Rewards! Earn points on every stay, get exclusive discounts, early check-in, late check-out, and birthday specials. Sign up free at checkout!"
+      ]
+    },
+    {
+      "tag": "special_requests",
+      "patterns": [
+        "Special request",
+        "Extra bed",
+        "Crib",
+        "Wheelchair",
+        "Accessibility"
+      ],
+      "responses": [
+        "Hotelogix accommodates: Extra beds (PKR 1,000/night) | Baby cribs (free) | Wheelchair accessibility | Dietary requirements | Anniversary/birthday setups. Mention during booking or call ahead!"
+      ]
+    }
+  ]
+}
