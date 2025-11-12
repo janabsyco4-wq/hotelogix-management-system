@@ -13,6 +13,7 @@ const DealView = () => {
 
   useEffect(() => {
     fetchDeal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchDeal = async () => {

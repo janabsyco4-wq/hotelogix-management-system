@@ -17,10 +17,12 @@ const PackageDetail = () => {
     startDate: '',
     guests: 2
   });
+  // eslint-disable-next-line no-unused-vars
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     fetchPackage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchPackage = async () => {

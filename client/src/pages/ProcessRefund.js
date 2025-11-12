@@ -33,6 +33,7 @@ const ProcessRefund = () => {
     } else {
       fetchBooking();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, user, navigate, location.state]);
 
   const fetchBooking = async () => {
@@ -81,6 +82,7 @@ const ProcessRefund = () => {
         }
       };
 
+      // eslint-disable-next-line no-unused-vars
       const isRoom = booking.roomId !== undefined;
       const isDining = booking.restaurantId !== undefined;
       const isDeal = booking.dealId !== undefined;

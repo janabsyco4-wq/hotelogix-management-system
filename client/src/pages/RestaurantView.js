@@ -13,6 +13,7 @@ const RestaurantView = () => {
 
   useEffect(() => {
     fetchRestaurant();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchRestaurant = async () => {

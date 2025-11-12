@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 import Loading from '../components/Loading';
@@ -23,6 +23,7 @@ const Rooms = () => {
 
   useEffect(() => {
     fetchRooms();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [allRooms, setAllRooms] = useState([]);
@@ -308,154 +309,154 @@ const Rooms = () => {
                 <>
                   <div className="rooms-grid">
                     {currentRooms.map((room) => (
-                    <div key={room.id} className={`room-card card ${room.featured ? 'featured' : ''}`}>
-                      {room.featured && (
-                        <div className="featured-badge">Featured</div>
-                      )}
-
-                      <div className="card-image">
-                        <img
-                          src={room.images[0] || 'https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Room'}
-                          alt={room.title}
-                        />
-                        <div className="price-badge">
-                          ₨{room.pricePerNight.toLocaleString('en-PK')}/night
-                        </div>
-                        {!room.isAvailable && (
-                          <div className="unavailable-overlay">
-                            <span>Not Available</span>
-                          </div>
+                      <div key={room.id} className={`room-card card ${room.featured ? 'featured' : ''}`}>
+                        {room.featured && (
+                          <div className="featured-badge">Featured</div>
                         )}
-                      </div>
 
-                      <div className="card-content">
-                        <div className="room-header">
-                          <h3 className="card-title">{room.title}</h3>
-                          <span className="room-type">{room.type}</span>
+                        <div className="card-image">
+                          <img
+                            src={room.images[0] || 'https://via.placeholder.com/400x250/8B4513/FFFFFF?text=Room'}
+                            alt={room.title}
+                          />
+                          <div className="price-badge">
+                            ₨{room.pricePerNight.toLocaleString('en-PK')}/night
+                          </div>
+                          {!room.isAvailable && (
+                            <div className="unavailable-overlay">
+                              <span>Not Available</span>
+                            </div>
+                          )}
                         </div>
-                        
-                        {room.reviewCount > 0 && (
-                          <div className="room-rating">
-                            <span className="rating-stars">
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <span key={star} className={`star ${star <= Math.round(room.averageRating) ? 'filled' : ''}`}>
-                                  ★
-                                </span>
+
+                        <div className="card-content">
+                          <div className="room-header">
+                            <h3 className="card-title">{room.title}</h3>
+                            <span className="room-type">{room.type}</span>
+                          </div>
+
+                          {room.reviewCount > 0 && (
+                            <div className="room-rating">
+                              <span className="rating-stars">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <span key={star} className={`star ${star <= Math.round(room.averageRating) ? 'filled' : ''}`}>
+                                    ★
+                                  </span>
+                                ))}
+                              </span>
+                              <span className="rating-text">
+                                {room.averageRating.toFixed(1)} ({room.reviewCount} reviews)
+                              </span>
+                            </div>
+                          )}
+
+                          <div className="room-details">
+                            <div className="detail-item">
+                              <span className="detail-label">📍</span>
+                              <span>{room.location}</span>
+                            </div>
+                            <div className="detail-item">
+                              <span className="detail-label">👥</span>
+                              <span>Up to {room.capacity} guests</span>
+                            </div>
+                            <div className="detail-item">
+                              <span className="detail-label">📐</span>
+                              <span>{room.size}</span>
+                            </div>
+                            <div className="detail-item">
+                              <span className="detail-label">🛏️</span>
+                              <span>{room.bedType}</span>
+                            </div>
+                          </div>
+
+                          <p className="card-description">{room.description}</p>
+
+                          <div className="amenities-preview">
+                            <h4>Amenities:</h4>
+                            <div className="amenities-tags">
+                              {room.amenities.slice(0, 3).map((amenity, index) => (
+                                <span key={index} className="amenity-tag">{amenity}</span>
                               ))}
-                            </span>
-                            <span className="rating-text">
-                              {room.averageRating.toFixed(1)} ({room.reviewCount} reviews)
-                            </span>
+                              {room.amenities.length > 3 && (
+                                <span className="amenity-tag more">+{room.amenities.length - 3} more</span>
+                              )}
+                            </div>
                           </div>
-                        )}
 
-                        <div className="room-details">
-                          <div className="detail-item">
-                            <span className="detail-label">📍</span>
-                            <span>{room.location}</span>
-                          </div>
-                          <div className="detail-item">
-                            <span className="detail-label">👥</span>
-                            <span>Up to {room.capacity} guests</span>
-                          </div>
-                          <div className="detail-item">
-                            <span className="detail-label">📐</span>
-                            <span>{room.size}</span>
-                          </div>
-                          <div className="detail-item">
-                            <span className="detail-label">🛏️</span>
-                            <span>{room.bedType}</span>
-                          </div>
-                        </div>
-
-                        <p className="card-description">{room.description}</p>
-
-                        <div className="amenities-preview">
-                          <h4>Amenities:</h4>
-                          <div className="amenities-tags">
-                            {room.amenities.slice(0, 3).map((amenity, index) => (
-                              <span key={index} className="amenity-tag">{amenity}</span>
-                            ))}
-                            {room.amenities.length > 3 && (
-                              <span className="amenity-tag more">+{room.amenities.length - 3} more</span>
+                          <div className="card-actions">
+                            <Link
+                              to={`/rooms/${room.id}`}
+                              className="btn btn-secondary"
+                            >
+                              VIEW DETAILS
+                            </Link>
+                            {room.isAvailable && (
+                              <Link
+                                to={`/book/${room.id}`}
+                                className="btn btn-primary"
+                              >
+                                BOOK NOW
+                              </Link>
                             )}
                           </div>
                         </div>
-
-                        <div className="card-actions">
-                          <Link
-                            to={`/rooms/${room.id}`}
-                            className="btn btn-secondary"
-                          >
-                            VIEW DETAILS
-                          </Link>
-                          {room.isAvailable && (
-                            <Link
-                              to={`/book/${room.id}`}
-                              className="btn btn-primary"
-                            >
-                              BOOK NOW
-                            </Link>
-                          )}
-                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Pagination Controls */}
-                {totalPages > 1 && (
-                  <div className="pagination">
-                    <button
-                      onClick={() => paginate(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      className="pagination-btn"
-                    >
-                      ← Previous
-                    </button>
-
-                    <div className="pagination-numbers">
-                      {[...Array(totalPages)].map((_, index) => {
-                        const pageNumber = index + 1;
-                        // Show first page, last page, current page, and pages around current
-                        if (
-                          pageNumber === 1 ||
-                          pageNumber === totalPages ||
-                          (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
-                        ) {
-                          return (
-                            <button
-                              key={pageNumber}
-                              onClick={() => paginate(pageNumber)}
-                              className={`pagination-number ${currentPage === pageNumber ? 'active' : ''}`}
-                            >
-                              {pageNumber}
-                            </button>
-                          );
-                        } else if (
-                          pageNumber === currentPage - 2 ||
-                          pageNumber === currentPage + 2
-                        ) {
-                          return <span key={pageNumber} className="pagination-ellipsis">...</span>;
-                        }
-                        return null;
-                      })}
-                    </div>
-
-                    <button
-                      onClick={() => paginate(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      className="pagination-btn"
-                    >
-                      Next →
-                    </button>
+                    ))}
                   </div>
-                )}
 
-                <div className="pagination-info">
-                  Showing {indexOfFirstRoom + 1}-{Math.min(indexOfLastRoom, rooms.length)} of {rooms.length} rooms
-                </div>
-              </>
+                  {/* Pagination Controls */}
+                  {totalPages > 1 && (
+                    <div className="pagination">
+                      <button
+                        onClick={() => paginate(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="pagination-btn"
+                      >
+                        ← Previous
+                      </button>
+
+                      <div className="pagination-numbers">
+                        {[...Array(totalPages)].map((_, index) => {
+                          const pageNumber = index + 1;
+                          // Show first page, last page, current page, and pages around current
+                          if (
+                            pageNumber === 1 ||
+                            pageNumber === totalPages ||
+                            (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                          ) {
+                            return (
+                              <button
+                                key={pageNumber}
+                                onClick={() => paginate(pageNumber)}
+                                className={`pagination-number ${currentPage === pageNumber ? 'active' : ''}`}
+                              >
+                                {pageNumber}
+                              </button>
+                            );
+                          } else if (
+                            pageNumber === currentPage - 2 ||
+                            pageNumber === currentPage + 2
+                          ) {
+                            return <span key={pageNumber} className="pagination-ellipsis">...</span>;
+                          }
+                          return null;
+                        })}
+                      </div>
+
+                      <button
+                        onClick={() => paginate(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="pagination-btn"
+                      >
+                        Next →
+                      </button>
+                    </div>
+                  )}
+
+                  <div className="pagination-info">
+                    Showing {indexOfFirstRoom + 1}-{Math.min(indexOfLastRoom, rooms.length)} of {rooms.length} rooms
+                  </div>
+                </>
               )}
             </div>
           </div>
