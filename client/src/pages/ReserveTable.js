@@ -17,6 +17,7 @@ const ReserveTable = () => {
   const { user } = useAuth();
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [submitting, setSubmitting] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [reservationData, setReservationData] = useState({
@@ -36,6 +37,7 @@ const ReserveTable = () => {
       return;
     }
     fetchRestaurant();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, user, navigate]);
 
   const fetchRestaurant = async () => {

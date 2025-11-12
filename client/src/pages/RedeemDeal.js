@@ -17,6 +17,7 @@ const RedeemDeal = () => {
   const { user } = useAuth();
   const [deal, setDeal] = useState(null);
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [redeeming, setRedeeming] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [redemptionCode, setRedemptionCode] = useState(null);
@@ -28,6 +29,7 @@ const RedeemDeal = () => {
       return;
     }
     fetchDeal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, user, navigate]);
 
   const fetchDeal = async () => {

@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import './Profile.css';
 
 function Profile() {
+  // eslint-disable-next-line no-unused-vars
   const { user: authUser, logout } = useAuth();
   const navigate = useNavigate();
   
