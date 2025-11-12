@@ -34,6 +34,7 @@ const SmartRoomFinder = () => {
     useEffect(() => {
         // Load recommendations on mount
         fetchRecommendations();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -41,6 +42,7 @@ const SmartRoomFinder = () => {
         if (recommendations.length > 0) {
             sortRecommendations();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortBy]);
 
     const fetchRecommendations = async () => {
