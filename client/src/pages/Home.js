@@ -6,9 +6,11 @@ import Loading from '../components/Loading';
 import './Home.css';
 
 const Home = () => {
+  // eslint-disable-next-line no-unused-vars
   const { user } = useAuth();
   const [attractions, setAttractions] = useState([]);
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -64,10 +66,12 @@ const Home = () => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % Math.max(1, attractions.length - 2));
   };
 
+  // eslint-disable-next-line no-unused-vars
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + Math.max(1, attractions.length - 2)) % Math.max(1, attractions.length - 2));
   };

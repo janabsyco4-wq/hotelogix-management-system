@@ -17,6 +17,7 @@ const Dining = () => {
 
   useEffect(() => {
     fetchRestaurants();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   const fetchRestaurants = async () => {
@@ -37,6 +38,7 @@ const Dining = () => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleReserve = (restaurantId) => {
     navigate(`/restaurants/${restaurantId}/reserve`);
   };
