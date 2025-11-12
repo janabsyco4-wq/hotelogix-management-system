@@ -21,6 +21,7 @@ const AdminNotifications = () => {
     if (isOpen && notifications.length === 0) {
       fetchNotifications();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   // Close dropdown when clicking outside
