@@ -1,0 +1,12 @@
+version: "2"
+authtoken: 34tY80VDLr1vFKO0GBoXKaTfTMe_4R888vLczaDELkRUu5Qiz
+tunnels:
+  backend:
+    proto: http
+    addr: 5000
+  ai-model:
+    proto: http
+    addr: 5002
+  chatbot:
+    proto: http
+    addr: 5001
