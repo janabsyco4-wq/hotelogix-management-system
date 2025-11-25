@@ -15,7 +15,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Stats file path
-STATS_FILE = 'ai-model/stats_data.json'
+script_dir = os.path.dirname(os.path.abspath(__file__))
+STATS_FILE = os.path.join(script_dir, 'stats_data.json')
 
 # Global model variables
 compatibility_model = None
@@ -72,7 +73,9 @@ def load_models():
     """Load trained ML models"""
     global compatibility_model, booking_model, scaler, label_encoders
     
-    model_dir = 'ai-model/models'
+    # Get the directory of this script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    model_dir = os.path.join(script_dir, 'models')
     
     print("📂 Loading AI models...")
     

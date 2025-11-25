@@ -7,22 +7,27 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+import os
+
 print("🚀 Loading Hotelogix 200K+ Chatbot Model...")
 
+# Get the directory of this script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Load trained model
-with open('chatbot/hotelogix_200k_model.pkl', 'rb') as f:
+with open(os.path.join(script_dir, 'hotelogix_200k_model.pkl'), 'rb') as f:
     model = pickle.load(f)
 
 # Load intents
-with open('chatbot/hotelogix_200k_intents.pkl', 'rb') as f:
+with open(os.path.join(script_dir, 'hotelogix_200k_intents.pkl'), 'rb') as f:
     intents = pickle.load(f)
 
 # Load full dataset for metadata
-with open('chatbot/dataset-200k-final-hotelogix.json', 'r', encoding='utf-8') as f:
+with open(os.path.join(script_dir, 'dataset-200k-final-hotelogix.json'), 'r', encoding='utf-8') as f:
     dataset = json.load(f)
 
 # Load base dataset with proper responses
-with open('chatbot/dataset-final-hotelogix.json', 'r', encoding='utf-8') as f:
+with open(os.path.join(script_dir, 'dataset-final-hotelogix.json'), 'r', encoding='utf-8') as f:
     base_dataset = json.load(f)
 
 print("✅ Model loaded successfully!")
