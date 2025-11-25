@@ -19,10 +19,10 @@ print("🤖 Loading Hotelogix Chatbot Model...")
 
 lemmatizer = WordNetLemmatizer()
 
-with open('chatbot/model/sklearn_model.pkl', 'rb') as f:
+with open('model/sklearn_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
-with open('chatbot/model/intents_map.pkl', 'rb') as f:
+with open('model/intents_map.pkl', 'rb') as f:
     intents_map = pickle.load(f)
 
 print(f"✅ Model loaded! {len(intents_map)} intents ready")

@@ -1,0 +1,216 @@
+// MongoDB Atlas Prisma Schema
+// Connection string format: mongodb+srv://username:password@cluster.mongodb.net/database
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String
+  phone     String?
+  address   String?
+  city      String?
+  country   String?
+  profileImage String?
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bookings  Booking[]
+  diningReservations DiningReservation[]
+  dealRedemptions DealRedemption[]
+  packageBookings PackageBooking[]
+  reviews   Review[]
+}
+
+model Room {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  roomNumber  String
+  type        String
+  title       String
+  description String
+  location    String
+  capacity    Int
+  pricePerNight Float
+  images      String[]
+  amenities   String[]
+  size        String
+  bedType     String
+  isAvailable Boolean  @default(true)
+  featured    Boolean  @default(false)
+  averageRating Float  @default(0)
+  reviewCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    Booking[]
+  reviews     Review[]
+}
+
+model Booking {
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String    @db.ObjectId
+  roomId             String    @db.ObjectId
+  checkIn            DateTime
+  checkOut           DateTime
+  totalPrice         Float
+  status             String    @default("pending")
+  paymentIntentId    String?
+  cancellationReason String?
+  cancelledAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id])
+  room               Room      @relation(fields: [roomId], references: [id])
+  review             Review?
+}
+
+model Attraction {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  subtitle    String
+  description String
+  image       String
+  location    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Restaurant {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  cuisine     String
+  description String
+  location    String
+  images      String[]
+  priceRange  String
+  rating      Float    @default(4.5)
+  openingHours String
+  menu        String
+  amenities   String[]
+  featured    Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  reservations DiningReservation[]
+}
+
+model DiningReservation {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String   @db.ObjectId
+  restaurantId    String   @db.ObjectId
+  date            DateTime
+  time            String
+  guests          Int
+  specialRequests String?
+  status          String   @default("pending")
+  paymentIntentId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  restaurant      Restaurant @relation(fields: [restaurantId], references: [id])
+}
+
+model Deal {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  type        String
+  discount    Int
+  originalPrice Float
+  dealPrice   Float
+  images      String[]
+  terms       String
+  validFrom   DateTime
+  validUntil  DateTime
+  location    String
+  featured    Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  maxRedemptions Int?
+  currentRedemptions Int @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  redemptions DealRedemption[]
+}
+
+model DealRedemption {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String   @db.ObjectId
+  dealId          String   @db.ObjectId
+  redemptionCode  String   @unique
+  status          String   @default("active")
+  redeemedAt      DateTime?
+  paymentIntentId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  deal            Deal     @relation(fields: [dealId], references: [id])
+}
+
+model Package {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  includes    String[]
+  images      String[]
+  price       Float
+  duration    String
+  location    String
+  featured    Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    PackageBooking[]
+}
+
+model PackageBooking {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String   @db.ObjectId
+  packageId       String   @db.ObjectId
+  startDate       DateTime
+  guests          Int
+  totalPrice      Float
+  status          String   @default("pending")
+  paymentIntentId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  package         Package  @relation(fields: [packageId], references: [id])
+}
+
+model Review {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  rating      Int
+  title       String?
+  comment     String?
+  userId      String   @db.ObjectId
+  roomId      String   @db.ObjectId
+  bookingId   String   @unique @db.ObjectId
+  helpful     Int      @default(0)
+  notHelpful  Int      @default(0)
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  room        Room     @relation(fields: [roomId], references: [id])
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+}
+
+model Notification {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  type        String
+  title       String
+  message     String
+  relatedId   String?
+  relatedType String?
+  isRead      Boolean  @default(false)
+  priority    String   @default("normal")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

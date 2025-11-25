@@ -7,7 +7,7 @@ import './Rooms.css';
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filterOpen, setFilterOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(true);
   const [sortBy, setSortBy] = useState('featured');
   const [currentPage, setCurrentPage] = useState(1);
   const [roomsPerPage] = useState(10);
@@ -17,8 +17,7 @@ const Rooms = () => {
     type: '',
     minPrice: '',
     maxPrice: '',
-    capacity: '',
-    amenities: []
+    capacity: ''
   });
 
   useEffect(() => {
@@ -63,12 +62,6 @@ const Rooms = () => {
     if (filters.capacity) {
       filteredRooms = filteredRooms.filter(room => room.capacity >= parseInt(filters.capacity));
     }
-    if (filters.amenities.length > 0) {
-      filteredRooms = filteredRooms.filter(room => {
-        const roomAmenities = typeof room.amenities === 'string' ? JSON.parse(room.amenities) : room.amenities;
-        return filters.amenities.every(amenity => roomAmenities.includes(amenity));
-      });
-    }
 
     // Apply sorting
     filteredRooms = sortRooms(filteredRooms, sortBy);
@@ -112,22 +105,10 @@ const Rooms = () => {
       type: '',
       minPrice: '',
       maxPrice: '',
-      capacity: '',
-      amenities: []
+      capacity: ''
     });
     setSortBy('featured');
   };
-
-  const toggleAmenity = (amenity) => {
-    setFilters(prev => ({
-      ...prev,
-      amenities: prev.amenities.includes(amenity)
-        ? prev.amenities.filter(a => a !== amenity)
-        : [...prev.amenities, amenity]
-    }));
-  };
-
-  const availableAmenities = ['WiFi', 'Pool', 'Gym', 'Parking', 'Room Service', 'Air Conditioning', 'Mini Bar', 'Balcony'];
 
   const roomTypes = [...new Set(rooms.map(room => room.type))];
 
@@ -149,128 +130,109 @@ const Rooms = () => {
   return (
     <div className="rooms-page">
       <div className="rooms-hero">
-        <div className="hero-decoration">
-          <div className="float-element float-1"></div>
-          <div className="float-element float-2"></div>
-          <div className="float-element float-3"></div>
+        <div className="hero-images-grid">
+          {[0, 1, 2, 7, 4].map((roomIndex, index) => {
+            const room = allRooms[roomIndex] || allRooms[index];
+            // Use external image for 4th position
+            const imageUrl = index === 3 
+              ? 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80'
+              : room?.images?.[0] || '/placeholder-room.jpg';
+            return (
+              <div key={index} className={`hero-image-item hero-image-${index + 1}`}>
+                <img src={imageUrl} alt={room?.type || 'Luxury Room'} />
+              </div>
+            );
+          })}
         </div>
-        <div className="container">
-          <h1 className="page-title">Our Rooms</h1>
-          <p className="page-subtitle">Discover comfort and luxury in every room</p>
+        <div className="hero-overlay">
+          <div className="container">
+            <h1 className="page-title">Our Rooms</h1>
+            <p className="page-subtitle">Discover comfort and luxury in every room</p>
+          </div>
         </div>
       </div>
 
       <div className="rooms-content">
         <div className="container">
-          <div className="rooms-layout">
-            {/* Sidebar Filters */}
-            <aside className={`filters-sidebar ${filterOpen ? 'open' : ''}`}>
-              <div className="filters-header">
-                <h3>🔍 Filters</h3>
-                <button onClick={() => setFilterOpen(false)} className="close-filters-btn">✕</button>
-              </div>
+          {/* Top Filter Bar */}
+          <div className="top-filter-bar">
+            <button onClick={() => setFilterOpen(!filterOpen)} className="filter-toggle-btn">
+              <i className="fas fa-filter"></i> Filters {filterOpen ? '▲' : '▼'}
+            </button>
+            
+            {filterOpen && (
+              <div className="filters-horizontal">
+                <select
+                  value={filters.type}
+                  onChange={(e) => handleFilterChange('type', e.target.value)}
+                  className="filter-input"
+                >
+                  <option value="">All Types</option>
+                  {roomTypes.map(type => (
+                    <option key={type} value={type}>{type}</option>
+                  ))}
+                </select>
 
-              <div className="filters-body">
-                <div className="filter-section">
-                  <h4>Quick Filters</h4>
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={filters.featured}
-                      onChange={(e) => handleFilterChange('featured', e.target.checked)}
-                    />
-                    <span>⭐ Featured Rooms</span>
-                  </label>
+                <input
+                  type="number"
+                  value={filters.minPrice}
+                  onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+                  className="filter-input"
+                  placeholder="Min Price"
+                />
 
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={filters.available}
-                      onChange={(e) => handleFilterChange('available', e.target.checked)}
-                    />
-                    <span>✅ Available Only</span>
-                  </label>
-                </div>
+                <input
+                  type="number"
+                  value={filters.maxPrice}
+                  onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+                  className="filter-input"
+                  placeholder="Max Price"
+                />
 
-                <div className="filter-section">
-                  <h4>Room Type</h4>
-                  <select
-                    value={filters.type}
-                    onChange={(e) => handleFilterChange('type', e.target.value)}
-                    className="form-input"
-                  >
-                    <option value="">All Types</option>
-                    {roomTypes.map(type => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
+                <select
+                  value={filters.capacity}
+                  onChange={(e) => handleFilterChange('capacity', e.target.value)}
+                  className="filter-input"
+                >
+                  <option value="">Any Capacity</option>
+                  <option value="1">1+ Guests</option>
+                  <option value="2">2+ Guests</option>
+                  <option value="3">3+ Guests</option>
+                  <option value="4">4+ Guests</option>
+                  <option value="5">5+ Guests</option>
+                  <option value="6">6+ Guests</option>
+                </select>
 
-                <div className="filter-section">
-                  <h4>Price Range</h4>
-                  <div className="price-inputs">
-                    <input
-                      type="number"
-                      value={filters.minPrice}
-                      onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                      className="form-input"
-                      placeholder="Min PKR"
-                    />
-                    <span className="price-separator">-</span>
-                    <input
-                      type="number"
-                      value={filters.maxPrice}
-                      onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                      className="form-input"
-                      placeholder="Max PKR"
-                    />
-                  </div>
-                </div>
+                <label className="checkbox-inline">
+                  <input
+                    type="checkbox"
+                    checked={filters.featured}
+                    onChange={(e) => handleFilterChange('featured', e.target.checked)}
+                  />
+                  <span>Featured</span>
+                </label>
 
-                <div className="filter-section">
-                  <h4>Guest Capacity</h4>
-                  <select
-                    value={filters.capacity}
-                    onChange={(e) => handleFilterChange('capacity', e.target.value)}
-                    className="form-input"
-                  >
-                    <option value="">Any Capacity</option>
-                    <option value="1">1+ Guests</option>
-                    <option value="2">2+ Guests</option>
-                    <option value="3">3+ Guests</option>
-                    <option value="4">4+ Guests</option>
-                    <option value="5">5+ Guests</option>
-                    <option value="6">6+ Guests</option>
-                  </select>
-                </div>
+                <label className="checkbox-inline">
+                  <input
+                    type="checkbox"
+                    checked={filters.available}
+                    onChange={(e) => handleFilterChange('available', e.target.checked)}
+                  />
+                  <span>Available</span>
+                </label>
 
-                <div className="filter-section">
-                  <h4>Amenities</h4>
-                  <div className="amenities-checkboxes">
-                    {availableAmenities.map(amenity => (
-                      <label key={amenity} className="checkbox-label">
-                        <input
-                          type="checkbox"
-                          checked={filters.amenities.includes(amenity)}
-                          onChange={() => toggleAmenity(amenity)}
-                        />
-                        <span>{amenity}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <button onClick={() => applyFiltersAndSort()} className="btn btn-primary" style={{ width: '100%', marginBottom: '0.5rem' }}>
-                  🔍 Search
+                <button onClick={() => applyFiltersAndSort()} className="btn btn-gold btn-small">
+                  Search
                 </button>
-                <button onClick={clearFilters} className="clear-filters-btn">
-                  🔄 Clear All Filters
+                <button onClick={clearFilters} className="btn btn-outline btn-small">
+                  Clear
                 </button>
               </div>
-            </aside>
+            )}
+          </div>
 
-            {/* Results */}
-            <div className="rooms-results">
+          {/* Results */}
+          <div className="rooms-results">
               <div className="results-header">
                 <div className="results-info">
                   <h3>{rooms.length} Room{rooms.length !== 1 ? 's' : ''} Found</h3>
@@ -330,74 +292,23 @@ const Rooms = () => {
                         </div>
 
                         <div className="card-content">
-                          <div className="room-header">
-                            <h3 className="card-title">{room.title}</h3>
-                            <span className="room-type">{room.type}</span>
+                          <h3>{room.type}</h3>
+                          <p className="room-description">{room.description}</p>
+
+                          <div className="room-features">
+                            <span><i className="fas fa-users"></i> {room.capacity} Guests</span>
+                            <span><i className="fas fa-bed"></i> {room.beds} Beds</span>
+                            <span><i className="fas fa-star"></i> {room.averageRating || 4.5}/5</span>
                           </div>
 
-                          {room.reviewCount > 0 && (
-                            <div className="room-rating">
-                              <span className="rating-stars">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                  <span key={star} className={`star ${star <= Math.round(room.averageRating) ? 'filled' : ''}`}>
-                                    ★
-                                  </span>
-                                ))}
-                              </span>
-                              <span className="rating-text">
-                                {room.averageRating.toFixed(1)} ({room.reviewCount} reviews)
-                              </span>
+                          <div className="room-footer">
+                            <div className="room-number-display">
+                              <span className="room-number-label">Room</span>
+                              <span className="room-number-value">{room.roomNumber}</span>
                             </div>
-                          )}
-
-                          <div className="room-details">
-                            <div className="detail-item">
-                              <span className="detail-label">📍</span>
-                              <span>{room.location}</span>
-                            </div>
-                            <div className="detail-item">
-                              <span className="detail-label">👥</span>
-                              <span>Up to {room.capacity} guests</span>
-                            </div>
-                            <div className="detail-item">
-                              <span className="detail-label">📐</span>
-                              <span>{room.size}</span>
-                            </div>
-                            <div className="detail-item">
-                              <span className="detail-label">🛏️</span>
-                              <span>{room.bedType}</span>
-                            </div>
-                          </div>
-
-                          <p className="card-description">{room.description}</p>
-
-                          <div className="amenities-preview">
-                            <h4>Amenities:</h4>
-                            <div className="amenities-tags">
-                              {room.amenities.slice(0, 3).map((amenity, index) => (
-                                <span key={index} className="amenity-tag">{amenity}</span>
-                              ))}
-                              {room.amenities.length > 3 && (
-                                <span className="amenity-tag more">+{room.amenities.length - 3} more</span>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="card-actions">
-                            <Link
-                              to={`/rooms/${room.id}`}
-                              className="btn btn-secondary"
-                            >
-                              VIEW DETAILS
+                            <Link to={`/rooms/${room.id}`} className="btn btn-gold">
+                              View Details <i className="fas fa-arrow-right"></i>
                             </Link>
-                            {room.isAvailable && (
-                              <Link
-                                to={`/book/${room.id}`}
-                                className="btn btn-primary"
-                              >
-                                BOOK NOW
-                              </Link>
-                            )}
                           </div>
                         </div>
                       </div>
@@ -459,7 +370,6 @@ const Rooms = () => {
                 </>
               )}
             </div>
-          </div>
         </div>
       </div>
     </div>

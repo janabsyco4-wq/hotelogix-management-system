@@ -39,6 +39,36 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+// Get active deals only
+router.get('/active', optionalAuth, async (req, res) => {
+  try {
+    const deals = await prisma.deal.findMany({
+      where: {
+        isActive: true,
+        validFrom: { lte: new Date() },
+        validUntil: { gte: new Date() }
+      },
+      orderBy: [
+        { featured: 'desc' },
+        { discount: 'desc' }
+      ]
+    });
+
+    const dealsWithParsedData = deals.map(deal => ({
+      ...deal,
+      images: JSON.parse(deal.images || '[]'),
+      available: deal.maxRedemptions ? (deal.maxRedemptions - deal.currentRedemptions) : null,
+      percentageLeft: deal.maxRedemptions ? 
+        Math.round(((deal.maxRedemptions - deal.currentRedemptions) / deal.maxRedemptions) * 100) : 100
+    }));
+
+    res.json(dealsWithParsedData);
+  } catch (error) {
+    console.error('Error fetching active deals:', error);
+    res.status(500).json({ error: 'Failed to fetch active deals' });
+  }
+});
+
 // Get all deals
 router.get('/', optionalAuth, async (req, res) => {
   try {

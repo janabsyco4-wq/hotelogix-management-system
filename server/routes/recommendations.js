@@ -91,8 +91,8 @@ router.get('/rooms', optionalAuth, async (req, res) => {
     // Parse JSON fields
     const roomsWithParsedData = availableRooms.map(room => ({
       ...room,
-      images: JSON.parse(room.images || '[]'),
-      amenities: JSON.parse(room.amenities || '[]')
+      images: room.images,
+      amenities: room.amenities
     }));
 
     // Create user profile for recommendations
@@ -209,8 +209,8 @@ router.get('/pricing/:roomId', optionalAuth, async (req, res) => {
           user_profile: userProfile,
           rooms: [{
             ...room,
-            images: JSON.parse(room.images || '[]'),
-            amenities: JSON.parse(room.amenities || '[]')
+            images: room.images,
+            amenities: room.amenities
           }]
         });
         
@@ -232,8 +232,8 @@ router.get('/pricing/:roomId', optionalAuth, async (req, res) => {
     res.json({
       room: {
         ...room,
-        images: JSON.parse(room.images || '[]'),
-        amenities: JSON.parse(room.amenities || '[]')
+        images: room.images,
+        amenities: room.amenities
       },
       pricing: pricingInfo,
       userProfile,

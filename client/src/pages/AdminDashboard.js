@@ -76,35 +76,28 @@ const AdminDashboard = () => {
         }
       };
 
-      // Helper function to add delay between requests (ngrok free tier workaround)
-      const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-      // Fetch data sequentially with delays to avoid ngrok rate limits
-      const roomsRes = await axios.get('/api/rooms', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const restaurantsRes = await axios.get('/api/restaurants', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const dealsRes = await axios.get('/api/deals', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const packagesRes = await axios.get('/api/packages', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const bookingsRes = await axios.get('/api/admin/bookings', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const usersRes = await axios.get('/api/admin/users', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const reservationsRes = await axios.get('/api/admin/reservations', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const redemptionsRes = await axios.get('/api/admin/redemptions', config).catch(() => ({ data: [] }));
-      await delay(300);
-
-      const packageBookingsRes = await axios.get('/api/admin/package-bookings', config).catch(() => ({ data: [] }));
+      // Fetch all data in parallel for faster loading (MongoDB Atlas can handle it)
+      const [
+        roomsRes,
+        restaurantsRes,
+        dealsRes,
+        packagesRes,
+        bookingsRes,
+        usersRes,
+        reservationsRes,
+        redemptionsRes,
+        packageBookingsRes
+      ] = await Promise.all([
+        axios.get('/api/rooms', config).catch(() => ({ data: [] })),
+        axios.get('/api/restaurants', config).catch(() => ({ data: [] })),
+        axios.get('/api/deals', config).catch(() => ({ data: [] })),
+        axios.get('/api/packages', config).catch(() => ({ data: [] })),
+        axios.get('/api/admin/bookings', config).catch(() => ({ data: [] })),
+        axios.get('/api/admin/users', config).catch(() => ({ data: [] })),
+        axios.get('/api/admin/reservations', config).catch(() => ({ data: [] })),
+        axios.get('/api/admin/redemptions', config).catch(() => ({ data: [] })),
+        axios.get('/api/admin/package-bookings', config).catch(() => ({ data: [] }))
+      ]);
 
       console.log('=== ADMIN DASHBOARD DATA ===');
       console.log('Rooms:', roomsRes.data.length);

@@ -61,13 +61,22 @@ router.get('/', optionalAuth, async (req, res) => {
     });
 
     // Parse JSON fields
-    const restaurantsWithParsedData = restaurants.map(restaurant => ({
-      ...restaurant,
-      images: JSON.parse(restaurant.images || '[]'),
-      openingHours: restaurant.openingHours, // Keep as string
-      menu: JSON.parse(restaurant.menu || '[]'),
-      amenities: JSON.parse(restaurant.amenities || '[]')
-    }));
+    const restaurantsWithParsedData = restaurants.map(restaurant => {
+      let menu;
+      try {
+        menu = typeof restaurant.menu === 'string' ? JSON.parse(restaurant.menu) : restaurant.menu;
+      } catch (e) {
+        menu = [];
+      }
+      
+      return {
+        ...restaurant,
+        images: JSON.parse(restaurant.images || '[]'),
+        openingHours: restaurant.openingHours,
+        menu: menu,
+        amenities: JSON.parse(restaurant.amenities || '[]')
+      };
+    });
 
     res.json(restaurantsWithParsedData);
   } catch (error) {
@@ -98,11 +107,19 @@ router.get('/:id', optionalAuth, async (req, res) => {
       openingHours = restaurant.openingHours || 'Contact for hours';
     }
 
+    // Parse menu if it's a string
+    let menu;
+    try {
+      menu = typeof restaurant.menu === 'string' ? JSON.parse(restaurant.menu) : restaurant.menu;
+    } catch (e) {
+      menu = [];
+    }
+
     const restaurantWithParsedData = {
       ...restaurant,
       images: JSON.parse(restaurant.images || '[]'),
       openingHours: openingHours,
-      menu: JSON.parse(restaurant.menu || '[]'),
+      menu: menu,
       amenities: JSON.parse(restaurant.amenities || '[]')
     };
 

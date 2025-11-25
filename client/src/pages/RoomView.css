@@ -240,3 +240,39 @@
     height: 300px;
   }
 }
+
+/* Room Number Badge */
+.room-number-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+  color: #D4AF37;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: fit-content;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  margin-bottom: 0.5rem;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .room-number-badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+  }
+}

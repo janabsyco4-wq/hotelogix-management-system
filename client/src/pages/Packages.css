@@ -1,74 +1,64 @@
 .packages-page {
   min-height: calc(100vh - 80px);
-  background-color: var(--bg-primary);
+  background: #FFFFFF;
 }
 
 .packages-hero {
-  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
-  color: white;
-  padding: 80px 0;
-  padding-top: 160px; /* 80px + 80px for header */
+  background: #FFFFFF;
+  color: #1a1a1a;
+  padding: 52px 0 40px 0;
+  padding-top: 104px;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-}
-
-.packages-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(52, 211, 153, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.3) 0%, transparent 50%);
-  animation: pulse 8s ease-in-out infinite;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .packages-hero .container {
   position: relative;
-  z-index: 2;
   text-align: center;
 }
 
 .packages-hero h1 {
+  font-family: 'Playfair Display', serif;
   font-size: 48px;
-  margin-bottom: 15px;
-  font-weight: 700;
-  animation: fadeInUp 0.8s ease-out;
+  margin-bottom: 16px;
+  font-weight: 400;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
 }
 
 .packages-hero p {
-  font-size: 20px;
-  opacity: 0.95;
-  animation: fadeInUp 0.8s ease-out 0.2s both;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+  letter-spacing: 0.02em;
 }
 
 .packages-content {
   padding: 60px 0;
+  background: #FFFFFF;
 }
 
 .packages-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 30px;
+  gap: 32px;
 }
 
 .package-card {
-  background: var(--card-bg);
-  border-radius: 16px;
+  background: #FFFFFF;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 4px 20px var(--shadow);
-  border: 2px solid var(--border-color);
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   position: relative;
 }
 
 .package-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px var(--shadow-hover);
-  border-color: #10b981;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: #D4AF37;
 }
 
 .package-image {

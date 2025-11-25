@@ -4,6 +4,7 @@ import axios from '../api/axios';
 import { useAuth } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
 import './Home.css';
+import './HomeAdditions.css';
 
 const Home = () => {
   // eslint-disable-next-line no-unused-vars
@@ -82,127 +83,285 @@ const Home = () => {
 
   return (
     <div className="home">
-      {/* Hero Section */}
+      {/* Hero Section - Ultra-Minimalist Luxury Split Layout */}
       <section className="hero">
-        {/* Floating decorative elements */}
-        <div className="hero-decoration">
-          <div className="float-element float-1"></div>
-          <div className="float-element float-2"></div>
-          <div className="float-element float-3"></div>
-          <div className="float-element float-4"></div>
-        </div>
         <div className="hero-content">
-          <div className="hero-logo">
-            <svg width="120" height="120" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="32" fill="url(#gradient)"/>
-              <circle cx="32" cy="32" r="30" fill="url(#innerGradient)" opacity="0.3"/>
-              <rect x="14" y="38" width="36" height="3" rx="1" fill="white"/>
-              <rect x="16" y="28" width="32" height="10" rx="1.5" fill="white"/>
-              <circle cx="22" cy="26" r="4" fill="white" opacity="0.9"/>
-              <rect x="14" y="20" width="3" height="18" rx="1.5" fill="white"/>
-              <circle cx="35" cy="26" r="3.5" fill="white" opacity="0.95"/>
-              <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{stopColor:'#4A90E2', stopOpacity:1}} />
-                  <stop offset="100%" style={{stopColor:'#357ABD', stopOpacity:1}} />
-                </linearGradient>
-                <radialGradient id="innerGradient" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" style={{stopColor:'#ffffff', stopOpacity:0.2}} />
-                  <stop offset="100%" style={{stopColor:'#000000', stopOpacity:0.1}} />
-                </radialGradient>
-              </defs>
-            </svg>
+          {/* Left Side - Content */}
+          <div className="hero-left">
+            <h1 className="hero-title">
+              Effortless Hotel Management.
+            </h1>
+            
+            <p className="hero-subtitle">
+              A clean, modern system built for premium hospitality.
+            </p>
+            
+            <div className="hero-buttons">
+              <Link to="/rooms" className="btn btn-primary">Get Started</Link>
+              <Link to="/smart-finder" className="btn btn-secondary">Find Room with AI</Link>
+            </div>
           </div>
-          <h1 className="hero-title">Welcome to Hotelogix</h1>
-          <p className="hero-subtitle">Premium hotel management and booking solutions</p>
-          <div className="hero-buttons">
-            <Link to="/smart-finder" className="btn btn-primary">🤖 AI ROOM FINDER</Link>
-            <Link to="/rooms" className="btn btn-secondary">EXPLORE ROOMS</Link>
+          
+          <div className="hero-right">
+            <div className="hero-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80" 
+                alt="Luxury Hotel Interior" 
+                className="hero-image"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-
+      {/* Locations Section - Our Presence */}
+      <section className="locations-section">
+        <div className="container">
+          <h2 className="section-title">Our Presence</h2>
+          <p className="section-subtitle">
+            Four distinguished properties across Pakistan's cultural heartland
+          </p>
+          
+          <div className="locations-grid">
+            <div className="location-item">
+              <div className="location-count">45</div>
+              <div className="location-name">Lahore</div>
+              <div className="location-label">Rooms Available</div>
+            </div>
+            
+            <div className="location-item">
+              <div className="location-count">32</div>
+              <div className="location-name">Okara</div>
+              <div className="location-label">Rooms Available</div>
+            </div>
+            
+            <div className="location-item">
+              <div className="location-count">24</div>
+              <div className="location-name">Multan</div>
+              <div className="location-label">Rooms Available</div>
+            </div>
+            
+            <div className="location-item">
+              <div className="location-count">15</div>
+              <div className="location-name">Sheikhupura</div>
+              <div className="location-label">Rooms Available</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="features-section">
         <div className="container">
-          <h2 className="section-title">Why Choose Hotelogix Pakistan?</h2>
-          <p className="section-subtitle">Experience the perfect blend of Pakistani hospitality and cutting-edge technology</p>
+          <h2 className="section-title">Why Choose Hotelogix</h2>
+          <p className="section-subtitle">Experience the perfect blend of hospitality and cutting-edge technology</p>
           
-          <div className="features-grid grid grid-3">
+          <div className="features-grid">
             <div className="feature-card card">
-              <div className="feature-icon">🏨</div>
-              <h3>116 Premium Rooms</h3>
-              <p>Across 4 major cities - Okara, Lahore, Sheikhupura & Multan. From budget-friendly to royal suites (PKR 2,800 - 150,000).</p>
+              <div className="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </div>
+              <h3>Premium Accommodations</h3>
+              <p>116 meticulously designed rooms across four major cities. From elegant standards to royal suites, each space embodies refined comfort.</p>
             </div>
             
             <div className="feature-card card">
-              <div className="feature-icon">🤖</div>
-              <h3>AI-Powered Smart Finder</h3>
-              <p>Our intelligent system learns your preferences and suggests the perfect room based on your budget, location, and amenities needs.</p>
+              <div className="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 6v6l4 2"></path>
+                </svg>
+              </div>
+              <h3>Intelligent Booking</h3>
+              <p>AI-powered room finder that understands your preferences. Seamless reservations with instant confirmation and real-time availability.</p>
             </div>
             
             <div className="feature-card card">
-              <div className="feature-icon">💬</div>
-              <h3>24/7 Intelligent Chatbot</h3>
-              <p>Get instant answers about rooms, rates, bookings, and amenities. Bilingual support in English and Urdu available anytime!</p>
+              <div className="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <h3>Concierge Service</h3>
+              <p>24/7 intelligent assistance at your fingertips. Bilingual support ensuring every query is answered with precision and care.</p>
             </div>
             
             <div className="feature-card card">
-              <div className="feature-icon">🍽️</div>
-              <h3>Authentic Pakistani Cuisine</h3>
-              <p>4 premium restaurants serving traditional Lahori, Multani, and Punjabi delicacies with modern dining experiences.</p>
+              <div className="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              </div>
+              <h3>Culinary Excellence</h3>
+              <p>Four distinguished restaurants serving authentic regional cuisine. Traditional flavors reimagined with contemporary finesse.</p>
             </div>
             
             <div className="feature-card card">
-              <div className="feature-icon">🎁</div>
-              <h3>Exclusive Deals & Packages</h3>
-              <p>5 active deals and 4 curated tour packages including heritage tours, spiritual journeys, and cultural experiences.</p>
+              <div className="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <h3>Curated Experiences</h3>
+              <p>Exclusive packages and bespoke itineraries. Heritage tours, cultural journeys, and spiritual experiences crafted for discerning travelers.</p>
             </div>
             
             <div className="feature-card card">
-              <div className="feature-icon">🗺️</div>
-              <h3>Cultural Attractions</h3>
-              <p>Explore 6 UNESCO sites and historical landmarks - Badshahi Mosque, Lahore Fort, Shalimar Gardens & more!</p>
-            </div>
-            
-            <div className="feature-card card">
-              <div className="feature-icon">💳</div>
-              <h3>Secure Payment Options</h3>
-              <p>Multiple payment methods: Credit/Debit cards, JazzCash, EasyPaisa, Bank Transfer, and Cash on Arrival.</p>
-            </div>
-            
-            <div className="feature-card card">
-              <div className="feature-icon">📱</div>
-              <h3>Real-Time Booking System</h3>
-              <p>Instant confirmation via email & SMS. Track your bookings, manage reservations, and request cancellations online.</p>
-            </div>
-            
-            <div className="feature-card card">
-              <div className="feature-icon">⭐</div>
-              <h3>4.5+ Star Rating</h3>
-              <p>Trusted by thousands of guests. Exceptional service, cleanliness, and authentic Pakistani hospitality guaranteed.</p>
+              <div className="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <h3>Cultural Gateway</h3>
+              <p>Access to UNESCO heritage sites and architectural marvels. Immerse yourself in centuries of history and timeless beauty.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="testimonials-section">
+        <div className="container">
+          <h2 className="section-title">Guest Experiences</h2>
+          <p className="section-subtitle">What our guests say about their stay</p>
           
-          <div className="stats-banner">
-            <div className="stat-item">
-              <div className="stat-number">116</div>
-              <div className="stat-label">Premium Rooms</div>
+          <div className="testimonials-grid">
+            <div className="testimonial-card card">
+              <p className="testimonial-text">
+                The attention to detail and level of service exceeded all expectations. 
+                From the moment we arrived, every aspect of our stay was meticulously curated. 
+                A truly luxurious experience.
+              </p>
+              <div className="testimonial-author">
+                <div className="author-avatar">AK</div>
+                <div className="author-info">
+                  <div className="author-name">Ahmed Khan</div>
+                  <div className="author-title">Business Executive</div>
+                </div>
+                <div className="testimonial-rating">★★★★★</div>
+              </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">4</div>
-              <div className="stat-label">Major Cities</div>
+            
+            <div className="testimonial-card card">
+              <p className="testimonial-text">
+                Exceptional hospitality combined with modern amenities. 
+                The AI room finder made booking effortless, and the staff's warmth 
+                made us feel at home. Highly recommended for discerning travelers.
+              </p>
+              <div className="testimonial-author">
+                <div className="author-avatar">SF</div>
+                <div className="author-info">
+                  <div className="author-name">Sarah Fatima</div>
+                  <div className="author-title">Travel Blogger</div>
+                </div>
+                <div className="testimonial-rating">★★★★★</div>
+              </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">10</div>
-              <div className="stat-label">Room Categories</div>
+            
+            <div className="testimonial-card card">
+              <p className="testimonial-text">
+                A perfect blend of traditional Pakistani hospitality and contemporary luxury. 
+                The rooms are immaculate, the cuisine authentic, and the service impeccable. 
+                Will definitely return.
+              </p>
+              <div className="testimonial-author">
+                <div className="author-avatar">MR</div>
+                <div className="author-info">
+                  <div className="author-name">Muhammad Raza</div>
+                  <div className="author-title">Entrepreneur</div>
+                </div>
+                <div className="testimonial-rating">★★★★★</div>
+              </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">24/7</div>
-              <div className="stat-label">Support</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="gallery-section">
+        <div className="container">
+          <h2 className="section-title">Visual Journey</h2>
+          <p className="section-subtitle">
+            A glimpse into our world of refined elegance
+          </p>
+          
+          <div className="gallery-grid">
+            <div className="gallery-item">
+              <img 
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" 
+                alt="Luxury Suite"
+              />
+              <div className="gallery-overlay">
+                <h4>Presidential Suite</h4>
+                <p>Lahore Property</p>
+              </div>
             </div>
+            
+            <div className="gallery-item">
+              <img 
+                src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" 
+                alt="Fine Dining"
+              />
+              <div className="gallery-overlay">
+                <h4>Fine Dining</h4>
+                <p>Culinary Excellence</p>
+              </div>
+            </div>
+            
+            <div className="gallery-item">
+              <img 
+                src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80" 
+                alt="Spa & Wellness"
+              />
+              <div className="gallery-overlay">
+                <h4>Wellness Center</h4>
+                <p>Spa & Relaxation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="newsletter-section">
+        <div className="newsletter-content">
+          <h2 className="newsletter-title">Stay Informed</h2>
+          <p className="newsletter-subtitle">
+            Subscribe to receive exclusive offers, updates, and insights into our world of luxury hospitality.
+          </p>
+          <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
+            <input 
+              type="email" 
+              className="newsletter-input" 
+              placeholder="Enter your email address"
+              required
+            />
+            <button type="submit" className="newsletter-button">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-content">
+          <h2 className="cta-title">Begin Your Journey</h2>
+          <p className="cta-subtitle">
+            Discover our collection of premium accommodations and curated experiences. 
+            Reserve your stay and immerse yourself in unparalleled hospitality.
+          </p>
+          <div className="cta-buttons">
+            <Link to="/rooms" className="btn btn-gold">Browse Rooms</Link>
+            <Link to="/packages" className="btn btn-secondary">View Packages</Link>
           </div>
         </div>
       </section>

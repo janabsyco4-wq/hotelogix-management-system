@@ -25,6 +25,50 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+// Get all bookings (admin) or user's bookings
+router.get('/', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    
+    // Get user to check role
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    });
+
+    let bookings;
+    if (user.role === 'admin') {
+      // Admin can see all bookings
+      bookings = await prisma.booking.findMany({
+        include: {
+          room: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true
+            }
+          }
+        },
+        orderBy: { createdAt: 'desc' }
+      });
+    } else {
+      // Regular users see only their bookings
+      bookings = await prisma.booking.findMany({
+        where: { userId },
+        include: {
+          room: true
+        },
+        orderBy: { createdAt: 'desc' }
+      });
+    }
+
+    res.json(bookings);
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    res.status(500).json({ error: 'Failed to fetch bookings' });
+  }
+});
+
 // Create new booking
 router.post('/', authenticateToken, async (req, res) => {
   try {

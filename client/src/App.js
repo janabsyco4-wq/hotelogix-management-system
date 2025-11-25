@@ -1,9 +1,10 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Chatbot from './components/Chatbot';
+import './mobile-responsive.css';
 import Home from './pages/Home';
 import Rooms from './pages/Rooms';
 import RoomView from './pages/RoomView';
@@ -38,11 +39,16 @@ import { useAuth } from './contexts/AuthContext';
 
 function App() {
   const { user } = useAuth();
+  const location = useLocation();
+  
+  // Hide header on login and register pages
+  const hideHeader = location.pathname === '/login' || location.pathname === '/register';
 
   return (
     <div className="App">
       <ScrollToTop />
-      <Header />
+      {!hideHeader && <Header />}
+      <Chatbot />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -85,8 +91,7 @@ function App() {
           )}
         </Routes>
       </main>
-      <Footer />
-      <Chatbot />
+      {!hideHeader && <Footer />}
     </div>
   );
 }

@@ -30,6 +30,62 @@ const isAdmin = (req, res, next) => {
   next();
 };
 
+// Get all reviews
+router.get('/', async (req, res) => {
+  try {
+    const { status = 'approved', sortBy = 'newest', rating } = req.query;
+
+    let where = {
+      status: status
+    };
+
+    if (rating) {
+      where.rating = parseInt(rating);
+    }
+
+    let orderBy = {};
+    switch (sortBy) {
+      case 'oldest':
+        orderBy = { createdAt: 'asc' };
+        break;
+      case 'highest':
+        orderBy = { rating: 'desc' };
+        break;
+      case 'lowest':
+        orderBy = { rating: 'asc' };
+        break;
+      default:
+        orderBy = { createdAt: 'desc' };
+    }
+
+    const reviews = await prisma.review.findMany({
+      where,
+      orderBy,
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        room: {
+          select: {
+            id: true,
+            title: true,
+            roomNumber: true
+          }
+        }
+      }
+    });
+
+    res.json(reviews);
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    res.status(500).json({ error: 'Failed to fetch reviews' });
+  }
+});
+
 // Get all reviews for a room
 router.get('/room/:roomId', async (req, res) => {
   try {

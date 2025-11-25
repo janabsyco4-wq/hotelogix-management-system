@@ -1,0 +1,12 @@
+{
+  "name": "hotelogix-voice-assistant",
+  "version": "1.0.0",
+  "description": "Advanced ML-powered voice assistant for Hotelogix",
+  "main": "voice_assistant_api.py",
+  "scripts": {
+    "start": "python voice_assistant_api.py",
+    "train": "python train_nlp_model.py"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -56,6 +56,7 @@ const RoomView = () => {
       <div className="room-body">
         {/* Left Section */}
         <div className="room-left">
+          <div className="room-number-badge">{room.roomNumber}</div>
           <h1 className="room-title">{room.title}</h1>
           <p className="room-location">📍 {room.location}</p>
           <p className="room-type">{room.type}</p>

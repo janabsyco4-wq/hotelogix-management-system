@@ -131,33 +131,24 @@ const Dining = () => {
                   </div>
                   <div className="restaurant-info">
                     <h3>{restaurant.name}</h3>
-                    <p className="cuisine">{restaurant.cuisine}</p>
-                    <p className="description">{restaurant.description}</p>
+                    <p className="restaurant-description">{restaurant.description}</p>
                     
-                    <div className="restaurant-meta">
-                      <span className="location">📍 {restaurant.location}</span>
-                      <span className="price-range">{restaurant.priceRange}</span>
-                      <span className="rating">⭐ {restaurant.rating}</span>
+                    <div className="restaurant-features">
+                      <span><i className="fas fa-utensils"></i> {restaurant.cuisine}</span>
+                      <span><i className="fas fa-map-marker-alt"></i> {restaurant.location}</span>
+                      <span><i className="fas fa-star"></i> {restaurant.rating}/5</span>
                     </div>
 
-                    <div className="amenities">
-                      {restaurant.amenities.slice(0, 3).map((amenity, index) => (
-                        <span key={index} className="amenity-tag">{amenity}</span>
-                      ))}
-                    </div>
-
-                    <div className="restaurant-actions">
+                    <div className="restaurant-footer">
+                      <div className="price-range-display">
+                        <span className="price-range-label">Price Range</span>
+                        <span className="price-range-value">{restaurant.priceRange}</span>
+                      </div>
                       <button
                         onClick={() => navigate(`/restaurants/${restaurant.id}`)}
-                        className="btn btn-secondary btn-full"
+                        className="btn btn-gold"
                       >
-                        View Details
-                      </button>
-                      <button
-                        onClick={() => navigate(`/restaurants/${restaurant.id}/reserve`)}
-                        className="btn btn-primary btn-full"
-                      >
-                        Reserve Now
+                        View Details <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
                   </div>

@@ -7,13 +7,6 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      {/* Floating decorative elements */}
-      <div className="hero-decoration">
-        <div className="float-element float-1"></div>
-        <div className="float-element float-2"></div>
-        <div className="float-element float-3"></div>
-      </div>
-      
       <div className="footer-content">
         <div className="container">
           <div className="footer-grid">

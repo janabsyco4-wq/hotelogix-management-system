@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
       ]
     });
 
-    // Parse JSON fields
+    // Parse JSON fields for SQLite
     const roomsWithParsedData = rooms.map(room => ({
       ...room,
       images: JSON.parse(room.images || '[]'),
@@ -80,6 +80,36 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.error('Error fetching rooms:', error);
     res.status(500).json({ error: 'Failed to fetch rooms' });
+  }
+});
+
+// Get featured rooms (public)
+router.get('/featured', async (req, res) => {
+  try {
+    const rooms = await prisma.room.findMany({
+      where: { 
+        featured: true,
+        isAvailable: true
+      },
+      include: {
+        _count: {
+          select: { bookings: true }
+        }
+      },
+      orderBy: { pricePerNight: 'asc' },
+      take: 10
+    });
+
+    const roomsWithParsedData = rooms.map(room => ({
+      ...room,
+      images: JSON.parse(room.images || '[]'),
+      amenities: JSON.parse(room.amenities || '[]')
+    }));
+
+    res.json(roomsWithParsedData);
+  } catch (error) {
+    console.error('Error fetching featured rooms:', error);
+    res.status(500).json({ error: 'Failed to fetch featured rooms' });
   }
 });
 
@@ -191,8 +221,8 @@ router.post('/', authenticateToken, requireAdmin, async (req, res) => {
 
     res.status(201).json({
       ...room,
-      images: JSON.parse(room.images),
-      amenities: JSON.parse(room.amenities)
+      images: JSON.parse(room.images || '[]'),
+      amenities: JSON.parse(room.amenities || '[]')
     });
   } catch (error) {
     console.error('Error creating room:', error);

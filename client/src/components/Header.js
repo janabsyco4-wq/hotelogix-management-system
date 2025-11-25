@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { useTheme } from '../contexts/ThemeContext';
 import './Header.css';
 
 const Header = () => {
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [showBookDropdown, setShowBookDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   // Helper function to check if link is active
@@ -35,6 +34,15 @@ const Header = () => {
   };
 
   const closeDropdown = () => {
+    setShowBookDropdown(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(prev => !prev);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
     setShowBookDropdown(false);
   };
 
@@ -87,87 +95,106 @@ const Header = () => {
           </div>
         </Link>
         
-        <nav className="nav">
+        {/* Hamburger Menu Button */}
+        <button 
+          className="hamburger-menu" 
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+        >
+          <span className={`hamburger-line ${mobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${mobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${mobileMenuOpen ? 'open' : ''}`}></span>
+        </button>
+        
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && <div className="mobile-overlay" onClick={closeMobileMenu}></div>}
+        
+        <nav className={`nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           <ul className="nav-list">
-            <li><Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>HOME</Link></li>
-            
-            {/* Book Now Dropdown */}
-            <li 
-              className="nav-dropdown"
-              ref={dropdownRef}
-            >
-              <button 
-                type="button"
-                className="nav-link dropdown-trigger"
-                onClick={toggleDropdown}
-              >
-                📅 BOOK NOW {showBookDropdown ? '▲' : '▼'}
-              </button>
-              {showBookDropdown && (
-                <>
-                  <div className="dropdown-backdrop" onClick={closeDropdown}></div>
-                  <div className="dropdown-menu" onClick={(e) => e.stopPropagation()}>
-                    {console.log('Dropdown menu rendering')}
-                  <Link 
-                    to="/rooms" 
-                    className="dropdown-item"
-                    onClick={closeDropdown}
+            {/* Hide HOME, BOOK NOW, and AI FINDER for admin users */}
+            {(!user || !user.email.includes('admin')) && (
+              <>
+                <li><Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`} onClick={closeMobileMenu}>HOME</Link></li>
+                
+                {/* Book Now Dropdown */}
+                <li 
+                  className="nav-dropdown"
+                  ref={dropdownRef}
+                >
+                  <button 
+                    type="button"
+                    className="nav-link dropdown-trigger"
+                    onClick={toggleDropdown}
                   >
-                    <span className="dropdown-icon">🛏️</span>
-                    <div className="dropdown-content">
-                      <span className="dropdown-title">Rooms</span>
-                      <span className="dropdown-desc">Book your perfect room</span>
+                    📅 BOOK NOW {showBookDropdown ? '▲' : '▼'}
+                  </button>
+                  {showBookDropdown && (
+                    <>
+                      <div className="dropdown-backdrop" onClick={closeDropdown}></div>
+                      <div className="dropdown-menu" onClick={(e) => e.stopPropagation()}>
+                        {console.log('Dropdown menu rendering')}
+                      <Link 
+                        to="/rooms" 
+                        className="dropdown-item"
+                        onClick={() => { closeDropdown(); closeMobileMenu(); }}
+                      >
+                        <span className="dropdown-icon">🛏️</span>
+                        <div className="dropdown-content">
+                          <span className="dropdown-title">Rooms</span>
+                          <span className="dropdown-desc">Book your perfect room</span>
+                        </div>
+                      </Link>
+                      <Link 
+                        to="/dining" 
+                        className="dropdown-item"
+                        onClick={() => { closeDropdown(); closeMobileMenu(); }}
+                      >
+                        <span className="dropdown-icon">🍽️</span>
+                        <div className="dropdown-content">
+                          <span className="dropdown-title">Dining</span>
+                          <span className="dropdown-desc">Reserve a table</span>
+                        </div>
+                      </Link>
+                      <Link 
+                        to="/deals" 
+                        className="dropdown-item"
+                        onClick={() => { closeDropdown(); closeMobileMenu(); }}
+                      >
+                        <span className="dropdown-icon">🎁</span>
+                        <div className="dropdown-content">
+                          <span className="dropdown-title">Deals</span>
+                          <span className="dropdown-desc">Exclusive offers</span>
+                        </div>
+                      </Link>
+                      <Link 
+                        to="/packages" 
+                        className="dropdown-item"
+                        onClick={() => { closeDropdown(); closeMobileMenu(); }}
+                      >
+                        <span className="dropdown-icon">📦</span>
+                        <div className="dropdown-content">
+                          <span className="dropdown-title">Packages</span>
+                          <span className="dropdown-desc">All-inclusive packages</span>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                  <Link 
-                    to="/dining" 
-                    className="dropdown-item"
-                    onClick={closeDropdown}
-                  >
-                    <span className="dropdown-icon">🍽️</span>
-                    <div className="dropdown-content">
-                      <span className="dropdown-title">Dining</span>
-                      <span className="dropdown-desc">Reserve a table</span>
-                    </div>
-                  </Link>
-                  <Link 
-                    to="/deals" 
-                    className="dropdown-item"
-                    onClick={closeDropdown}
-                  >
-                    <span className="dropdown-icon">🎁</span>
-                    <div className="dropdown-content">
-                      <span className="dropdown-title">Deals</span>
-                      <span className="dropdown-desc">Exclusive offers</span>
-                    </div>
-                  </Link>
-                  <Link 
-                    to="/packages" 
-                    className="dropdown-item"
-                    onClick={closeDropdown}
-                  >
-                    <span className="dropdown-icon">📦</span>
-                    <div className="dropdown-content">
-                      <span className="dropdown-title">Packages</span>
-                      <span className="dropdown-desc">All-inclusive packages</span>
-                    </div>
-                  </Link>
-                </div>
-                </>
-              )}
-            </li>
-            
-            <li><Link to="/smart-finder" className={`nav-link ${isActive('/smart-finder') ? 'active' : ''}`}>🤖 AI FINDER</Link></li>
+                    </>
+                  )}
+                </li>
+                
+                <li><Link to="/smart-finder" className={`nav-link ${isActive('/smart-finder') ? 'active' : ''}`} onClick={closeMobileMenu}>AI FINDER</Link></li>
+              </>
+            )}
             {user && (
               <>
-                <li><Link to="/my-bookings" className={`nav-link ${isActive('/my-bookings') ? 'active' : ''}`}>MY BOOKINGS</Link></li>
+                <li><Link to="/my-bookings" className={`nav-link ${isActive('/my-bookings') ? 'active' : ''}`} onClick={closeMobileMenu}>MY BOOKINGS</Link></li>
                 {!user.email.includes('admin') && (
-                  <li><Link to="/profile" className={`nav-link ${isActive('/profile') ? 'active' : ''}`}>👤 PROFILE</Link></li>
+                  <li><Link to="/profile" className={`nav-link ${isActive('/profile') ? 'active' : ''}`} onClick={closeMobileMenu}>PROFILE</Link></li>
                 )}
                 {user.email.includes('admin') && (
                   <>
-                    <li><Link to="/admin" className={`nav-link ${isActive('/admin') ? 'active' : ''}`}>ADMIN</Link></li>
-                    <li><Link to="/ai-analytics" className={`nav-link ${isActive('/ai-analytics') ? 'active' : ''}`}>🤖 AI ANALYTICS</Link></li>
+                    <li><Link to="/admin" className={`nav-link ${isActive('/admin') ? 'active' : ''}`} onClick={closeMobileMenu}>ADMIN</Link></li>
+                    <li><Link to="/ai-analytics" className={`nav-link ${isActive('/ai-analytics') ? 'active' : ''}`} onClick={closeMobileMenu}>AI ANALYTICS</Link></li>
                   </>
                 )}
               </>
@@ -176,9 +203,6 @@ const Header = () => {
         </nav>
         
         <div className="auth-section">
-          <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme">
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
           {user ? (
             <div className="user-menu">
               <button onClick={handleLogout} className="btn btn-secondary">

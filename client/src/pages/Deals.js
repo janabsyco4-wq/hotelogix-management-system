@@ -154,52 +154,25 @@ const Deals = () => {
                   </div>
 
                   <div className="deal-info">
-                    <span className="deal-type">{deal.type}</span>
                     <h3>{deal.title}</h3>
-                    <p className="description">{deal.description}</p>
+                    <p className="deal-description">{deal.description}</p>
 
-                    <div className="deal-pricing">
-                      <div className="price-row">
-                        <span className="original-price">₨{deal.originalPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
-                        <span className="deal-price">₨{deal.dealPrice.toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
-                      </div>
-                      <span className="savings">Save ₨{(deal.originalPrice - deal.dealPrice).toLocaleString('en-PK', {minimumFractionDigits: 0})}</span>
+                    <div className="deal-features">
+                      <span><i className="fas fa-tag"></i> {deal.type}</span>
+                      <span><i className="fas fa-map-marker-alt"></i> {deal.location}</span>
+                      <span><i className="fas fa-calendar"></i> Until {formatDate(deal.validUntil)}</span>
                     </div>
 
-                    <div className="deal-meta">
-                      <span className="location">📍 {deal.location}</span>
-                      <span className="validity">
-                        Valid until {formatDate(deal.validUntil)}
-                      </span>
-                    </div>
-
-                    {deal.maxRedemptions && (
-                      <div className="availability">
-                        <div className="availability-bar">
-                          <div 
-                            className="availability-fill" 
-                            style={{ width: `${deal.percentageLeft}%` }}
-                          ></div>
-                        </div>
-                        <span className="availability-text">
-                          {deal.available} of {deal.maxRedemptions} remaining
-                        </span>
+                    <div className="deal-footer">
+                      <div className="deal-price-display">
+                        <span className="deal-price-label">Deal Price</span>
+                        <span className="deal-price-value">PKR {deal.dealPrice.toLocaleString()}</span>
                       </div>
-                    )}
-
-                    <div className="deal-actions">
                       <button
                         onClick={() => navigate(`/deals/${deal.id}`)}
-                        className="btn btn-secondary btn-full"
+                        className="btn btn-gold"
                       >
-                        View Details
-                      </button>
-                      <button
-                        onClick={() => navigate(`/deals/${deal.id}/redeem`)}
-                        className="btn btn-primary btn-full"
-                        disabled={deal.available === 0}
-                      >
-                        {deal.available === 0 ? 'Sold Out' : 'Redeem Now'}
+                        View Details <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
                   </div>
