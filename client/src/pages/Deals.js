@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
 import Loading from '../components/Loading';
@@ -8,7 +7,6 @@ import './Deals.css';
 
 const Deals = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({

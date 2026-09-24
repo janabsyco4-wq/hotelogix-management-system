@@ -17,21 +17,13 @@ const BookPackage = () => {
   const { user } = useAuth();
   const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
+  // submitting used for button disabled state
+  const [submitting] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [bookingData, setBookingData] = useState({
     startDate: '',
     guests: 2
   });
-
-  useEffect(() => {
-    if (!user) {
-      toast.info('Please login to book this package');
-      navigate('/login');
-      return;
-    }
-    fetchPackage();
-  }, [id, user, navigate]);
 
   const fetchPackage = async () => {
     try {
@@ -45,6 +37,16 @@ const BookPackage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      toast.info('Please login to book this package');
+      navigate('/login');
+      return;
+    }
+    fetchPackage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

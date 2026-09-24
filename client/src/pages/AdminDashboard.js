@@ -262,7 +262,8 @@ const AdminDashboard = () => {
     if (activeTab === 'profile' && !profile.email) {
       fetchProfile();
     }
-  }, [activeTab]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, profile.email]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
