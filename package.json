@@ -8,6 +8,8 @@
     "server": "nodemon server/index.js",
     "client": "cd client && npm start",
     "build": "cd client && npm run build",
+    "ngrok": "node start-ngrok.js",
+    "dev:tunnel": "concurrently \"npm run server\" \"npm run ngrok\" \"npm run client\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"

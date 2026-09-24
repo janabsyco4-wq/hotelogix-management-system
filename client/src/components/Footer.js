@@ -69,16 +69,16 @@ const Footer = () => {
                 </li>
                 <li>
                   <i className="fas fa-phone"></i>
-                  <a href="tel:+923194201429">+92 319 4201429</a>
+                  <a href="tel:+923014594964">+92 301 4594964</a>
                 </li>
                 <li>
                   <i className="fas fa-envelope"></i>
-                  <a href="mailto:ar4215381@gmail.com">ar4215381@gmail.com</a>
+                  <a href="mailto:shehroozhafeezpriv@gmail.com">shehroozhafeezpriv@gmail.com</a>
                 </li>
                 <li>
                   <i className="fab fa-whatsapp"></i>
-                  <a href="https://wa.me/923194201429" target="_blank" rel="noopener noreferrer">
-                    WhatsApp: +92 319 4201429
+                  <a href="https://wa.me/923014594964" target="_blank" rel="noopener noreferrer">
+                    WhatsApp: +92 301 4594964
                   </a>
                 </li>
               </ul>
@@ -89,7 +89,7 @@ const Footer = () => {
           <div className="footer-bottom">
             <div className="footer-bottom-content">
               <p className="copyright">
-                © {currentYear} Hotelogix. All rights reserved. | Developed by <strong>Rao Abubakar</strong>
+                © {currentYear} Hotelogix. All rights reserved. | Developed by <strong>Shehrooz Hafeez</strong>
               </p>
               <div className="footer-bottom-links">
                 <Link to="/privacy">Privacy</Link>
