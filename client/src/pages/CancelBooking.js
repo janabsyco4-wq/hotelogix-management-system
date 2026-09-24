@@ -26,15 +26,6 @@ const CancelBooking = () => {
         'Other'
     ];
 
-    useEffect(() => {
-        if (!user) {
-            toast.error('Please login to continue');
-            navigate('/login');
-            return;
-        }
-        fetchBooking();
-    }, [id, user, navigate]);
-
     const fetchBooking = async () => {
         try {
             const config = {
@@ -66,6 +57,16 @@ const CancelBooking = () => {
         }
     };
 
+    useEffect(() => {
+        if (!user) {
+            toast.error('Please login to continue');
+            navigate('/login');
+            return;
+        }
+        fetchBooking();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, user, navigate]);
+
     const handleCancel = async () => {
         const finalReason = reason === 'Other' ? otherReason : reason;
 
@@ -85,7 +86,7 @@ const CancelBooking = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             };
-            const response = await axios.patch(`/api/bookings/${id}/cancel`, { reason: finalReason }, config);
+            await axios.patch(`/api/bookings/${id}/cancel`, { reason: finalReason }, config);
             toast.success('Cancellation request submitted! Please wait for admin approval for refund processing.');
             navigate('/my-bookings');
         } catch (error) {

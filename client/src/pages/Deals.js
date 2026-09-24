@@ -17,10 +17,6 @@ const Deals = () => {
     featured: false
   });
 
-  useEffect(() => {
-    fetchDeals();
-  }, [filters]);
-
   const fetchDeals = async () => {
     try {
       setLoading(true);
@@ -39,21 +35,10 @@ const Deals = () => {
     }
   };
 
-  const handleRedeem = async (dealId) => {
-    if (!user) {
-      toast.info('Please login to redeem deals');
-      navigate('/login');
-      return;
-    }
-
-    try {
-      const response = await axios.post(`/api/deals/${dealId}/redeem`);
-      toast.success(`Deal redeemed! Your code: ${response.data.redemptionCode}`);
-      navigate('/my-deals');
-    } catch (error) {
-      toast.error(error.response?.data?.error || 'Failed to redeem deal');
-    }
-  };
+  useEffect(() => {
+    fetchDeals();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters]);
 
   const clearFilters = () => {
     setFilters({

@@ -18,22 +18,14 @@ const BookRoom = () => {
   const navigate = useNavigate();
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [booking, setBooking] = useState(false);
+  // booking state used for button disabled state
+  const [booking] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [bookingData, setBookingData] = useState({
     checkIn: '',
     checkOut: '',
     guests: 1
   });
-
-  useEffect(() => {
-    if (!user) {
-      toast.error('Please login to book a room');
-      navigate('/login');
-      return;
-    }
-    fetchRoom();
-  }, [id, user, navigate]);
 
   const fetchRoom = async () => {
     try {
@@ -47,6 +39,16 @@ const BookRoom = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      toast.error('Please login to book a room');
+      navigate('/login');
+      return;
+    }
+    fetchRoom();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, user, navigate]);
 
   const calculateNights = () => {
     if (!bookingData.checkIn || !bookingData.checkOut) return 0;
