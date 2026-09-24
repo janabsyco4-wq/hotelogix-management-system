@@ -365,7 +365,7 @@ textarea {
 @media (max-width: 768px) {
   body {
     font-size: 14px;
-    padding-top: 160px; /* Increased for multi-line header */
+    padding-top: 60px; /* Fixed single-row header height */
   }
   
   .container {
@@ -426,8 +426,11 @@ textarea {
     font-size: 18px;
   }
   
-  /* Buttons mobile */
-  .btn {
+  /* Buttons mobile — only in main content, not header */
+  main .btn,
+  .form-actions .btn,
+  .hero-buttons .btn,
+  .card-actions .btn {
     width: 100%;
     padding: 14px 20px;
     font-size: 14px;
@@ -451,7 +454,7 @@ textarea {
 @media (max-width: 480px) {
   body {
     font-size: 13px;
-    padding-top: 180px; /* More space for triple-line header */
+    padding-top: 60px; /* Fixed single-row header height */
   }
   
   .container {
@@ -474,7 +477,10 @@ textarea {
     padding: 15px;
   }
   
-  .btn {
+  main .btn,
+  .form-actions .btn,
+  .hero-buttons .btn,
+  .card-actions .btn {
     padding: 12px 16px;
     font-size: 13px;
   }

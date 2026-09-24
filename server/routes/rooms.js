@@ -61,6 +61,19 @@ router.get('/', async (req, res) => {
       include: {
         _count: {
           select: { bookings: true }
+        },
+        bookings: {
+          where: {
+            status: { in: ['confirmed', 'pending'] },
+            checkOut: { gte: new Date() }
+          },
+          select: {
+            checkIn: true,
+            checkOut: true,
+            status: true
+          },
+          orderBy: { checkIn: 'asc' },
+          take: 3
         }
       },
       orderBy: [

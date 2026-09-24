@@ -1036,3 +1036,25 @@
     font-size: 14px;
   }
 }
+
+
+/* Availability Badge */
+.availability-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #28a745;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.room-card.featured .availability-badge {
+  top: 56px;
+}

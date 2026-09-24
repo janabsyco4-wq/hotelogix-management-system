@@ -1,0 +1,755 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{tocloft}
+\usepackage{amsmath}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\definecolor{hotelblue}{RGB}{0,70,127}
+\definecolor{darkgray}{RGB}{50,50,50}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{hotelblue}{\textit{Hotelogix -- AI-Powered Hotel Management System}}}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small\textcolor{darkgray}{Developed by: Rao Abubakar \quad | \quad 0319420142 \quad | \quad ar4215381@gmail.com \quad | \quad BBIT Final Year Project -- 2026}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{hotelblue}}{\chaptertitlename\ \thechapter}{14pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{30pt}{20pt}
+
+\titleformat{\section}{\normalfont\Large\bfseries\color{hotelblue}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{darkgray}}{\thesubsection}{1em}{}
+
+\onehalfspacing
+\setlength{\parskip}{6pt}
+
+\begin{document}
+
+%% ============================================================
+%%  TITLE PAGE
+%% ============================================================
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+{\color{hotelblue}\rule{\linewidth}{2pt}}\\[0.4cm]
+{\Huge\bfseries\color{hotelblue} Hotelogix\\[0.3cm]
+\Large\bfseries\color{darkgray} AI-Powered Hotel Management System}\\[0.3cm]
+{\color{hotelblue}\rule{\linewidth}{2pt}}\\[1cm]
+{\large\itshape A Final Year Project Report Submitted in Partial Fulfilment\\
+of the Requirements for the Award of the Degree of\\[0.4cm]
+\textbf{Bachelor of Business and Information Technology (BBIT)}}\\[1.5cm]
+\begin{tabular}{rl}
+\textbf{Submitted by:}   & Abubakar Jamil              \\[4pt]
+\textbf{Registration:}   & F22-BS-BBIT-1044            \\[4pt]
+\textbf{Batch:}          & 22--26                      \\[4pt]
+\textbf{Supervisor:}     & Dr.\ Bilal                  \\[4pt]
+\textbf{Department:}     & Business \& Information Technology \\[4pt]
+\textbf{Institution:}    & University of Okara         \\[4pt]
+\textbf{Academic Year:}  & 2022--2026                  \\
+\end{tabular}\\[2cm]
+{\color{hotelblue}\rule{\linewidth}{1pt}}\\[0.3cm]
+{\large\today}
+\end{titlepage}
+
+%% ============================================================
+%%  FRONT MATTER
+%% ============================================================
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+
+%% ============================================================
+%%  ABSTRACT
+%% ============================================================
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Hotelogix is a full-stack, AI-powered hotel management system developed as a final year project for the Bachelor of Business and Information Technology (BBIT) programme. The system addresses the inefficiencies of traditional, manual hotel management by providing a unified digital platform that handles room browsing, online booking, dining reservations, loyalty deals, and administrative operations.
+
+Two machine-learning subsystems are embedded in the platform. The first is an AI Room Recommendation Engine that uses a dual-model architecture -- a Random Forest Classifier for user-room compatibility scoring and a Gradient Boosting Regressor for booking-likelihood prediction -- achieving up to 79\% classification accuracy and an $R^2$ of 0.60 for booking probability. The second is a Natural Language Processing (NLP) Chatbot trained on more than 555,000 labelled patterns across 64 intents, reaching 99.87\% intent-classification accuracy.
+
+The system is built on a React.js front end, a Node.js/Express back end, a Flask-based Python AI layer, and a MongoDB database. It is deployed on Vercel (client) and integrates Stripe for secure online payments. The project targets the Pakistani hotel sector, specifically Hotelogix properties in Okara, Lahore, Sheikhupura, and Multan.
+
+\newpage
+\pagenumbering{arabic}
+
+%% ============================================================
+%%  CHAPTER 1 -- INTRODUCTION
+%% ============================================================
+\chapter{Introduction}
+
+\section{Background Information}
+
+The hospitality industry in Pakistan is undergoing rapid digital transformation. Hotels of all sizes are under pressure to move away from paper-based reservation ledgers and fragmented software tools toward integrated, data-driven platforms that improve the guest experience while reducing operational overhead. Despite this pressure, many mid-tier and boutique hotel chains -- particularly those operating in secondary cities such as Okara, Sheikhupura, and Multan -- still rely on manual check-in registers, telephone-based bookings, and spreadsheet-driven administration.
+
+The global hotel technology market is projected to exceed USD 11 billion by 2027, driven largely by property management systems (PMS), channel managers, and AI-powered personalisation engines. In Pakistan, the adoption curve lags behind the global average, creating both a gap and an opportunity. A locally-built, cost-effective management system that understands Pakistani pricing norms (PKR), user behaviour patterns, and regional languages has significant commercial and social value.
+
+Hotelogix was conceived to fill exactly this gap: a modern, web-based hotel management platform built from first principles for the Pakistani market, enriched with artificial intelligence to deliver personalised recommendations and conversational customer support.
+
+\section{Problem Statement}
+
+The core problems that motivated this project are:
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+  \item \textbf{Fragmented guest journey.} Prospective guests must call the hotel to inquire about rooms, visit in person to book, and interact with multiple staff members to manage a single stay. There is no unified self-service channel.
+
+  \item \textbf{Absence of personalisation.} Hotels present the same room catalogue to every visitor regardless of their travel purpose, group size, budget, or past behaviour, resulting in low conversion rates and poor guest satisfaction.
+
+  \item \textbf{Manual administrative burden.} Booking management, cancellation processing, refund handling, and occupancy reporting are done manually, consuming significant staff time and introducing errors.
+
+  \item \textbf{No 24/7 support channel.} Customer queries outside business hours go unanswered, leading to lost bookings and negative reviews.
+
+  \item \textbf{Lack of data insights.} Hotel managers have no access to real-time analytics on room demand, user behaviour, or revenue performance, making strategic decisions purely intuition-based.
+\end{enumerate}
+
+\section{Overview of the Report}
+
+This report is structured as follows:
+
+\begin{description}[leftmargin=2cm, style=nextline]
+  \item[Chapter 1 -- Introduction] Context, problem statement, and report overview.
+  \item[Chapter 2 -- Purpose of the Project] Rationale and goals of Hotelogix.
+  \item[Chapter 3 -- Significance of the Project] Impact on stakeholders and value addition.
+  \item[Chapter 4 -- Objectives] SMART objectives of the project.
+  \item[Chapter 5 -- Context Application] Alignment with current technology trends.
+  \item[Chapter 6 -- Product Development Process] Ideation, screening, concept testing, and marketing strategy.
+  \item[Chapter 7 -- Website and Application Design] Architecture, UI/UX, and functionality.
+  \item[Chapter 8 -- Cost Benefit Analysis] Financial feasibility, NPV, and ROI.
+  \item[Chapter 9 -- Prototype and Its Manifestation] Development, testing, and iteration.
+  \item[Chapter 10 -- Commercialisation] Market entry, scalability, and sustainability.
+  \item[Conclusion] Summary and future directions.
+\end{description}
+
+%% ============================================================
+%%  CHAPTER 2 -- PURPOSE OF THE PROJECT
+%% ============================================================
+\chapter{Purpose of the Project}
+
+\section{Rationale}
+
+The motivation for building Hotelogix stems from three converging observations made during early research:
+
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item A survey of hotel booking behaviour in Okara and Sheikhupura revealed that more than 70\% of guests still book by telephone or walk-in, primarily because no online alternative exists for smaller local hotels.
+  \item Existing PMS solutions available in Pakistan (e.g., Opera, Cloudbeds) are priced for large five-star properties and carry high monthly licensing fees that are prohibitive for independent or mid-tier hotel operators.
+  \item Academic literature consistently shows that AI-driven personalisation increases hotel booking conversion rates by 15--30\% compared to non-personalised platforms.
+\end{itemize}
+
+These observations confirmed that the market lacks an affordable, locally-tuned, AI-enriched hotel management platform. Building one as a BBIT project offered the opportunity to apply machine learning, full-stack web development, and business strategy skills in an integrated, real-world context.
+
+\section{Goals}
+
+The primary goals of the Hotelogix project are:
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+  \item Build a fully functional, production-ready hotel management web application accessible from any device.
+  \item Implement an AI recommendation engine that personalises room suggestions for seven distinct user types using machine learning.
+  \item Deploy an NLP chatbot capable of answering customer queries in natural language with near-human accuracy (target: $>$95\%).
+  \item Provide hotel administrators with a real-time analytics dashboard covering occupancy, revenue, booking trends, and AI model performance.
+  \item Integrate a secure online payment gateway (Stripe) to support cashless transactions.
+  \item Demonstrate commercial viability through a documented cost-benefit analysis and a market entry strategy.
+\end{enumerate}
+
+%% ============================================================
+%%  CHAPTER 3 -- SIGNIFICANCE OF THE PROJECT
+%% ============================================================
+\chapter{Significance of the Project}
+
+\section{Impact}
+
+\subsection*{Hotel Operators}
+Hotel managers gain a centralised dashboard for bookings, cancellations, refunds, room inventory, dining reservations, and promotional deals. Tasks that previously required dedicated administrative staff can be handled autonomously by the system, reducing payroll costs and human error.
+
+\subsection*{Guests}
+Guests benefit from a 24/7 self-service portal with AI-driven personalisation. Rather than browsing a static room catalogue, guests receive ranked recommendations tailored to their travel type (business, family, couple, solo, group, luxury, or budget), group size, season, and PKR budget. The integrated chatbot provides instant answers at any hour without requiring a staff member.
+
+\subsection*{The Pakistani Hospitality Sector}
+By open-sourcing the architecture and targeting mid-tier properties, the project sets a precedent for affordable digital transformation in Pakistan's secondary cities. Properties in Okara, Sheikhupura, and Multan -- currently invisible to online travel agents (OTAs) -- can compete with larger chains by offering a comparable digital experience.
+
+\subsection*{Academic Contribution}
+The project demonstrates that a small BBIT team can design, train, and deploy production-grade ML models (Random Forest, Gradient Boosting, Logistic Regression with TF-IDF) within the constraints of an academic calendar, providing a replicable blueprint for future cohorts.
+
+\section{Value Addition}
+
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{New AI tools for the sector:} A dual-model recommendation engine (compatibility + booking likelihood) is novel in the Pakistani mid-tier hotel context.
+  \item \textbf{Synthetic data methodology:} The project documents a rigorous process for generating 200,000+ realistic training samples using domain-specific probability distributions, a method applicable to any data-scarce hospitality AI project.
+  \item \textbf{Integrated analytics:} Real-time tracking of click-through rate (CTR), conversion rate, bounce rate, device breakdown, revenue, and time-of-day interaction patterns gives operators data-driven decision-making capability for the first time.
+  \item \textbf{Competitor intelligence blocking:} The chatbot's competitor-blocking feature protects brand integrity -- a practically useful feature that also illustrates applied NLP intent engineering.
+\end{itemize}
+
+%% ============================================================
+%%  CHAPTER 4 -- OBJECTIVES
+%% ============================================================
+\chapter{Objectives}
+
+The following SMART objectives define the success criteria for Hotelogix:
+
+\begin{longtable}{>{\bfseries}p{3.2cm} p{10.5cm}}
+\toprule
+\textbf{SMART Criterion} & \textbf{Objective Detail} \\
+\midrule
+\endhead
+
+Specific &
+\begin{enumerate}[leftmargin=*, label=O\arabic*., nosep]
+  \item Develop a full-stack web application with guest-facing and admin-facing modules.
+  \item Train and deploy an AI recommendation model covering 10 room types and 7 user types.
+  \item Build and deploy an NLP chatbot with $\geq$64 intents specific to Hotelogix properties.
+  \item Implement Stripe payment integration for secure online transactions.
+  \item Deliver a real-time admin analytics dashboard with $\geq$10 KPIs.
+\end{enumerate} \\[6pt]
+
+Measurable &
+\begin{itemize}[leftmargin=*, nosep]
+  \item Recommendation engine compatibility accuracy $\geq$75\%.
+  \item Chatbot intent accuracy $\geq$95\% on held-out test set.
+  \item All 30+ pages/routes functional with $<$3s average load time.
+  \item Zero critical security vulnerabilities in authentication flow.
+\end{itemize} \\[6pt]
+
+Achievable &
+The project uses proven open-source frameworks (React, Node.js, Flask, scikit-learn, MongoDB) within the team's demonstrated skill set. Training data is synthetically generated to overcome real-data scarcity. \\[6pt]
+
+Relevant &
+All objectives align directly with digitising Hotelogix's operations, improving guest experience, and demonstrating applied AI within a business context -- core pillars of the BBIT programme. \\[6pt]
+
+Time-bound &
+\begin{itemize}[leftmargin=*, nosep]
+  \item Months 1--2: Requirements, wireframes, database schema.
+  \item Months 3--4: Backend API and authentication.
+  \item Months 5--6: Frontend pages and AI model training.
+  \item Month 7: Integration, testing, and deployment.
+  \item Month 8: Report writing and viva preparation.
+\end{itemize} \\
+
+\bottomrule
+\caption{SMART Objectives for Hotelogix}
+\end{longtable}
+
+%% ============================================================
+%%  CHAPTER 5 -- CONTEXT APPLICATION
+%% ============================================================
+\chapter{Context Application}
+
+\section{Relevance to Current Trends}
+
+\subsection*{Digital Transformation in Hospitality}
+Global hotel chains have invested heavily in digital-first guest experiences since 2020. Platforms like Booking.com and Airbnb have conditioned travellers to expect instant online booking, photo-rich room listings, and instant customer support. Hotelogix brings these capabilities to Pakistan's independent hotel operators at a fraction of the cost.
+
+\subsection*{Artificial Intelligence in Recommendation Systems}
+Collaborative filtering and content-based filtering are well-established in e-commerce (Amazon, Netflix). Applying similar principles to hotel rooms -- using features such as user type, budget, group size, and stay duration -- is an emerging research area. Hotelogix's dual-model approach (compatibility classification + booking regression) reflects current best practices in the field.
+
+\subsection*{Conversational AI and Chatbots}
+The global chatbot market is expected to reach USD 27 billion by 2030. NLP models based on TF-IDF and Naive Bayes or Logistic Regression remain highly effective for domain-specific intent classification where the vocabulary is controlled. Hotelogix's 555,936-pattern training corpus and 99.87\% accuracy demonstrate that academic projects can reach production-grade NLP quality.
+
+\subsection*{Mobile-First and PWA Trends}
+With mobile internet penetration in Pakistan exceeding 50\%, a mobile-responsive web application is not optional. Hotelogix's React front end is fully responsive, tested across desktop, tablet, and mobile viewports, and uses a proxy-based architecture compatible with Progressive Web App (PWA) conversion.
+
+\subsection*{Cashless Payments}
+Pakistan's State Bank digital payment initiatives (Raast, IBFT) and the rapid growth of debit card usage make online payment integration commercially viable. Stripe's global infrastructure is integrated into Hotelogix to provide PCI-compliant card processing.
+
+\section{Practical Application}
+
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item A family planning a wedding-anniversary trip to Lahore uses the Smart Room Finder (\texttt{/smart-finder}) to input their budget (PKR 25,000/night), group size (2), and travel type (couple). The AI ranks all 10 room types and highlights the Executive Suite as a 91\% match.
+  \item A business traveller arriving in Multan at midnight types ``do you have conference facilities?'' into the chatbot. The system responds in under 200ms with accurate information about business amenities, entirely without staff involvement.
+  \item A hotel manager in Okara logs into the admin dashboard (\texttt{/admin}) and views the previous week's occupancy heatmap, top-booked room types, AI-driven revenue attribution, and a list of pending refund requests -- all in a single screen.
+\end{itemize}
+
+%% ============================================================
+%%  CHAPTER 6 -- PRODUCT DEVELOPMENT PROCESS
+%% ============================================================
+\chapter{Product Development Process}
+
+\section{Idea Generation}
+
+The project idea emerged from three parallel brainstorming sessions conducted in the first two weeks of the academic year:
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+  \item \textbf{Problem-first brainstorm.} The team listed pain points observed during visits to hotels in Okara and Lahore: manual ledgers, no online booking, no personalisation, slow response to queries.
+  \item \textbf{Technology-first brainstorm.} Separately, the team listed technologies mastered in the programme: React, Node.js, Python/ML, MongoDB. A hotel management system provided a natural home for all of them.
+  \item \textbf{Market-gap analysis.} A search of Pakistani app stores and hotel websites confirmed the absence of an affordable, locally-built PMS with AI features.
+\end{enumerate}
+
+The intersection of a clear market gap, a well-understood domain, and a matching technical skill set produced the Hotelogix concept.
+
+\section{Idea Screening}
+
+Three candidate projects competed for selection:
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{l X c c c c}
+\toprule
+\textbf{Project Idea} & \textbf{Domain} & \textbf{Feasibility} & \textbf{Market Need} & \textbf{AI Scope} & \textbf{Score/15} \\
+\midrule
+Hotelogix PMS       & Hospitality & 5/5 & 5/5 & 5/5 & \textbf{15} \\
+E-learning Platform & Education   & 4/5 & 4/5 & 3/5 & 11 \\
+Ride-Hailing App    & Transport   & 2/5 & 4/5 & 3/5 & 9  \\
+\bottomrule
+\end{tabularx}
+\caption{Idea Screening Matrix}
+\end{table}
+
+Hotelogix scored highest on all three criteria and was selected unanimously.
+
+\section{Concept Testing}
+
+Before writing a single line of code, the concept was validated through:
+
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{Stakeholder interviews.} Three hotel front-desk managers in Lahore and Okara were interviewed. All confirmed that they would use an online booking system if it were affordable (under PKR 5,000/month) and easy to learn.
+  \item \textbf{User survey (n=40).} A Google Form survey of potential guests found that 82.5\% would prefer to book a hotel online if the interface were simple and payment were secure.
+  \item \textbf{Low-fidelity wireframe testing.} Paper sketches of the home page, room listing, and booking flow were walked through with five participants. Feedback confirmed the navigation structure and surfaced the need for a visible chatbot button.
+  \item \textbf{Supervisor review.} The academic supervisor reviewed the concept and recommended adding a cancellation and refund module, which was incorporated into the final scope.
+\end{itemize}
+
+\section{Marketing Strategy}
+
+\subsection*{Target Audience}
+
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{Primary:} Independent and mid-tier hotel operators in Pakistan's secondary cities (Okara, Sheikhupura, Multan, Faisalabad) seeking affordable PMS solutions.
+  \item \textbf{Secondary:} Hotel guests (25--50 years, smartphone users, middle and upper-middle income) who prefer digital self-service over telephone booking.
+\end{itemize}
+
+\subsection*{Marketing Mix (4Ps)}
+
+\begin{description}[leftmargin=2.5cm, style=nextline]
+  \item[\textbf{Product}]
+    A white-label SaaS hotel management platform with AI recommendation, NLP chatbot, online booking, dining reservations, deals management, Stripe payments, and a real-time admin dashboard. USP: the only AI-enriched PMS built specifically for Pakistan's mid-tier market.
+
+  \item[\textbf{Price}]
+    Freemium model: free tier for single-property hotels (up to 20 rooms); PKR 4,999/month for the standard plan (unlimited rooms, AI features); PKR 9,999/month for the enterprise plan (multi-property, white-label branding, priority support). Competitive with no local equivalent.
+
+  \item[\textbf{Place}]
+    Delivered entirely via the web (\texttt{hotelogix.vercel.app}). No installation required. Mobile-responsive for guest use. Admin panel accessible from any browser.
+
+  \item[\textbf{Promotion}]
+    \begin{itemize}[nosep]
+      \item Social media campaigns on Facebook and Instagram targeting Pakistani hospitality groups.
+      \item LinkedIn outreach to hotel association members.
+      \item Demo videos on YouTube showing the AI recommendation and chatbot features.
+      \item Referral programme: existing hotel clients earn one free month per referral.
+      \item Academic press: presenting at BBIT conferences to attract investor attention.
+    \end{itemize}
+\end{description}
+
+\subsection*{Positioning}
+Hotelogix is positioned as \textit{``The affordable, AI-powered hotel management system built for Pakistan''} -- differentiating it from expensive international PMS solutions and from basic local booking portals that lack AI or admin capabilities.
+
+%% ============================================================
+%%  CHAPTER 7 -- WEBSITE AND APPLICATION DESIGN
+%% ============================================================
+\chapter{Website and Application Design}
+
+\section{System Architecture}
+
+Hotelogix follows a three-tier, service-oriented architecture:
+
+\begin{description}[leftmargin=2.5cm, style=nextline]
+  \item[\textbf{Tier 1 -- Presentation Layer}]
+    React.js 18 SPA deployed on Vercel. Communicates with the back end exclusively via Axios HTTP calls. Mobile-responsive using custom CSS and the \texttt{mobile-responsive.css} stylesheet.
+
+  \item[\textbf{Tier 2 -- Application Layer}]
+    Two independent servers:
+    \begin{itemize}[nosep]
+      \item \textbf{Node.js / Express} (port 5000): REST API for all business logic -- authentication (JWT), room management, bookings, cancellations, refunds, dining, deals, packages, and notifications.
+      \item \textbf{Flask / Python} (ports 5001 \& 5002): AI microservices. Port 5001 serves the NLP Chatbot API; port 5002 serves the Room Recommendation API.
+    \end{itemize}
+
+  \item[\textbf{Tier 3 -- Data Layer}]
+    MongoDB Atlas (cloud) for all persistent data. Mongoose ODM used for schema validation and query building.
+\end{description}
+
+\subsection*{Technology Stack Summary}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Layer} & \textbf{Technology} & \textbf{Purpose} \\
+\midrule
+Frontend        & React.js 18, React Router v6          & SPA, client-side routing         \\
+UI Libraries    & react-toastify, react-datepicker      & Notifications, date picking       \\
+Payments        & Stripe, @stripe/react-stripe-js       & Secure card processing            \\
+HTTP Client     & Axios                                 & API communication                 \\
+Backend         & Node.js, Express.js                   & REST API, business logic          \\
+AI Layer        & Python 3, Flask, Flask-CORS           & Recommendation \& chatbot APIs    \\
+ML Libraries    & scikit-learn, NumPy, Pickle           & Model training \& inference       \\
+NLP             & NLTK, TF-IDF Vectoriser               & Text preprocessing \& vectorisation \\
+Database        & MongoDB Atlas, Mongoose               & Data persistence                  \\
+Auth            & JWT, bcrypt                           & Secure authentication             \\
+Deployment      & Vercel (frontend)                     & Production hosting                \\
+Version Control & Git / GitHub                          & Source code management            \\
+\bottomrule
+\end{tabularx}
+\caption{Hotelogix Technology Stack}
+\end{table}
+
+\section{Design Process}
+
+\subsection*{Wireframing}
+Initial wireframes were drawn on paper and then recreated in Figma for 12 core screens: Home, Rooms Listing, Room Detail, Smart Room Finder, Booking Flow, My Bookings, Dining, Deals, Admin Dashboard, AI Analytics, Chatbot overlay, and Login/Register.
+
+\subsection*{Prototyping}
+A clickable Figma prototype was shared with five test users. Key changes resulting from prototype feedback:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item The chatbot was moved from a sidebar to a floating bubble in the bottom-right corner to avoid obscuring content.
+  \item The Smart Room Finder was given its own dedicated page (\texttt{/smart-finder}) rather than being embedded in the Rooms page.
+  \item A cancellation flow with a confirmation modal (\texttt{CancellationModal.js}) was added after testers expressed concern about accidental cancellations.
+\end{itemize}
+
+\subsection*{UI Design}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{Colour palette:} Deep navy blue (\#003366) as the primary brand colour, gold (\#C8A96E) as the accent, white backgrounds for content areas.
+  \item \textbf{Typography:} Inter / system-ui sans-serif stack for readability.
+  \item \textbf{Component library:} Custom-built React components (Header, Footer, Loading spinner, ReviewForm, ReviewList, AdminNotifications, AIRecommendations, CancellationPolicy).
+\end{itemize}
+
+\section{Application Functionality}
+
+The application comprises 30+ pages and routes, organised into four functional areas:
+
+\subsection*{Guest-Facing Features}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{Room Browsing \& Booking} (\texttt{/rooms}, \texttt{/rooms/:id}, \texttt{/book/:id}): Browse all available rooms with photos, amenities, pricing, and reviews. Book a room with date picker, guest count, and Stripe payment.
+  \item \textbf{Smart Room Finder} (\texttt{/smart-finder}): AI-powered recommendation form. Guest inputs user type, season, day type, booking advance, stay duration, group size, budget (PKR), and view time. The recommendation API returns all 10 room types ranked by an overall score: $\text{Score} = (\text{Compatibility} \times 0.6) + (\text{Booking Likelihood} \times 0.4)$.
+  \item \textbf{Dining} (\texttt{/dining}, \texttt{/restaurants/:id}, \texttt{/restaurants/:id/reserve}): Browse hotel restaurants and reserve a table.
+  \item \textbf{Deals \& Packages} (\texttt{/deals}, \texttt{/packages}): Browse promotional deals, redeem loyalty offers, and book bundled packages.
+  \item \textbf{My Bookings} (\texttt{/my-bookings}): View booking history with status, dates, and invoice details.
+  \item \textbf{Cancellation \& Refund} (\texttt{/cancel-booking/:id}): Self-service cancellation with policy display and automated refund initiation.
+  \item \textbf{AI Chatbot} (global, all pages): Floating NLP chatbot powered by the 200K+ pattern model. Answers queries about rooms, pricing, amenities, cities, booking procedures, and contact details. Blocks competitor queries.
+  \item \textbf{Profile} (\texttt{/profile}): Manage personal information and view loyalty status.
+  \item \textbf{Static Pages}: About, Contact, FAQ, Privacy Policy, Terms of Service, Sitemap.
+\end{itemize}
+
+\subsection*{Admin-Facing Features}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{Admin Dashboard} (\texttt{/admin}): Manage all bookings, rooms, dining, deals, and packages. Process cancellations and refunds.
+  \item \textbf{Notifications} (\texttt{/admin/notifications}): Real-time alerts for new bookings, cancellation requests, and refund approvals.
+  \item \textbf{AI Analytics} (\texttt{/ai-analytics}): Live dashboard showing recommendation engine KPIs -- total predictions, CTR, conversion rate, bounce rate, average session time, device breakdown, time-of-day interaction heatmap, room-type distribution, revenue attribution, and AI-driven revenue contribution.
+  \item \textbf{Refund Processing} (\texttt{/admin/refund/:id}): Review and approve or reject refund requests with audit trail.
+\end{itemize}
+
+\section{User Experience (UX)}
+
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{Scroll-to-top:} A \texttt{ScrollToTop} component ensures every page navigation begins at the top of the viewport.
+  \item \textbf{Loading states:} A \texttt{Loading} component with spinner is displayed during all async API calls to prevent blank screens.
+  \item \textbf{Toast notifications:} \texttt{react-toastify} provides non-intrusive success/error/info messages.
+  \item \textbf{Route protection:} Authenticated routes (\texttt{/bookings}, \texttt{/profile}, \texttt{/admin/*}) are only rendered when a valid JWT is present; admin routes additionally check for an admin email pattern.
+  \item \textbf{Header visibility:} The header and footer are hidden on the Login and Register pages to reduce distraction during authentication.
+  \item \textbf{Mobile responsiveness:} All layouts use fluid grids and media queries. The application is tested at 375px (iPhone SE), 768px (tablet), and 1280px (desktop) breakpoints.
+  \item \textbf{Accessibility:} Semantic HTML5 elements (\texttt{<main>}, \texttt{<nav>}, \texttt{<section>}), ARIA labels on interactive controls, and sufficient colour contrast ratios are used throughout.
+\end{itemize}
+
+%% ============================================================
+%%  CHAPTER 8 -- COST BENEFIT ANALYSIS
+%% ============================================================
+\chapter{Cost Benefit Analysis}
+
+\section{Project Costs}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{l X r r}
+\toprule
+\textbf{Category} & \textbf{Item} & \textbf{One-Time (PKR)} & \textbf{Annual (PKR)} \\
+\midrule
+\multirow{3}{*}{Development}
+  & Developer time (8 months, team of 2) & 0 (academic) & -- \\
+  & Software licences (all open-source)  & 0            & 0  \\
+  & Design tools (Figma free tier)       & 0            & 0  \\
+\midrule
+\multirow{3}{*}{Infrastructure}
+  & Vercel Pro hosting (frontend)        & --           & 36,000 \\
+  & MongoDB Atlas M10 cluster            & --           & 60,000 \\
+  & Domain name (.com, 1 year)           & 3,500        & 3,500  \\
+\midrule
+\multirow{2}{*}{AI / Python}
+  & Google Colab Pro (model training)    & 6,000        & 6,000  \\
+  & Flask VPS server (2 vCPU, 4 GB RAM)  & --           & 48,000 \\
+\midrule
+\multirow{2}{*}{Payments}
+  & Stripe setup (free)                  & 0            & 0      \\
+  & Stripe transaction fee (2.9\% + \$0.30) & --        & Variable \\
+\midrule
+Marketing
+  & Social media ads (launch campaign)   & 25,000       & 60,000 \\
+\midrule
+\multirow{2}{*}{Miscellaneous}
+  & Testing devices (mobile)             & 10,000       & 0      \\
+  & Contingency (10\%)                   & 4,450        & 21,350 \\
+\midrule
+\textbf{Total}    &                                      & \textbf{48,950} & \textbf{234,850} \\
+\bottomrule
+\end{tabularx}
+\caption{Hotelogix Project Cost Breakdown}
+\end{table}
+
+\section{Expected Benefits}
+
+\subsection*{Revenue Streams}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item \textbf{SaaS subscriptions:} PKR 4,999/month (standard) per hotel property. Target: 20 properties in Year 1 $\Rightarrow$ PKR 1,199,760/year.
+  \item \textbf{Enterprise licences:} PKR 9,999/month. Target: 5 enterprise clients in Year 1 $\Rightarrow$ PKR 599,940/year.
+  \item \textbf{Transaction commission:} 1\% of each booking processed through the platform. Assuming avg. booking PKR 12,000 and 500 bookings/month across all clients $\Rightarrow$ PKR 720,000/year.
+  \item \textbf{Total projected Year 1 revenue:} PKR 2,519,700.
+\end{itemize}
+
+\subsection*{Cost Savings for Hotel Operators}
+A typical mid-tier hotel using a manual system spends approximately PKR 30,000--50,000/month on administrative staff for booking management. Hotelogix reduces this to PKR 5,000--10,000/month (one part-time staff member for exception handling), a saving of PKR 240,000--480,000/year per property.
+
+\subsection*{Intangible Benefits}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item Improved guest satisfaction through 24/7 chatbot support and personalised recommendations.
+  \item Increased booking conversion rate (estimated +15--20\%) due to AI recommendations.
+  \item Enhanced brand visibility through digital presence previously absent.
+  \item Real-time data for strategic decisions (pricing, promotions, staffing).
+\end{itemize}
+
+\section{Financial Analysis}
+
+\subsection*{Net Present Value (NPV)}
+
+Using a discount rate $r = 12\%$ over 3 years:
+
+\[
+NPV = -C_0 + \sum_{t=1}^{3} \frac{B_t - C_t}{(1+r)^t}
+\]
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l r r r r}
+\toprule
+\textbf{Year} & \textbf{Revenue (PKR)} & \textbf{Costs (PKR)} & \textbf{Net Cash Flow} & \textbf{PV @ 12\%} \\
+\midrule
+0 (Setup)   & 0           & 48,950      & $-$48,950      & $-$48,950    \\
+1           & 2,519,700   & 234,850     & 2,284,850      & 2,039,152    \\
+2           & 3,779,550   & 280,000     & 3,499,550      & 2,790,238    \\
+3           & 5,039,400   & 320,000     & 4,719,400      & 3,358,924    \\
+\midrule
+\multicolumn{4}{r}{\textbf{NPV}} & \textbf{PKR 8,139,364} \\
+\bottomrule
+\end{tabular}
+\caption{Net Present Value Calculation (3-Year Horizon)}
+\end{table}
+
+A positive NPV of \textbf{PKR 8.14 million} confirms the project is financially viable.
+
+\subsection*{Return on Investment (ROI)}
+
+\[
+ROI = \frac{\text{Net Benefit}}{\text{Total Investment}} \times 100
+= \frac{2{,}284{,}850}{283{,}800} \times 100 \approx \mathbf{805\%}
+\]
+
+The exceptional ROI reflects the near-zero marginal cost of software replication once the platform is built.
+
+\subsection*{Payback Period}
+At a Year 1 monthly net cash flow of approximately PKR 190,404, the initial investment of PKR 48,950 is recovered in under \textbf{one month} of operations.
+
+%% ============================================================
+%%  CHAPTER 9 -- PROTOTYPE AND ITS MANIFESTATION
+%% ============================================================
+\chapter{Prototype and Its Manifestation}
+
+\section{Prototype Development}
+
+\subsection*{Phase 1 -- Backend API (Weeks 1--6)}
+The Node.js/Express REST API was built first, establishing all data models (User, Room, Booking, Dining, Deal, Package, Notification) in MongoDB via Mongoose. JWT-based authentication with bcrypt password hashing was implemented and tested using Postman. All endpoints were verified before any frontend work began.
+
+\subsection*{Phase 2 -- AI Model Training (Weeks 4--8, parallel)}
+\textbf{Recommendation Engine:}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item 100,000 synthetic training samples generated using domain-specific probability distributions: exponential for \texttt{booking\_advance}, gamma for \texttt{stay\_duration}, and Gaussian noise for variability.
+  \item Compatibility matrices encoded domain knowledge: families prefer Family Suites (95\% probability), business travellers prefer Business Rooms (95\%).
+  \item Models trained: Random Forest Classifier (compatibility) and Gradient Boosting Regressor (booking likelihood).
+  \item Final metrics: compatibility accuracy = \textbf{79.0\%}, booking $R^2$ = \textbf{0.597}, booking RMSE = \textbf{0.111}.
+  \item Features scaled with \texttt{StandardScaler} (mean=0, variance=1) to handle the wide range of PKR budget values (2,000--150,000) versus group size (1--10).
+  \item Artefacts saved: \texttt{compatibility\_model.pkl}, \texttt{booking\_model.pkl}, \texttt{scaler.pkl}, \texttt{label\_encoders.pkl}.
+\end{itemize}
+
+\textbf{NLP Chatbot:}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item Three model iterations: basic (52 intents), mega (64 intents, 92,436 patterns), and ultra/200K (64 intents, 555,936 patterns).
+  \item Pipeline: NLTK tokenisation + lemmatisation $\rightarrow$ TF-IDF Vectoriser (\texttt{max\_features=5000}, \texttt{ngram\_range=(1,3)}) $\rightarrow$ Logistic Regression classifier.
+  \item Final accuracy on held-out test set: \textbf{99.87\%}.
+  \item Intent coverage: room types, pricing, booking procedure, amenities, city-specific questions (Okara, Lahore, Sheikhupura, Multan), contact details, FAQs, and 15+ competitor-blocking intents.
+  \item Artefacts saved: \texttt{hotelogix\_200k\_model.pkl}, \texttt{hotelogix\_200k\_intents.pkl}.
+\end{itemize}
+
+\subsection*{Phase 3 -- Frontend Development (Weeks 6--14)}
+React.js SPA built with React Router v6. Components developed iteratively:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item Shared: \texttt{Header}, \texttt{Footer}, \texttt{Loading}, \texttt{ScrollToTop}, \texttt{Chatbot}.
+  \item Guest pages: Home, Rooms, RoomView, BookRoom, SmartRoomFinder, Dining, Deals, Packages, MyBookings, CancelBooking, Profile.
+  \item Admin pages: AdminDashboard, AIAnalytics, Notifications, ProcessRefund.
+  \item Static pages: About, Contact, FAQ, Privacy, Terms, Sitemap.
+\end{itemize}
+Axios instance configured in \texttt{src/api/axios.js} with base URL proxied to \texttt{http://localhost:5000}.
+
+\subsection*{Phase 4 -- Integration and Deployment (Weeks 14--16)}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item Flask CORS enabled on both AI APIs to allow cross-origin requests from the React frontend.
+  \item Stripe Elements integrated using \texttt{@stripe/react-stripe-js} and \texttt{@stripe/stripe-js v8.2}.
+  \item Frontend built with \texttt{CI=false} flag and deployed to Vercel. Production environment variables stored in \texttt{.vercel/.env.production.local}.
+  \item Vercel project configuration stored in \texttt{client/.vercel/project.json}.
+\end{itemize}
+
+\section{Testing and Feedback}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Test Type} & \textbf{Tool / Method} & \textbf{Key Findings} \\
+\midrule
+Unit Testing     & Manual Postman           & All 25+ API endpoints returned correct status codes and payloads. \\
+ML Model Testing & scikit-learn train/test split (80/20) & Recommendation accuracy 79\%, chatbot 99.87\%. \\
+Integration Test & Axios + Live Flask APIs  & Chatbot responses returned in $<$200ms; recommendation scores in $<$300ms. \\
+UAT              & 5 student volunteers     & 4/5 completed a booking without assistance; chatbot correctly answered 18/20 queries. \\
+Cross-browser    & Chrome, Firefox, Edge    & No layout breakage; all routes functional. \\
+Mobile           & iPhone 12, Samsung A52   & Responsive layouts confirmed; chatbot bubble visible and functional. \\
+Payment          & Stripe test mode         & All card scenarios (success, decline, 3DS) handled correctly. \\
+\bottomrule
+\end{tabularx}
+\caption{Testing Summary}
+\end{table}
+
+\section{Improvements from Feedback}
+
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item UAT testers found the booking confirmation page lacked a clear summary. A booking-confirmation card with room details, dates, total price, and a booking reference was added.
+  \item One tester attempted to cancel a booking that was already checked in; a server-side guard and a clear error message were added.
+  \item The chatbot initially gave verbose responses on mobile, truncating the last sentence. Response length was capped at 200 characters for intents flagged as ``brief''.
+  \item Low-confidence chatbot queries (confidence $<$ 0.30) were logged and used to add 12 new training patterns in the final model iteration.
+  \item The AI Analytics page initially loaded all stats at once, causing a 2-second blank screen. A skeleton loader was added and the API was split into two lighter endpoints.
+\end{itemize}
+
+%% ============================================================
+%%  CHAPTER 10 -- COMMERCIALISATION
+%% ============================================================
+\chapter{Commercialisation}
+
+\section{Market Entry Strategy}
+
+\subsection*{Phase 1 -- Pilot Launch (Months 1--3)}
+Deploy Hotelogix in one real hotel property in Okara under a free pilot agreement. Collect real booking data, monitor system performance, and gather testimonials. Use the pilot to produce a case-study video and a before/after operational efficiency report.
+
+\subsection*{Phase 2 -- Regional Launch (Months 4--9)}
+Expand to 10--15 hotel properties across Okara, Sheikhupura, Lahore, and Multan using the standard PKR 4,999/month subscription tier. Drive acquisition through:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item Direct sales calls to hotel managers using LinkedIn and hospitality association directories.
+  \item Demonstration webinars showing the AI recommendation and chatbot features live.
+  \item A referral programme offering one free month for each new client introduced.
+\end{itemize}
+
+\subsection*{Phase 3 -- National Scale (Year 2+)}
+Expand to 50+ properties nationwide. Introduce the enterprise plan (PKR 9,999/month) for hotel chains and multi-property operators. Explore partnerships with Pakistan's OTAs (Jovago, Wego) for listing integration.
+
+\subsection*{Distribution Channels}
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+  \item \textbf{Direct SaaS:} Hotel operators sign up on the Hotelogix website, configure their property, and go live within 24 hours.
+  \item \textbf{Reseller network:} IT consultants and hospitality consultants earn a 20\% commission on first-year subscription revenue for each client they onboard.
+  \item \textbf{OTA integration:} API-level integration with booking aggregators to funnel external bookings into the Hotelogix dashboard.
+\end{enumerate}
+
+\section{Scalability}
+
+\textbf{Technical scalability:}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item The React frontend on Vercel scales automatically with zero infrastructure management.
+  \item MongoDB Atlas supports horizontal sharding for database scalability beyond single-cluster limits.
+  \item The Flask AI microservices can be containerised (Docker) and orchestrated with Kubernetes for horizontal scaling under high inference load.
+  \item The Node.js API can be deployed as serverless functions (Vercel Serverless or AWS Lambda) to scale to zero and burst on demand.
+\end{itemize}
+
+\textbf{Business scalability:}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item The white-label architecture allows any hotel to customise branding (logo, colour scheme, domain) without code changes.
+  \item Multi-tenancy support means a single deployment serves unlimited hotel properties with data isolation per tenant.
+  \item The AI models can be retrained automatically on a weekly/monthly schedule using real booking data accumulated from all properties, continuously improving recommendation accuracy.
+\end{itemize}
+
+\section{Sustainability}
+
+\subsection*{Revenue Model Longevity}
+The SaaS subscription model generates recurring monthly revenue, providing financial stability. Churn risk is low because switching to a competitor PMS requires staff retraining and data migration -- high switching costs that favour retention.
+
+\subsection*{Technical Maintenance}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item Dependency updates scheduled quarterly using \texttt{npm audit} and \texttt{pip check}.
+  \item Model performance monitored via the \texttt{/stats} endpoint; automated retraining triggered if compatibility accuracy drops below 75\%.
+  \item MongoDB Atlas automated backups (daily snapshots, 7-day retention) protect against data loss.
+\end{itemize}
+
+\subsection*{Long-Term Product Roadmap}
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+  \item \textbf{Year 2:} Urdu language support for the chatbot using multilingual NLP models (mBERT or IndicBERT).
+  \item \textbf{Year 2:} Mobile app (React Native) for guests and hotel staff.
+  \item \textbf{Year 3:} Deep learning recommendation upgrade using neural collaborative filtering on accumulated real booking data.
+  \item \textbf{Year 3:} Dynamic pricing engine that adjusts room rates based on demand prediction, competitor pricing, and season.
+  \item \textbf{Year 4:} Regional expansion to Bangladesh and Sri Lanka, localising the platform for those markets.
+\end{enumerate}
+
+\subsection*{Environmental and Social Sustainability}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+  \item Eliminating paper-based booking registers and printed invoices reduces paper waste across all client properties.
+  \item Cloud hosting on Vercel and MongoDB Atlas (both with renewable energy commitments) minimises the carbon footprint relative to on-premise servers.
+  \item By enabling smaller, locally-owned hotels to compete digitally, the platform supports local entrepreneurship and employment in Pakistan's secondary cities.
+\end{itemize}
+
+%% ============================================================
+%%  CONCLUSION
+%% ============================================================
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+Hotelogix represents a complete, production-grade solution to a real problem in Pakistan's hospitality sector. Starting from a clearly articulated problem statement -- the absence of an affordable, AI-enriched digital management platform for mid-tier hotels -- the project systematically progressed through ideation, concept validation, iterative development, testing, and deployment.
+
+The two AI subsystems are the defining technical achievements of the project. The dual-model recommendation engine (Random Forest + Gradient Boosting, 79\% accuracy, $R^2 = 0.60$) delivers genuinely personalised room rankings across 10 room types and 7 user profiles. The NLP chatbot (Logistic Regression + TF-IDF, 555,936 training patterns, 99.87\% accuracy) provides hotel-specific conversational support at scale. Together they create a guest experience that rivals systems deployed by five-star international chains, built entirely with open-source tools.
+
+The financial analysis confirms strong commercial viability: a positive NPV of PKR 8.14 million over three years, an ROI of 805\%, and a payback period of under one month. The phased commercialisation strategy -- pilot, regional rollout, national scale -- provides a realistic path from academic prototype to live business.
+
+Future work will focus on transitioning from synthetic to real booking data for model retraining, adding Urdu language support, launching a React Native mobile app, and exploring dynamic pricing. Hotelogix is not merely a final year project; it is the foundation of a deployable product.
+
+%% ============================================================
+%%  REFERENCES
+%% ============================================================
+\chapter*{References}
+\addcontentsline{toc}{chapter}{References}
+
+\begin{enumerate}[leftmargin=*, label={[\arabic*]}]
+  \item Breiman, L. (2001). Random Forests. \textit{Machine Learning}, 45(1), 5--32.
+  \item Friedman, J. H. (2001). Greedy Function Approximation: A Gradient Boosting Machine. \textit{Annals of Statistics}, 29(5), 1189--1232.
+  \item Pedregosa, F. et al. (2011). Scikit-learn: Machine Learning in Python. \textit{Journal of Machine Learning Research}, 12, 2825--2830.
+  \item Salton, G., \& Buckley, C. (1988). Term-weighting approaches in automatic text retrieval. \textit{Information Processing \& Management}, 24(5), 513--523.
+  \item Bird, S., Klein, E., \& Loper, E. (2009). \textit{Natural Language Processing with Python}. O'Reilly Media.
+  \item React Documentation. (2024). React -- The library for web and native user interfaces. \url{https://react.dev}
+  \item MongoDB Documentation. (2024). MongoDB Manual. \url{https://www.mongodb.com/docs/manual/}
+  \item Stripe Documentation. (2024). Stripe API Reference. \url{https://stripe.com/docs/api}
+  \item Vercel Documentation. (2024). Vercel Platform Overview. \url{https://vercel.com/docs}
+  \item Pakistan Telecommunication Authority. (2024). \textit{Annual Report 2023--24}. PTA, Islamabad.
+\end{enumerate}
+
+\end{document}

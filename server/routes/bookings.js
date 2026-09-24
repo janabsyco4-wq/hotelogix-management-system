@@ -7,6 +7,66 @@ const NotificationService = require('../services/notificationService');
 const router = express.Router();
 const prisma = new PrismaClient();
 
+// Check room availability for specific dates (public endpoint - no auth required)
+router.get('/check-availability', async (req, res) => {
+  try {
+    const { roomId, checkIn, checkOut } = req.query;
+
+    if (!roomId || !checkIn || !checkOut) {
+      return res.status(400).json({ error: 'Room ID, check-in, and check-out dates are required' });
+    }
+
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+
+    // Check if there are any overlapping bookings
+    const overlappingBookings = await prisma.booking.findMany({
+      where: {
+        roomId: roomId,
+        status: {
+          in: ['confirmed', 'checked-in']
+        },
+        OR: [
+          {
+            // Booking starts during the requested period
+            checkIn: {
+              gte: checkInDate,
+              lt: checkOutDate
+            }
+          },
+          {
+            // Booking ends during the requested period
+            checkOut: {
+              gt: checkInDate,
+              lte: checkOutDate
+            }
+          },
+          {
+            // Booking spans the entire requested period
+            AND: [
+              { checkIn: { lte: checkInDate } },
+              { checkOut: { gte: checkOutDate } }
+            ]
+          }
+        ]
+      }
+    });
+
+    const available = overlappingBookings.length === 0;
+
+    res.json({ 
+      available,
+      roomId,
+      checkIn,
+      checkOut,
+      conflictingBookings: overlappingBookings.length
+    });
+  } catch (error) {
+    console.error('Error checking availability:', error);
+    res.status(500).json({ error: 'Failed to check availability' });
+  }
+});
+
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];

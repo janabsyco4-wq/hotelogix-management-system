@@ -17,7 +17,9 @@ const Rooms = () => {
     type: '',
     minPrice: '',
     maxPrice: '',
-    capacity: ''
+    capacity: '',
+    checkIn: '',
+    checkOut: ''
   });
 
   useEffect(() => {
@@ -40,7 +42,31 @@ const Rooms = () => {
     }
   };
 
-  const applyFiltersAndSort = (roomsList = allRooms) => {
+  const checkDateAvailability = async (roomId, checkIn, checkOut) => {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const url = `${apiUrl}/api/bookings/check-availability?roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}`;
+      
+      const response = await fetch(url, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      });
+      
+      if (!response.ok) {
+        console.error('Availability check failed:', response.status);
+        return true; // Default to available if check fails
+      }
+      
+      const data = await response.json();
+      return data.available;
+    } catch (error) {
+      console.error('Error checking availability:', error);
+      return true; // Default to available if check fails
+    }
+  };
+
+  const applyFiltersAndSort = async (roomsList = allRooms) => {
     let filteredRooms = [...roomsList];
 
     // Apply filters
@@ -61,6 +87,14 @@ const Rooms = () => {
     }
     if (filters.capacity) {
       filteredRooms = filteredRooms.filter(room => room.capacity >= parseInt(filters.capacity));
+    }
+
+    // Date-based availability filter
+    if (filters.checkIn && filters.checkOut) {
+      const availabilityChecks = await Promise.all(
+        filteredRooms.map(room => checkDateAvailability(room.id, filters.checkIn, filters.checkOut))
+      );
+      filteredRooms = filteredRooms.filter((_, index) => availabilityChecks[index]);
     }
 
     // Apply sorting
@@ -174,6 +208,24 @@ const Rooms = () => {
                 </select>
 
                 <input
+                  type="date"
+                  value={filters.checkIn}
+                  onChange={(e) => handleFilterChange('checkIn', e.target.value)}
+                  className="filter-input"
+                  placeholder="Check-in"
+                  min={new Date().toISOString().split('T')[0]}
+                />
+
+                <input
+                  type="date"
+                  value={filters.checkOut}
+                  onChange={(e) => handleFilterChange('checkOut', e.target.value)}
+                  className="filter-input"
+                  placeholder="Check-out"
+                  min={filters.checkIn || new Date().toISOString().split('T')[0]}
+                />
+
+                <input
                   type="number"
                   value={filters.minPrice}
                   onChange={(e) => handleFilterChange('minPrice', e.target.value)}
@@ -274,6 +326,9 @@ const Rooms = () => {
                       <div key={room.id} className={`room-card card ${room.featured ? 'featured' : ''}`}>
                         {room.featured && (
                           <div className="featured-badge">Featured</div>
+                        )}
+                        {room.isAvailable && (
+                          <div className="availability-badge">Available</div>
                         )}
 
                         <div className="card-image">
