@@ -7,12 +7,12 @@ import './SmartRoomFinder.css';
 const SmartRoomFinder = () => {
     const [loading, setLoading] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
-    const [showFilters, setShowFilters] = useState(true);
+    const [, setShowFilters] = useState(true); // eslint-disable-line no-unused-vars
     
     // Voice Assistant States
     const [voiceMode, setVoiceMode] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [isSpeaking, setIsSpeaking] = useState(false);
+    const [, setIsSpeaking] = useState(false); // eslint-disable-line no-unused-vars
     const [voiceMuted, setVoiceMuted] = useState(false);
     const [isFirstVisit, setIsFirstVisit] = useState(true);
     const [tempInputValue, setTempInputValue] = useState('');

@@ -60,7 +60,7 @@ const Register = () => {
         }
         break;
       case 'phone':
-        if (value && !/^[\d\s\+\-\(\)]+$/.test(value)) {
+        if (value && !/^[\d\s+\-()]+$/.test(value)) {
           error = 'Phone number is invalid';
         }
         break;
