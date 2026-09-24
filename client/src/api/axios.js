@@ -16,18 +16,21 @@ const MAX_CONCURRENT = 2; // Limit to 2 concurrent requests for ngrok free
 
 // eslint-disable-next-line no-unused-vars
 const processQueue = () => {
-  // eslint-disable-next-line no-loop-func
-  while (activeRequests < MAX_CONCURRENT && requestQueue.length > 0) {
+  const runNext = () => {
+    if (requestQueue.length === 0) return;
     const { config, resolve } = requestQueue.shift();
     activeRequests++;
-    
     axios.request(config)
       .then(resolve)
       .catch(resolve)
       .finally(() => {
         activeRequests--;
-        processQueue();
+        runNext();
       });
+  };
+
+  while (activeRequests < MAX_CONCURRENT && requestQueue.length > 0) {
+    runNext();
   }
 };
 
